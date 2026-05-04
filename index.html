@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PrintWALD | Premium 3D Printing & Engineering</title>
+    <link rel="icon" href="logo.png" type="image/png">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,62 +18,60 @@
         /* --- Variabile Globale & Theming --- */
         :root {
             /* LIGHT THEME (Default) */
-            --bg-base: #f4f5f7;
-            --bg-surface: #ffffff;
+            --bg-base: #ffffff;
+            --bg-surface: #f9f9f9;
             --bg-card: #ffffff;
-            --bg-card-hover: #f9fafb;
+            --bg-card-hover: #ffffff;
+            --product-bg: #f5f5ed; /* Soft elegant background for products */
             
-            --text-main: #111114;
-            --text-muted: #555555;
-            --border-color: rgba(0, 0, 0, 0.1);
+            --text-main: #111111;
+            --text-muted: #666666;
+            --border-color: #e5e5e5;
             --border-light: rgba(0, 0, 0, 0.05);
             
-            /* User Requested Greens */
             --accent-primary: #126d2e; /* Watermelon Green */
-            --accent-hover: #849004;   /* Deep Avocado */
-            --accent-glow: rgba(18, 109, 46, 0.3);
+            --accent-hover: #0e5423;
             
-            /* Navbar & Hero specific */
-            --nav-bg: rgba(255, 255, 255, 0.85);
-            --hero-overlay-1: rgba(244, 245, 247, 0.85);
-            --hero-overlay-2: rgba(244, 245, 247, 0.5);
-            --hero-text-shadow: 0 5px 20px rgba(255,255,255,0.9);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --hero-overlay-1: rgba(255, 255, 255, 0.9);
+            --hero-overlay-2: rgba(255, 255, 255, 0.6);
+            --hero-text-shadow: none;
             
-            /* Extremities Fade / Chenar Effect */
-            --chenar-shadow: inset 0 0 15px 2px rgba(0,0,0,0.7), inset 0 0 35px 10px rgba(18, 109, 46, 0.3);
-            --chenar-border: rgba(0, 0, 0, 0.8);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 16px 40px rgba(0,0,0,0.08);
             
             --font-head: 'Bebas Neue', sans-serif;
             --font-body: 'DM Sans', sans-serif;
             --font-tech: 'Space Mono', monospace;
             
-            --radius-sm: 6px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
             
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         [data-theme="dark"] {
             /* DARK THEME */
-            --bg-base: #030305;
-            --bg-surface: #0a0a0c;
-            --bg-card: #111114;
-            --bg-card-hover: #18181c;
+            --bg-base: #0a0a0c;
+            --bg-surface: #121214;
+            --bg-card: #16161a;
+            --bg-card-hover: #1e1e24;
+            --product-bg: #1e1e24;
             
             --text-main: #ffffff;
-            --text-muted: #8e8e99;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-light: rgba(255, 255, 255, 0.15);
+            --text-muted: #94a1b2;
+            --border-color: #2a2a35;
+            --border-light: rgba(255, 255, 255, 0.05);
             
-            --nav-bg: rgba(3, 3, 5, 0.85);
-            --hero-overlay-1: rgba(3, 3, 5, 0.85);
-            --hero-overlay-2: rgba(3, 3, 5, 0.4);
-            --hero-text-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --hero-overlay-1: rgba(10, 10, 12, 0.9);
+            --hero-overlay-2: rgba(10, 10, 12, 0.6);
             
-            /* Stronger Extremities Fade for Dark Mode */
-            --chenar-shadow: inset 0 0 20px 5px rgba(0,0,0,1), inset 0 0 50px 15px rgba(18, 109, 46, 0.5);
-            --chenar-border: #000000;
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.5);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.6);
+            --shadow-lg: 0 16px 40px rgba(0,0,0,0.8);
         }
 
         /* --- Reset & Base --- */
@@ -85,257 +84,187 @@
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            background-image: 
-                linear-gradient(var(--border-light) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
-            background-size: 50px 50px;
-            background-position: center top;
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 8px; }
 
-        h1, h2, h3, h4 { font-family: var(--font-head); letter-spacing: 1.5px; font-weight: normal; }
+        h1, h2, h3, h4 { font-family: var(--font-head); letter-spacing: 1px; font-weight: normal; }
         a { text-decoration: none; color: inherit; transition: var(--transition); cursor: pointer; }
         button { font-family: inherit; cursor: pointer; outline: none; border: none; }
         
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+        .page-padding { padding-top: 120px; padding-bottom: 80px; }
+
+        /* --- Loading Screen --- */
+        #loader {
+            position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        #loader img { height: 60px; margin-bottom: 1rem; animation: pulse 2s infinite; }
+        #loader h2 { font-size: 2.5rem; letter-spacing: 2px; color: var(--text-main); margin-bottom: 2rem;}
+        .loading-bar { width: 200px; height: 4px; background: var(--border-color); border-radius: 2px; overflow: hidden; }
+        .loading-progress { width: 0%; height: 100%; background: var(--accent-primary); animation: load 2s ease forwards; }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* --- View System (SPA) --- */
-        .view-section {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            min-height: calc(100vh - 250px);
-        }
-        .view-section.active {
-            display: block;
-            opacity: 1;
-        }
-        
-        .page-padding { padding-top: 120px; padding-bottom: 60px; }
+        .view-section { display: none; opacity: 0; transition: opacity 0.4s ease; min-height: calc(100vh - 250px); }
+        .view-section.active { display: block; opacity: 1; }
 
-        /* --- Componente Reutilizabile --- */
+        /* --- Components --- */
         .btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            gap: 0.5rem;
-            padding: 0.8rem 2rem;
-            border-radius: var(--radius-sm);
-            font-family: var(--font-head);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.8rem 2rem; border-radius: 50px; font-weight: 500; font-size: 1rem;
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
         }
-        .btn-primary {
-            background: var(--accent-primary);
-            color: #fff;
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(132, 144, 4, 0.4);
-        }
-        .btn-outline {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-        }
-        .btn-outline:hover {
-            border-color: var(--accent-primary);
-            color: var(--accent-primary);
-            background: rgba(18, 109, 46, 0.05);
-        }
+        .btn-primary { background: var(--text-main); color: var(--bg-base); }
+        .btn-primary:hover { background: var(--accent-primary); color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn-outline:hover { border-color: var(--text-main); }
+        .btn-accent { background: var(--accent-primary); color: white; border-radius: 8px;}
+        .btn-accent:hover { background: var(--accent-hover); }
 
-        /* --- Navbar --- */
+        /* --- Navbar (Seamless) --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: var(--nav-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            transition: var(--transition);
+            background: transparent; transition: var(--transition); padding: 1rem 0;
         }
-        .nav-wrapper {
-            display: flex; justify-content: space-between; align-items: center;
-            height: 60px;
-        }
-        .logo { font-family: var(--font-head); font-size: 1.8rem; display: flex; align-items: center; gap: 0.5rem;}
-        .logo span { color: var(--accent-primary); }
-        .logo-icon { width: 24px; height: 24px; background: var(--accent-primary); border-radius: 4px; display: inline-block; position: relative; }
-        .logo-icon::after { content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px; border: 2px solid var(--bg-surface); border-radius: 2px; }
-
-        .nav-links { display: flex; gap: 2.5rem; }
-        .nav-links a { font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
-        .nav-links a:hover, .nav-links a.active { color: var(--accent-primary); }
-
-        .nav-tools { display: flex; align-items: center; gap: 1.2rem; }
-        .lang-switch {
-            background: transparent; color: var(--text-main); border: none; 
-            font-family: var(--font-tech); font-size: 0.9rem; cursor: pointer;
-        }
-        .lang-switch option { background: var(--bg-card); color: var(--text-main); }
-        .icon-btn {
-            background: transparent; color: var(--text-main); font-size: 1.2rem;
-            position: relative; transition: var(--transition);
-        }
-        .icon-btn:hover { color: var(--accent-primary); transform: scale(1.1); }
-        .badge {
-            position: absolute; top: -8px; right: -10px; background: var(--accent-hover);
-            color: #fff; font-size: 0.6rem; font-family: var(--font-tech); font-weight: bold;
-            width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-        }
+        header.scrolled { background: var(--nav-bg); backdrop-filter: blur(10px); box-shadow: var(--shadow-sm); padding: 0.5rem 0; }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+        .logo { font-family: var(--font-head); font-size: 2rem; display: flex; align-items: center; gap: 0.5rem;}
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: var(--text-main); opacity: 0.7; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; }
+        .nav-tools { display: flex; align-items: center; gap: 1.5rem; }
+        .icon-btn { background: transparent; color: var(--text-main); font-size: 1.2rem; position: relative; }
+        .icon-btn:hover { color: var(--accent-primary); }
+        .badge { position: absolute; top: -5px; right: -8px; background: var(--text-main); color: var(--bg-base); font-size: 0.6rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;}
 
         /* --- Hero Section --- */
         .hero {
-            min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center;
-            position: relative;
-            padding-top: 60px;
-            overflow: hidden;
-            background-image: 
-                linear-gradient(to bottom, var(--hero-overlay-1) 0%, var(--hero-overlay-2) 40%, var(--bg-base) 100%),
-                url('mountain.png');
-            background-size: cover;
-            background-position: center 30%;
-            background-attachment: fixed;
+            min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center;
+            position: relative; padding-top: 60px;
+            background-image: linear-gradient(to bottom, var(--hero-overlay-1) 0%, var(--bg-base) 100%), url('mountain.png');
+            background-size: cover; background-position: center;
         }
-        .hero::before {
-            content: ''; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
-            width: 600px; height: 600px; background: var(--accent-primary);
-            border-radius: 50%; filter: blur(150px); opacity: 0.2; z-index: 0;
-        }
-        .hero-content { max-width: 800px; animation: slideUp 1s ease forwards; position: relative; z-index: 2; }
-        .hero h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); line-height: 0.9; margin-bottom: 1.5rem; text-transform: uppercase; text-shadow: var(--hero-text-shadow); }
-        .hero p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 2.5rem; max-width: 600px; margin-inline: auto; text-shadow: var(--hero-text-shadow); font-weight: 500; }
-        .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        
-        .tech-stats {
-            display: flex; justify-content: center; gap: 3rem; margin-top: 4rem;
-            border-top: 1px solid var(--border-color); padding-top: 2rem;
-            position: relative; z-index: 2;
-        }
-        .stat-item { text-align: center; }
-        .stat-value { font-family: var(--font-tech); font-size: 1.5rem; color: var(--accent-primary); font-weight: 700; display: block; text-shadow: var(--hero-text-shadow); }
-        .stat-label { font-size: 0.8rem; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; font-weight:bold;}
+        .hero-content { max-width: 800px; position: relative; z-index: 2; }
+        .hero h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; margin-bottom: 1.5rem; text-transform: uppercase; }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 500px; margin-inline: auto; }
 
-        /* --- Servicii / Categorii (Cu efectul Chenar Cerut) --- */
-        .section-padding { padding: 6rem 0; }
-        .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-subtitle { color: var(--accent-primary); font-family: var(--font-tech); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 0.5rem;}
-        .section-title { font-size: 3.5rem; }
-
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        /* --- Clean Cards (Home & Shop) --- */
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-title { font-size: 3rem; }
         
-        /* Efectul Black Fade / Green Blur */
-        .service-card, .admin-stat, .upload-section, .modal-content, .card-style {
-            background: var(--bg-card); 
-            border-radius: var(--radius-md);
-            padding: 2.5rem 2rem; 
-            transition: var(--transition); 
-            display: flex; flex-direction: column;
-            border: 1px solid var(--chenar-border);
-            box-shadow: var(--chenar-shadow);
-            position: relative;
-        }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
         
-        .service-card:hover { 
-            transform: translateY(-8px); 
-            border-color: var(--accent-primary);
-        }
+        .clean-card { display: flex; flex-direction: column; cursor: pointer; transition: var(--transition); }
+        .clean-card:hover { transform: translateY(-5px); }
+        .card-img-box { background: var(--product-bg); border-radius: var(--radius-md); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 1rem; transition: var(--transition); position: relative; }
+        .clean-card:hover .card-img-box { box-shadow: var(--shadow-md); }
+        .card-img-box img { max-width: 80%; max-height: 80%; object-fit: contain; mix-blend-mode: multiply; transition: 0.3s; }
+        [data-theme="dark"] .card-img-box img { mix-blend-mode: normal; } /* Fix for dark mode */
         
-        .service-icon {
-            width: 60px; height: 60px; border-radius: var(--radius-sm); background: rgba(18, 109, 46, 0.1); color: var(--accent-primary);
-            display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem; transition: var(--transition);
-        }
-        .service-card:hover .service-icon { background: var(--accent-primary); color: #fff; }
-        .service-card h3 { font-size: 1.8rem; margin-bottom: 1rem; position: relative; z-index: 2; }
-        .service-card p { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; margin-bottom: 2rem; position: relative; z-index: 2; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color); position: relative; z-index: 2;}
-        .price-tag { font-family: var(--font-tech); color: var(--text-main); font-size: 0.9rem; }
-        .price-tag span { color: var(--text-muted); font-size: 0.8rem; }
-        .btn-card {
-            background: transparent; color: var(--accent-primary); font-family: var(--font-tech); font-size: 0.85rem; border: none; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 0.5rem; font-weight: bold;
-        }
-        .service-card:hover .btn-card i { transform: translateX(5px); transition: 0.3s; }
-
-        /* --- Upload Section --- */
-        .upload-section { text-align: center; }
-        .upload-dropzone { 
-            border: 2px dashed var(--border-color); border-radius: var(--radius-md); padding: 4rem 2rem; margin: 2rem auto 0; max-width: 600px; transition: var(--transition); background: rgba(0,0,0,0.05); cursor: pointer; 
-            box-shadow: var(--chenar-shadow); /* Applied here too */
-        }
-        .upload-dropzone:hover { border-color: var(--accent-primary); background: rgba(18, 109, 46, 0.1); }
-        .upload-dropzone i { font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem; transition: var(--transition); }
-        .upload-dropzone:hover i { color: var(--accent-primary); transform: translateY(-5px); }
-
-        /* --- Admin Dashboard --- */
-        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-        .admin-stat { padding: 1.5rem; text-align: center; }
-        .admin-stat h4 { color: var(--text-muted); font-size: 1rem; margin-bottom: 0.5rem; position: relative; z-index: 2;}
-        .admin-stat .val { font-size: 2rem; font-family: var(--font-tech); color: var(--accent-primary); position: relative; z-index: 2;}
+        .card-info { padding: 0 0.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
+        .card-title { font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.2rem; }
+        .card-desc { color: var(--text-muted); font-size: 0.9rem; }
+        .card-price { font-family: var(--font-tech); font-weight: bold; color: var(--text-main); }
         
-        .data-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--chenar-border); box-shadow: var(--chenar-shadow); }
-        .data-table th, .data-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; }
-        .data-table th { background: var(--bg-card-hover); font-family: var(--font-tech); font-size: 0.9rem; color: var(--text-muted); }
-        .status { padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-tech); }
-        .status.printing { background: rgba(132, 144, 4, 0.2); color: var(--accent-hover); }
-        .status.done { background: rgba(18, 109, 46, 0.2); color: var(--accent-primary); }
+        /* Category specific styles */
+        .cat-img { width: 100%; height: 100%; object-fit: cover !important; mix-blend-mode: normal !important; border-radius: var(--radius-md); }
+        .hover-reveal { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; }
+        .card-img-box:hover .hover-reveal { opacity: 1; }
 
-        /* --- Modale Generale --- */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        /* --- Product Modal (The "Buy" Dropdown/Modal) --- */
+        .prod-modal-body { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .prod-image-col { flex: 1; min-width: 250px; background: var(--product-bg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative;}
+        .prod-image-col img { width: 100%; max-width: 300px; mix-blend-mode: multiply; position: relative; z-index: 2; transition: 0.3s; }
+        [data-theme="dark"] .prod-image-col img { mix-blend-mode: normal; }
+        /* Dynamic Color Overlay Trick */
+        .color-overlay { position: absolute; inset: 0; background: transparent; mix-blend-mode: color; z-index: 3; pointer-events: none; transition: 0.3s; border-radius: var(--radius-md);}
+        
+        .prod-details-col { flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: center;}
+        .prod-title { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .prod-price { font-family: var(--font-tech); font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem; color: var(--text-muted); }
+        
+        .option-label { font-size: 0.85rem; text-transform: uppercase; font-weight: bold; margin-bottom: 0.5rem; display: block; color: var(--text-muted); }
+        
+        /* Color Selector */
+        .color-selector { display: flex; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap;}
+        .color-btn { width: 35px; height: 35px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; position: relative; transition: 0.2s; }
+        .color-btn.active { border-color: var(--text-main); transform: scale(1.1); box-shadow: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--text-main); }
+        .color-btn.disabled { opacity: 0.3; cursor: not-allowed; }
+        .color-btn.disabled::after { content: ''; position: absolute; top: 50%; left: -5px; right: -5px; height: 2px; background: red; transform: translateY(-50%) rotate(45deg); }
+        /* Tooltip simple */
+        .color-btn[data-tooltip]::before, .mat-btn[data-tooltip]::before {
+            content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-base); padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s; font-family: var(--font-body); font-weight: normal; z-index: 10;
+        }
+        .color-btn:hover::before, .mat-btn:hover::before { opacity: 1; }
+
+        /* Material Selector */
+        .mat-selector { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+        .mat-btn { padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 6px; cursor: pointer; font-family: var(--font-tech); transition: 0.2s; position: relative;}
+        .mat-btn.active { background: var(--text-main); color: var(--bg-base); border-color: var(--text-main); }
+
+        /* --- Modals --- */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-content { width: 90%; max-width: 450px; transform: translateY(30px); transition: transform 0.4s; }
+        .modal-content { background: var(--bg-surface); border-radius: var(--radius-lg); padding: 2.5rem; width: 90%; max-width: 800px; position: relative; transform: translateY(30px); transition: transform 0.4s; box-shadow: var(--shadow-lg); }
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--border-light); border: none; color: var(--text-main); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; z-index: 10; }
-        .modal-close:hover { background: var(--accent-primary); color: #fff; transform: rotate(90deg); }
-        
-        .form-group { margin-bottom: 1.5rem; position: relative; z-index: 2; }
-        .form-group label { display: block; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: bold;}
-        .form-control { width: 100%; background: var(--bg-base); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.9rem 1rem; border-radius: var(--radius-sm); font-family: var(--font-body); transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);}
-        .form-control:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(18, 109, 46, 0.2); }
+        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; z-index: 10; }
+        .modal-close:hover { background: var(--text-main); color: var(--bg-base); }
 
-        /* --- Configurator Modal Specific --- */
-        #configModal .modal-content { max-width: 900px; padding: 0; overflow: hidden; display: flex; flex-wrap: wrap; }
-        .config-sidebar { flex: 1; min-width: 300px; padding: 2.5rem; position: relative; z-index: 2; }
-        .config-preview { flex: 1.5; min-width: 300px; padding: 2.5rem; background: var(--bg-card-hover); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-left: 1px solid var(--border-color); box-shadow: var(--chenar-shadow);}
-        .canvas-container { width: 100%; aspect-ratio: 16/9; background: repeating-linear-gradient(45deg, var(--bg-card) 0, var(--bg-card) 2px, transparent 2px, transparent 8px); border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; }
+        /* --- Contact Page --- */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contact-info { background: var(--bg-card); padding: 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); }
+        .info-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .info-item i { width: 40px; height: 40px; background: var(--product-bg); color: var(--accent-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .map-container { width: 100%; height: 250px; border-radius: var(--radius-md); overflow: hidden; margin-top: 2rem; border: 1px solid var(--border-light); }
+        .form-control { width: 100%; padding: 1rem; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); border-radius: var(--radius-sm); font-family: var(--font-body); margin-bottom: 1rem; outline: none; transition: 0.3s; }
+        .form-control:focus { border-color: var(--text-main); }
 
-        /* --- Toast Notifications --- */
+        /* --- Admin & Table --- */
+        .admin-nav { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .admin-nav button { background: none; border: none; font-size: 1rem; font-weight: bold; color: var(--text-muted); cursor: pointer; padding: 0.5rem 1rem; border-radius: var(--radius-sm); }
+        .admin-nav button.active { background: var(--product-bg); color: var(--text-main); }
+        .data-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .data-table th, .data-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); }
+        .data-table th { background: var(--bg-surface); font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; }
+        .toggle-btn { padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; font-weight: bold; cursor: pointer; border: none; }
+        .toggle-on { background: rgba(18, 109, 46, 0.1); color: var(--accent-primary); }
+        .toggle-off { background: rgba(255, 0, 0, 0.1); color: red; }
+
+        /* --- Toasts --- */
         .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; }
-        .toast { background: var(--bg-card); border-left: 4px solid var(--accent-primary); color: var(--text-main); padding: 1rem 1.5rem; border-radius: 4px; font-size: 0.95rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 1rem; animation: slideInRight 0.3s ease forwards; border: 1px solid var(--border-color);}
-        .toast i { color: var(--accent-primary); font-size: 1.2rem; }
+        .toast { background: var(--text-main); color: var(--bg-base); padding: 1rem 1.5rem; border-radius: var(--radius-sm); font-size: 0.95rem; box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 1rem; animation: slideInRight 0.3s ease forwards; }
 
-        /* Animations & Footer */
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
-        footer { background: var(--bg-surface); border-top: 1px solid var(--border-color); padding: 4rem 0 2rem; margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;}
         
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero h1 { font-size: 3.5rem; }
-            #configModal .modal-content { flex-direction: column; }
-            .config-preview { border-left: none; border-top: 1px solid var(--border-color); }
+            .prod-modal-body, .contact-grid { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Loading Screen -->
+    <div id="loader">
+        <img src="logo.png" alt="PrintWALD">
+        <h2>PRINTWALD</h2>
+        <div class="loading-bar"><div class="loading-progress"></div></div>
+    </div>
+
     <!-- Header / Navbar -->
     <header id="header">
         <div class="container nav-wrapper">
             <a onclick="navigateTo('view-home')" class="logo">
-                <img src="logo.png" alt="PrintWALD Logo" style="height: 35px; width: auto; object-fit: contain;">
-                PRINT<span>WALD</span>
+                <img src="logo.png" alt="PrintWALD Logo" style="height: 30px; object-fit: contain;">
+                PRINTWALD
             </a>
             
             <nav class="nav-links">
@@ -346,23 +275,17 @@
             </nav>
             
             <div class="nav-tools">
-                <!-- Buton Theme Toggle -->
-                <button class="icon-btn" onclick="toggleTheme()" title="Toggle Light/Dark Theme">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
-
-                <select class="lang-switch" id="langSelector" onchange="changeLanguage(this.value)">
-                    <option value="en" selected>EN</option>
+                <button class="icon-btn" onclick="toggleTheme()" title="Toggle Theme"><i class="fas fa-moon" id="themeIcon"></i></button>
+                <select class="lang-switch" id="langSelector" onchange="changeLanguage(this.value)" style="background:transparent; border:none; outline:none; font-weight:bold; cursor:pointer;">
+                    <option value="en">EN</option>
                     <option value="de">DE</option>
                     <option value="ro">RO</option>
                 </select>
-                <button class="icon-btn" onclick="showToast(translations[currentLang].cart_empty)">
-                    <i class="fas fa-shopping-cart"></i>
+                <button class="icon-btn" onclick="openCart()">
+                    <i class="fas fa-shopping-bag"></i>
                     <span class="badge" id="cartCount">0</span>
                 </button>
-                <button class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 1rem;" onclick="openModal('loginModal')" id="loginBtnUI">
-                    <i class="fas fa-user"></i> <span data-i18n="btn_login">Login</span>
-                </button>
+                <button class="icon-btn" onclick="openModal('loginModal')" id="loginBtnUI"><i class="fas fa-user"></i></button>
             </div>
         </div>
     </header>
@@ -372,77 +295,52 @@
 
         <!-- ================= VIEW: HOME ================= -->
         <main id="view-home" class="view-section active">
-            <!-- Hero Section -->
             <section class="hero">
                 <div class="container hero-content">
-                    <h1 id="hero_title">3D Engineering <br><span style="color: var(--accent-primary);">Without Compromise</span></h1>
-                    <p data-i18n="hero_desc">From rapid industrial prototyping to high-performance spare parts (ABS, PETG, Nylon), to custom configurators directly in your browser.</p>
-                    
+                    <h1 id="hero_title">Precision Crafted.<br>Elegantly Printed.</h1>
+                    <p data-i18n="hero_desc">Explore our premium 3D printing services. From bespoke art to high-performance industrial replacement parts.</p>
                     <div class="hero-actions">
-                        <a href="#upload-sec" class="btn btn-primary"><i class="fas fa-upload"></i> <span data-i18n="btn_upload">Upload STL</span></a>
-                        <a onclick="document.getElementById('servicii').scrollIntoView()" class="btn btn-outline" style="color:var(--text-main); border-color:var(--text-main);" data-i18n="btn_explore">Explore Services</a>
-                    </div>
-                    
-                    <div class="tech-stats">
-                        <div class="stat-item"><span class="stat-value">&lt; 24h</span><span class="stat-label" data-i18n="stat_time">Response Time</span></div>
-                        <div class="stat-item"><span class="stat-value">0.05mm</span><span class="stat-label" data-i18n="stat_prec">Print Precision</span></div>
-                        <div class="stat-item"><span class="stat-value">100%</span><span class="stat-label" data-i18n="stat_inhouse">In-House Gengenbach</span></div>
+                        <a onclick="navigateTo('view-shop')" class="btn btn-primary" data-i18n="nav_shop">Go to Shop</a>
                     </div>
                 </div>
             </section>
 
-            <!-- Services Section -->
-            <section id="servicii" class="section-padding container">
+            <section class="page-padding container">
                 <div class="section-header">
-                    <span class="section-subtitle" data-i18n="sec_apps">Applications & Configurators</span>
-                    <h2 class="section-title" data-i18n="sec_solutions">Complete Solutions</h2>
+                    <h2 class="section-title">Capabilities</h2>
                 </div>
                 
-                <div class="services-grid">
-                    <!-- Card 1 -->
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-key"></i></div>
-                        <h3 data-i18n="card1_title">Custom Keychains</h3>
-                        <p data-i18n="card1_desc">Customize keychains with your text. Live preview on platform with automatic pricing.</p>
-                        <div class="card-footer">
-                            <div class="price-tag">€3.00 <span>+ €0.50/let</span></div>
-                            <button class="btn-card" onclick="openConfigurator()"><i class="fas fa-cog"></i> <span data-i18n="btn_config">Configurator</span></button>
+                <div class="grid-3">
+                    <!-- Category: Lithophane -->
+                    <div class="clean-card" onclick="navigateTo('view-shop')">
+                        <div class="card-img-box">
+                            <!-- Simulated dual image for Lithophane: Light OFF default, Light ON on hover -->
+                            <img src="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="Lithophane Off" style="filter: grayscale(100%) contrast(1.2);">
+                            <img src="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80" class="cat-img hover-reveal" alt="Lithophane On" style="filter: sepia(100%) hue-rotate(5deg) saturate(200%);">
+                        </div>
+                        <div class="card-info">
+                            <div><div class="card-title">Lithophane Art</div><div class="card-desc">Memories brought to light</div></div>
                         </div>
                     </div>
-                    <!-- Card 2 -->
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-cogs"></i></div>
-                        <h3 data-i18n="card2_title">Spare Parts</h3>
-                        <p data-i18n="card2_desc">We replace broken parts for appliances. CAD re-design included for superior strength.</p>
-                        <div class="card-footer">
-                            <div class="price-tag"><span data-i18n="price_request">On Request</span></div>
-                            <button class="btn-card" onclick="showToast(translations[currentLang].toast_dev)"><i class="fas fa-camera"></i> <span data-i18n="btn_request">Request</span></button>
+                    <!-- Category: Broken Parts -->
+                    <div class="clean-card" onclick="navigateTo('view-contact')">
+                        <div class="card-img-box">
+                            <!-- Broken gear vs new gear concept -->
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="Broken Part">
+                            <div class="hover-reveal" style="background: rgba(18, 109, 46, 0.9); display:flex; align-items:center; justify-content:center; color:white; font-family:var(--font-head); font-size:2rem; border-radius:var(--radius-md);">NEW PRINTED PART</div>
+                        </div>
+                        <div class="card-info">
+                            <div><div class="card-title">Part Replacement</div><div class="card-desc">Reverse engineering & printing</div></div>
                         </div>
                     </div>
-                    <!-- Card 3 -->
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-layer-group"></i></div>
-                        <h3 data-i18n="card3_title">Rapid Prototyping</h3>
-                        <p data-i18n="card3_desc">Mechanical validation for engineers. Printed in PLA+, PETG, ABS or flexible TPU.</p>
-                        <div class="card-footer">
-                            <div class="price-tag"><span data-i18n="price_volume">Per Volume</span></div>
-                            <button class="btn-card" onclick="showToast(translations[currentLang].toast_dev)"><i class="fas fa-arrow-right"></i> B2B Portal</button>
+                    <!-- Category: Configurator -->
+                    <div class="clean-card" onclick="openModal('configModal')">
+                        <div class="card-img-box" style="background: #e9ecef;">
+                            <i class="fas fa-cube" style="font-size: 5rem; color: var(--text-muted);"></i>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Upload Section -->
-            <section id="upload-sec" class="section-padding container">
-                <div class="upload-section">
-                    <span class="section-subtitle" data-i18n="upload_sub" style="position:relative; z-index:2;">Have your own file?</span>
-                    <h2 class="section-title" style="margin-bottom: 1rem; position:relative; z-index:2;">Eigenes Modell</h2>
-                    <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto; position:relative; z-index:2;" data-i18n="upload_desc">Our system analyzes your file geometry, estimates filament and print time, generating instant pricing.</p>
-                    
-                    <div class="upload-dropzone" onclick="simulateUpload()">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <h3 style="margin-bottom: 0.5rem; position:relative; z-index:2;" data-i18n="upload_btn">Click or Drag & Drop</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-tech); position:relative; z-index:2;">.STL, .OBJ, .3MF (Max 50MB)</p>
+                        <div class="card-info">
+                            <div><div class="card-title">Custom Keychains</div><div class="card-desc">Interactive online design</div></div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -450,174 +348,192 @@
 
         <!-- ================= VIEW: SHOP ================= -->
         <main id="view-shop" class="view-section page-padding container">
-            <h2 class="section-title" data-i18n="nav_shop">Shop</h2>
-            <p style="color:var(--text-muted); margin-bottom: 3rem;" data-i18n="shop_desc">Pre-designed items ready to be customized and printed.</p>
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="nav_shop">Shop</h2>
+            </div>
             
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-vase"></i></div>
-                    <h3>Geo Vase</h3>
-                    <p>Modern geometric vase printed in Matte PLA.</p>
-                    <div class="card-footer">
-                        <div class="price-tag">€18.50</div>
-                        <button class="btn-card" onclick="addToCartUI()"><i class="fas fa-cart-plus"></i> Buy</button>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <h3>Desk Stand</h3>
-                    <p>Universal phone and tablet stand with adjustable angle.</p>
-                    <div class="card-footer">
-                        <div class="price-tag">€12.00</div>
-                        <button class="btn-card" onclick="addToCartUI()"><i class="fas fa-cart-plus"></i> Buy</button>
-                    </div>
-                </div>
+            <!-- Filter Bar Dummy -->
+            <div style="display:flex; gap:1rem; justify-content:center; margin-bottom: 3rem; flex-wrap:wrap;">
+                <button class="btn-outline btn" style="border-radius: 50px; padding: 0.5rem 1.5rem; background: var(--text-main); color: var(--bg-base);">All Products</button>
+                <button class="btn-outline btn" style="border-radius: 50px; padding: 0.5rem 1.5rem; border:none; background:var(--bg-card);">Home Decor</button>
+                <button class="btn-outline btn" style="border-radius: 50px; padding: 0.5rem 1.5rem; border:none; background:var(--bg-card);">Accessories</button>
+            </div>
+
+            <!-- Dynamic Shop Grid -->
+            <div class="grid-3" id="shopGrid">
+                <!-- Populated by JS -->
             </div>
         </main>
 
         <!-- ================= VIEW: CONTACT ================= -->
         <main id="view-contact" class="view-section page-padding container">
-            <h2 class="section-title" data-i18n="nav_contact">Contact Us</h2>
-            <div class="card-style" style="max-width: 600px; margin: 2rem auto;">
-                <div class="form-group">
-                    <label data-i18n="form_name">Name</label>
-                    <input type="text" class="form-control" placeholder="John Doe">
+            <h2 class="section-title text-center" style="margin-bottom: 3rem;" data-i18n="nav_contact">Contact Us</h2>
+            
+            <div class="contact-grid">
+                <!-- Contact Info & Map -->
+                <div>
+                    <div class="contact-info">
+                        <div class="info-item"><i class="fab fa-whatsapp"></i> <span>+49 123 456 789</span></div>
+                        <div class="info-item"><i class="fas fa-envelope"></i> <span>contact@printwald.de</span></div>
+                        <div class="info-item"><i class="fab fa-instagram"></i> <span>@printwald</span></div>
+                        <div class="info-item"><i class="fas fa-map-marker-alt"></i> <span>Gengenbach, DE</span></div>
+                    </div>
+                    <!-- Google Maps Iframe (Gengenbach) -->
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2668.742337726359!2d8.0135113!3d48.4039121!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47912ebc2e71d791%3A0x41f6bb7a5df6620!2sGengenbach%2C%20Germany!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" placeholder="hello@example.com">
+
+                <!-- Contact Form -->
+                <div class="contact-info" style="display: flex; flex-direction: column; justify-content: center;">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Send a Request</h3>
+                    <input type="text" id="reqName" class="form-control" placeholder="Your Name">
+                    <input type="email" id="reqEmail" class="form-control" placeholder="Email Address">
+                    <textarea id="reqMessage" class="form-control" rows="5" placeholder="How can we help you? (e.g., Need a broken gear replaced)"></textarea>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="submitContact()">Send Message</button>
                 </div>
-                <div class="form-group">
-                    <label data-i18n="form_msg">Message</label>
-                    <textarea class="form-control" rows="5"></textarea>
-                </div>
-                <button class="btn btn-primary" style="width:100%; position:relative; z-index:2;" onclick="showToast(translations[currentLang].msg_sent)" data-i18n="btn_send">Send Message</button>
             </div>
         </main>
 
         <!-- ================= VIEW: ADMIN DASHBOARD ================= -->
         <main id="view-admin" class="view-section page-padding container">
             <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                <h2 class="section-title">Admin Dashboard</h2>
-                <button class="btn btn-outline" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <h2 class="section-title" style="margin:0;">Admin Panel</h2>
+                <button class="btn btn-outline" onclick="logoutAdmin()">Logout</button>
             </div>
             
-            <div class="admin-grid">
-                <div class="admin-stat"><h4>Total Orders</h4><div class="val">1,204</div></div>
-                <div class="admin-stat"><h4>Filament Stock</h4><div class="val">42 kg</div></div>
-                <div class="admin-stat"><h4>Active Printers</h4><div class="val">8 / 10</div></div>
-                <div class="admin-stat"><h4>Revenue (M)</h4><div class="val">€4,590</div></div>
+            <div class="admin-nav">
+                <button class="active" onclick="switchAdminTab('stock')">Color Stock</button>
+                <button onclick="switchAdminTab('messages')">Client Messages</button>
             </div>
 
-            <h3 style="margin-bottom: 1rem; font-family: var(--font-head); font-size: 2rem;">Recent Print Jobs</h3>
-            <table class="data-table">
-                <thead><tr><th>Order ID</th><th>Client</th><th>Item</th><th>Material</th><th>Status</th></tr></thead>
-                <tbody>
-                    <tr><td>#ORD-092</td><td>thomas.m@...</td><td>Geo Vase</td><td>PLA Matte Black</td><td><span class="status printing">Printing (45%)</span></td></tr>
-                    <tr><td>#ORD-091</td><td>sarah.j@...</td><td>Custom Keychain</td><td>PETG Orange</td><td><span class="status done">Completed</span></td></tr>
-                    <tr><td>#ORD-090</td><td>b2b.tech@...</td><td>Drone Frame x5</td><td>ABS Carbon</td><td><span class="status done">Completed</span></td></tr>
-                </tbody>
-            </table>
+            <!-- Tab: Stock Management -->
+            <div id="admin-stock">
+                <h3 style="margin-bottom: 1rem;">Manage Colors Availability</h3>
+                <table class="data-table">
+                    <thead><tr><th>Color Name</th><th>Hex</th><th>Status</th><th>Action</th></tr></thead>
+                    <tbody id="stockTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab: Messages -->
+            <div id="admin-messages" style="display: none;">
+                <h3 style="margin-bottom: 1rem;">Incoming Requests</h3>
+                <table class="data-table">
+                    <thead><tr><th>Name</th><th>Email</th><th>Message</th></tr></thead>
+                    <tbody id="messagesTableBody">
+                        <tr><td>John Doe</td><td>john@ex.com</td><td>Do you print ABS gears?</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </main>
 
     </div>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a class="logo" style="font-size: 1.8rem; margin-bottom: 1rem;">
-                        <img src="logo.png" alt="PrintWALD Logo" style="height: 30px; width: auto; object-fit: contain;">
-                        PRINT<span style="color: var(--text-main)">WALD</span>
-                    </a>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">German precision, digital innovation. Printing the future, layer by layer.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links" style="list-style: none;">
-                        <li><a onclick="navigateTo('view-home')">Services</a></li>
-                        <li><a onclick="navigateTo('view-shop')">Shop</a></li>
-                        <li><a onclick="navigateTo('view-contact')">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul class="footer-links" style="list-style: none;">
-                        <li><a href="mailto:contact@printwald.de"><i class="fas fa-envelope"></i> contact@printwald.de</a></li>
-                        <li><a><i class="fas fa-map-marker-alt"></i> Gengenbach, DE</a></li>
-                        <li><a><i class="fab fa-instagram"></i> @printwald</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>&copy; 2026 PrintWALD. All rights reserved.</span>
-                <span>Powered by Advanced Web Tech</span>
+        <div class="container" style="border-top: 1px solid var(--border-color); padding: 4rem 0 2rem; margin-top: 4rem; display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <a class="logo" style="margin-bottom: 1rem; font-size: 2.5rem;">PRINTWALD</a>
+            <p style="color: var(--text-muted); max-width: 400px; margin-bottom: 2rem;">German precision, digital innovation. Printing the future, layer by layer.</p>
+            <div style="display: flex; gap: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                <span>&copy; 2026 PrintWALD</span>
+                <span>|</span>
+                <a href="#">Privacy Policy</a>
+                <span>|</span>
+                <a href="#">Terms of Service</a>
             </div>
         </div>
     </footer>
 
-    <!-- MODAL: LOGIN -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
-            <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem; position:relative; z-index:2;" data-i18n="btn_login">Login</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size:0.9rem; position:relative; z-index:2;">Client / Admin access. (Type 'admin' in email for Dashboard)</p>
+    <!-- ================= MODALS ================= -->
+
+    <!-- Product Modal (The Elegant Dropdown/Modal) -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
             
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" class="form-control" placeholder="name@email.com" id="loginEmail">
+            <div class="prod-modal-body">
+                <!-- Left: Image with dynamic color tint -->
+                <div class="prod-image-col">
+                    <img id="pm-img" src="" alt="Product">
+                    <div class="color-overlay" id="pm-overlay"></div>
+                </div>
+                
+                <!-- Right: Details & Selection -->
+                <div class="prod-details-col">
+                    <h2 class="prod-title" id="pm-title">Product Title</h2>
+                    <div class="prod-price" id="pm-price">$0.00</div>
+                    
+                    <!-- Material Selection -->
+                    <span class="option-label">Material</span>
+                    <div class="mat-selector" id="pm-materials">
+                        <!-- JS populated based on product -->
+                    </div>
+
+                    <!-- Color Selection -->
+                    <span class="option-label">Color <span id="pm-color-name" style="text-transform:none; font-weight:normal; margin-left:10px;">Select one</span></span>
+                    <div class="color-selector" id="pm-colors">
+                        <!-- JS populated -->
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="addToCart()">Add to Cart</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" placeholder="••••••••">
-            </div>
-            
-            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; position:relative; z-index:2;" onclick="processLogin()">Enter System</button>
         </div>
     </div>
 
-    <!-- MODAL: CONFIGURATOR (CANVAS) -->
-    <div class="modal-overlay" id="configModal">
-        <div class="modal-content" style="max-width: 900px; padding: 0; display: flex; flex-wrap: wrap;">
-            <button class="modal-close" onclick="closeModal('configModal')"><i class="fas fa-times"></i></button>
+    <!-- Simple Cart Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <button class="modal-close" onclick="closeModal('cartModal')"><i class="fas fa-times"></i></button>
+            <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Your Cart</h2>
             
-            <div class="config-sidebar">
-                <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Configurator <span style="color: var(--accent-primary);">Live</span></h2>
-                
-                <div class="form-group" style="margin-top:2rem;">
-                    <label>Text (Max 12 Chars)</label>
-                    <input type="text" class="form-control" id="brelocText" value="PRINTWALD" maxlength="12" oninput="renderCanvas()">
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div class="form-group">
-                        <label>Base Color</label>
-                        <!-- Default la noul Watermelon Green -->
-                        <input type="color" class="form-control" id="baseColor" value="#126d2e" style="height: 50px; padding: 0.2rem; cursor: pointer;" oninput="renderCanvas()">
-                    </div>
-                    <div class="form-group">
-                        <label>Text Color</label>
-                        <input type="color" class="form-control" id="textColor" value="#ffffff" style="height: 50px; padding: 0.2rem; cursor: pointer;" oninput="renderCanvas()">
-                    </div>
-                </div>
-                <div class="price-display" style="margin-top: 2rem; padding: 1.5rem; background: rgba(132, 144, 4, 0.05); border: 1px solid var(--accent-glow); border-radius: var(--radius-sm); position:relative; z-index:2;">
-                    <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                        <span style="font-family: var(--font-head); font-size: 1.2rem;">Total Estimat</span>
-                        <span id="priceDisplay" style="font-family: var(--font-tech); font-size: 2rem; color: var(--accent-primary); font-weight: bold;">€7.00</span>
-                    </div>
-                </div>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem; position:relative; z-index:2;" onclick="addToCartUI()">
-                    <i class="fas fa-cart-arrow-down"></i> Add to Cart
-                </button>
+            <div id="cartItemsList" style="margin-bottom: 2rem; max-height: 300px; overflow-y: auto;">
+                <!-- JS populated -->
             </div>
             
-            <div class="config-preview">
-                <span style="position: absolute; top: 1.5rem; left: 1.5rem; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; z-index: 2;">
-                    <span style="width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 8px #00ff00;"></span> LIVE RENDER VIEW
-                </span>
-                <div class="canvas-container" style="position:relative; z-index:2;">
-                    <canvas id="previewCanvas" width="450" height="200" style="max-width: 100%; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));"></canvas>
-                </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold;">
+                <span>Total:</span>
+                <span id="cartTotalUI">€0.00</span>
+            </div>
+            
+            <span class="option-label">Payment Method</span>
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <label style="flex:1; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; cursor: pointer; text-align: center;">
+                    <input type="radio" name="payment" value="card" checked> Card
+                </label>
+                <label style="flex:1; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; cursor: pointer; text-align: center;">
+                    <input type="radio" name="payment" value="cod"> Cash on Delivery
+                </label>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;" onclick="processCheckout()">Checkout Now</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content" style="max-width: 400px;">
+            <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem; text-align:center;">Login</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem; text-align:center; font-size: 0.9rem;">Type 'admin' in email for Dashboard</p>
+            
+            <input type="email" class="form-control" placeholder="Email Address" id="loginEmail">
+            <input type="password" class="form-control" placeholder="Password">
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="processLogin()">Enter</button>
+        </div>
+    </div>
+
+    <!-- Configurator Modal (Litho/Breloc placeholder) -->
+    <div class="modal-overlay" id="configModal">
+        <div class="modal-content text-center">
+            <button class="modal-close" onclick="closeModal('configModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 1rem; font-size:2rem;">Custom Configurator</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">This module allows full 3D canvas interaction for keychains and organizers.</p>
+            <div style="aspect-ratio: 16/9; background: var(--product-bg); border-radius: var(--radius-md); display:flex; align-items:center; justify-content:center;">
+                <i class="fas fa-cube" style="font-size:3rem; color:var(--text-muted);"></i>
             </div>
         </div>
     </div>
@@ -625,15 +541,269 @@
     <!-- TOASTS -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- === SCRIPTS (SPA LOGIC, i18n, CANVAS, THEME) === -->
+    <!-- === JAVASCRIPT === -->
     <script>
-        // 0. THEME SWITCHER LOGIC
+        /* --- 1. LOADER LOGIC --- */
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 1500); // Fake load time for sleekness
+        });
+
+        /* --- 2. DATA (Products & State) --- */
+        const globalColors = [
+            { id: 'c1', name: 'Matte White', hex: '#f0f0f0', inStock: true },
+            { id: 'c2', name: 'Carbon Black', hex: '#222222', inStock: true },
+            { id: 'c3', name: 'Watermelon Green', hex: '#126d2e', inStock: true },
+            { id: 'c4', name: 'Deep Avocado', hex: '#849004', inStock: false }, // Out of stock example
+            { id: 'c5', name: 'Ocean Blue', hex: '#1e3a8a', inStock: true }
+        ];
+
+        const materialInfo = {
+            'PLA': 'Easy to print, eco-friendly. Ideal for decorative models.',
+            'PETG': 'Strong, slightly flexible, water & heat resistant.',
+            'ABS': 'Industrial strength, high impact and temperature resistance.'
+        };
+
+        const products = [
+            { id: 1, name: "Geo Vase", price: 24.00, img: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&fit=crop&w=400&q=80", materials: ['PLA', 'PETG'] },
+            { id: 2, name: "Desk Stand Organizer", price: 18.50, img: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=400&q=80", materials: ['PLA', 'ABS'] },
+            { id: 3, name: "Headphone Mount", price: 12.00, img: "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80", materials: ['PETG', 'ABS'] },
+            { id: 4, name: "Geometric Planter", price: 28.00, img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=400&q=80", materials: ['PLA'] }
+        ];
+
+        let cart = [];
+        let activeProduct = null;
+        let selectedMaterial = null;
+        let selectedColor = null;
+
+        /* --- 3. UI RENDERING & SHOP LOGIC --- */
+        function renderShop() {
+            const grid = document.getElementById('shopGrid');
+            grid.innerHTML = '';
+            products.forEach(p => {
+                grid.innerHTML += `
+                    <div class="clean-card" onclick="openProduct(${p.id})">
+                        <div class="card-img-box"><img src="${p.img}" alt="${p.name}"></div>
+                        <div class="card-info">
+                            <div><div class="card-title">${p.name}</div><div class="card-desc">Customizable</div></div>
+                            <div class="card-price">€${p.price.toFixed(2)}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openProduct(id) {
+            activeProduct = products.find(p => p.id === id);
+            document.getElementById('pm-title').innerText = activeProduct.name;
+            document.getElementById('pm-price').innerText = `€${activeProduct.price.toFixed(2)}`;
+            document.getElementById('pm-img').src = activeProduct.img;
+            document.getElementById('pm-overlay').style.backgroundColor = 'transparent';
+            document.getElementById('pm-color-name').innerText = '';
+
+            // Render Materials
+            const matContainer = document.getElementById('pm-materials');
+            matContainer.innerHTML = '';
+            activeProduct.materials.forEach((m, i) => {
+                const cls = i === 0 ? 'mat-btn active' : 'mat-btn';
+                if(i===0) selectedMaterial = m;
+                matContainer.innerHTML += `<button class="${cls}" data-tooltip="${materialInfo[m]}" onclick="selectMaterial(this, '${m}')">${m}</button>`;
+            });
+
+            // Render Colors
+            const colContainer = document.getElementById('pm-colors');
+            colContainer.innerHTML = '';
+            selectedColor = null;
+            globalColors.forEach(c => {
+                const stateClass = c.inStock ? '' : 'disabled';
+                const tooltip = c.inStock ? c.name : 'Out of Stock';
+                colContainer.innerHTML += `<button class="color-btn ${stateClass}" style="background-color: ${c.hex}" data-tooltip="${tooltip}" onclick="selectColor(this, '${c.id}')"></button>`;
+            });
+
+            openModal('productModal');
+        }
+
+        function selectMaterial(btn, mat) {
+            document.querySelectorAll('.mat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedMaterial = mat;
+        }
+
+        function selectColor(btn, colorId) {
+            const colorObj = globalColors.find(c => c.id === colorId);
+            if(!colorObj.inStock) return; // Block out of stock
+
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedColor = colorObj;
+            document.getElementById('pm-color-name').innerText = `- ${colorObj.name}`;
+            
+            // Apply overlay color tint
+            document.getElementById('pm-overlay').style.backgroundColor = colorObj.hex;
+        }
+
+        function addToCart() {
+            if(!selectedColor) { showToast("Please select a color first."); return; }
+            cart.push({ product: activeProduct, color: selectedColor, material: selectedMaterial });
+            updateCartCount();
+            showToast(`${activeProduct.name} added to cart!`);
+            closeModal('productModal');
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cart.length;
+        }
+
+        function openCart() {
+            const list = document.getElementById('cartItemsList');
+            list.innerHTML = '';
+            let total = 0;
+
+            if(cart.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted);">Cart is empty.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.product.price;
+                    list.innerHTML += `
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);">
+                            <div style="display:flex; align-items:center; gap:1rem;">
+                                <div style="width:20px; height:20px; border-radius:50%; background:${item.color.hex}; border:1px solid var(--border-color);"></div>
+                                <div>
+                                    <div style="font-weight:bold;">${item.product.name}</div>
+                                    <div style="font-size:0.8rem; color:var(--text-muted);">${item.material} | ${item.color.name}</div>
+                                </div>
+                            </div>
+                            <div style="font-family:var(--font-tech);">€${item.product.price.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('cartTotalUI').innerText = `€${total.toFixed(2)}`;
+            openModal('cartModal');
+        }
+
+        function processCheckout() {
+            if(cart.length === 0) { showToast("Cart is empty!"); return; }
+            const method = document.querySelector('input[name="payment"]:checked').value;
+            showToast(`Processing ${method === 'card' ? 'Card Payment' : 'Cash on Delivery'}...`);
+            setTimeout(() => {
+                cart = []; updateCartCount();
+                closeModal('cartModal');
+                showToast("Order Placed Successfully!");
+            }, 1500);
+        }
+
+        /* --- 4. CONTACT & ADMIN LOGIC --- */
+        let adminMessages = [];
+
+        function submitContact() {
+            const name = document.getElementById('reqName').value;
+            const email = document.getElementById('reqEmail').value;
+            const msg = document.getElementById('reqMessage').value;
+            if(!name || !email || !msg) { showToast("Please fill all fields."); return; }
+            
+            adminMessages.push({ name, email, msg });
+            showToast("Request sent! Admin will review it.");
+            document.getElementById('reqName').value = ''; document.getElementById('reqEmail').value = ''; document.getElementById('reqMessage').value = '';
+            renderAdminMessages(); // update backend view implicitly
+        }
+
+        function processLogin() {
+            const email = document.getElementById('loginEmail').value;
+            closeModal('loginModal');
+            if(email.includes('admin')) {
+                document.getElementById('navAdminBtn').style.display = 'block';
+                showToast("Admin logged in.");
+                renderAdminStock();
+                renderAdminMessages();
+                navigateTo('view-admin'); 
+            } else {
+                showToast("Logged in successfully.");
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('navAdminBtn').style.display = 'none';
+            navigateTo('view-home');
+            showToast("Admin logged out.");
+        }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('admin-stock').style.display = tab === 'stock' ? 'block' : 'none';
+            document.getElementById('admin-messages').style.display = tab === 'messages' ? 'block' : 'none';
+        }
+
+        function renderAdminStock() {
+            const tbody = document.getElementById('stockTableBody');
+            tbody.innerHTML = '';
+            globalColors.forEach(c => {
+                const btnClass = c.inStock ? 'toggle-on' : 'toggle-off';
+                const btnText = c.inStock ? 'In Stock' : 'Out of Stock';
+                tbody.innerHTML += `
+                    <tr>
+                        <td><div style="display:flex; align-items:center; gap:10px;"><div style="width:15px;height:15px;border-radius:50%;background:${c.hex}"></div> ${c.name}</div></td>
+                        <td style="font-family:var(--font-tech);">${c.hex}</td>
+                        <td><button class="toggle-btn ${btnClass}" onclick="toggleStock('${c.id}')">${btnText}</button></td>
+                        <td><button class="btn-outline" style="padding:0.2rem 0.5rem; border-radius:4px;"><i class="fas fa-edit"></i></button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function toggleStock(id) {
+            const col = globalColors.find(c => c.id === id);
+            col.inStock = !col.inStock;
+            renderAdminStock(); // re-render table
+            showToast(`${col.name} stock updated.`);
+        }
+
+        function renderAdminMessages() {
+            const tbody = document.getElementById('messagesTableBody');
+            if(adminMessages.length === 0) return;
+            tbody.innerHTML = '';
+            adminMessages.forEach(m => {
+                tbody.innerHTML += `<tr><td>${m.name}</td><td>${m.email}</td><td>${m.msg}</td></tr>`;
+            });
+        }
+
+        /* --- 5. GENERAL SPA UTILS --- */
+        function navigateTo(viewId) {
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            if(event && event.target.tagName === 'A') event.target.classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            if(viewId === 'view-shop' && products.length > 0 && document.getElementById('shopGrid').innerHTML.trim() === '') {
+                renderShop(); // render lazy
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-info-circle"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.animation = 'fadeOut 0.3s ease forwards'; setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
         function toggleTheme() {
             const html = document.documentElement;
-            // Check current theme
-            const isDark = html.getAttribute('data-theme') === 'dark';
-            // Switch
-            if (isDark) {
+            if (html.getAttribute('data-theme') === 'dark') {
                 html.removeAttribute('data-theme');
                 document.getElementById('themeIcon').className = 'fas fa-moon';
             } else {
@@ -642,220 +812,11 @@
             }
         }
 
-        // 1. DICȚIONAR DE TRADUCERI (i18n)
-        const translations = {
-            en: {
-                nav_home: "Home", nav_shop: "Shop", nav_contact: "Contact", btn_login: "Login",
-                hero_desc: "From rapid industrial prototyping to high-performance spare parts (ABS, PETG, Nylon), to custom configurators directly in your browser.",
-                btn_upload: "Upload STL", btn_explore: "Explore Services",
-                stat_time: "Response Time", stat_prec: "Print Precision", stat_inhouse: "In-House Gengenbach",
-                sec_apps: "Applications & Configurators", sec_solutions: "Complete Solutions",
-                card1_title: "Custom Keychains", card1_desc: "Customize keychains with your text. Live preview on platform with automatic pricing.", btn_config: "Configurator",
-                card2_title: "Spare Parts", card2_desc: "We replace broken parts for appliances. CAD re-design included for superior strength.", price_request: "On Request", btn_request: "Request",
-                card3_title: "Rapid Prototyping", card3_desc: "Mechanical validation for engineers. Printed in PLA+, PETG, ABS or flexible TPU.", price_volume: "Per Volume",
-                upload_sub: "Have your own file?", upload_desc: "Our system analyzes your file geometry, estimates filament and print time, generating instant pricing.", upload_btn: "Click or Drag & Drop",
-                shop_desc: "Pre-designed items ready to be customized and printed.",
-                form_name: "Name", form_msg: "Message", btn_send: "Send Message",
-                cart_empty: "Your cart is empty.", toast_dev: "Module in development.", msg_sent: "Message sent successfully!", login_success: "Login successful!"
-            },
-            ro: {
-                nav_home: "Acasă", nav_shop: "Magazin", nav_contact: "Contact", btn_login: "Cont",
-                hero_desc: "De la prototipare rapidă industrială și piese de schimb din materiale de înaltă performanță, până la configuratoare direct în browser.",
-                btn_upload: "Încarcă STL", btn_explore: "Explorează Servicii",
-                stat_time: "Timp Răspuns", stat_prec: "Precizie Print", stat_inhouse: "Producție Locală",
-                sec_apps: "Aplicații & Configuratoare", sec_solutions: "Soluții Complete",
-                card1_title: "Brelocuri Custom", card1_desc: "Personalizează brelocuri cu textul tău. Previzualizare live pe platformă și calcul automat.", btn_config: "Configurează",
-                card2_title: "Piese de Schimb", card2_desc: "Înlocuim piese rupte pentru aparate. Re-proiectare CAD inclusă pentru rezistență.", price_request: "La Cerere", btn_request: "Solicită",
-                card3_title: "Prototipare", card3_desc: "Validare mecanică pentru ingineri. Printăm în PLA+, PETG, ABS sau TPU flexibil.", price_volume: "Per Volum",
-                upload_sub: "Ai propriul fișier?", upload_desc: "Sistemul nostru analizează geometria, estimează filamentul și generează prețul pe loc.", upload_btn: "Apasă sau Drag & Drop",
-                shop_desc: "Obiecte gata de a fi personalizate și printate.",
-                form_name: "Nume", form_msg: "Mesajul tău", btn_send: "Trimite Mesaj",
-                cart_empty: "Coșul este gol momentan.", toast_dev: "Modul în dezvoltare.", msg_sent: "Mesaj trimis cu succes!", login_success: "Autentificare reușită!"
-            },
-            de: {
-                nav_home: "Startseite", nav_shop: "Shop", nav_contact: "Kontakt", btn_login: "Anmelden",
-                hero_desc: "Vom schnellen industriellen Prototyping bis hin zu Hochleistungsersatzteilen und benutzerdefinierten Konfiguratoren direkt in Ihrem Browser.",
-                btn_upload: "STL Hochladen", btn_explore: "Dienste Entdecken",
-                stat_time: "Reaktionszeit", stat_prec: "Druckpräzision", stat_inhouse: "In-House Gengenbach",
-                sec_apps: "Anwendungen & Konfiguratoren", sec_solutions: "Komplette Lösungen",
-                card1_title: "Eigene Schlüsselanhänger", card1_desc: "Passen Sie Schlüsselanhänger mit Ihrem Text an. Live-Vorschau mit automatischer Preisgestaltung.", btn_config: "Konfigurieren",
-                card2_title: "Ersatzteile", card2_desc: "Wir ersetzen defekte Teile. CAD-Redesign für überlegene Festigkeit inklusive.", price_request: "Auf Anfrage", btn_request: "Anfragen",
-                card3_title: "Prototyping", card3_desc: "Mechanische Validierung für Ingenieure. Gedruckt in PLA+, PETG, ABS oder TPU.", price_volume: "Pro Volumen",
-                upload_sub: "Eigene Datei?", upload_desc: "Unser System analysiert die Geometrie, schätzt Filament und generiert sofort einen Preis.", upload_btn: "Klicken oder Drag & Drop",
-                shop_desc: "Vorgefertigte Artikel, bereit zur Anpassung und zum Druck.",
-                form_name: "Name", form_msg: "Nachricht", btn_send: "Nachricht Senden",
-                cart_empty: "Ihr Warenkorb ist leer.", toast_dev: "Modul in Entwicklung.", msg_sent: "Nachricht erfolgreich gesendet!", login_success: "Erfolgreich angemeldet!"
-            }
-        };
+        // Minimal dummy i18n
+        function changeLanguage(val) { showToast("Language changed to " + val.toUpperCase()); }
 
-        let currentLang = 'en'; // DEFAULT LANGUAGE
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if(translations[lang][key]) {
-                    element.innerHTML = translations[lang][key];
-                }
-            });
-            // Update hero special formatting
-            if(lang === 'ro') document.getElementById('hero_title').innerHTML = "Inginerie 3D <br><span style='color: var(--accent-primary);'>Fără Compromisuri</span>";
-            if(lang === 'de') document.getElementById('hero_title').innerHTML = "3D Engineering <br><span style='color: var(--accent-primary);'>Ohne Kompromisse</span>";
-            if(lang === 'en') document.getElementById('hero_title').innerHTML = "3D Engineering <br><span style='color: var(--accent-primary);'>Without Compromise</span>";
-        }
-
-        // Initialize Language
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('langSelector').value = currentLang;
-            changeLanguage(currentLang);
-        });
-
-        // 2. SISTEM DE PAGINI (SPA ROUTING)
-        function navigateTo(viewId) {
-            document.querySelectorAll('.view-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.getElementById(viewId).classList.add('active');
-            if(event) event.currentTarget.classList.add('active');
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        // 3. UI INTERACTIVITY
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) { 
-                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-            } else { 
-                header.style.boxShadow = 'none'; 
-            }
-        });
-
-        function showToast(message) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.animation = 'fadeOut 0.3s ease forwards';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-        let cartTotal = 0;
-        function addToCartUI() {
-            cartTotal++;
-            document.getElementById('cartCount').innerText = cartTotal;
-            showToast("Item added to cart!");
-            closeModal('configModal');
-        }
-
-        function simulateUpload() {
-            showToast("Opening File Explorer...");
-            setTimeout(() => showToast("Processing 3D Geometry..."), 1500);
-        }
-
-        // 4. ADMIN & LOGIN LOGIC
-        let isAdmin = false;
-        function processLogin() {
-            const email = document.getElementById('loginEmail').value;
-            closeModal('loginModal');
-            
-            if(email.includes('admin')) {
-                isAdmin = true;
-                document.getElementById('navAdminBtn').style.display = 'block';
-                document.getElementById('loginBtnUI').innerHTML = `<i class="fas fa-user-shield"></i> Admin`;
-                showToast("Admin access granted.");
-                navigateTo('view-admin'); 
-            } else {
-                showToast(translations[currentLang].login_success);
-            }
-        }
-        
-        function logoutAdmin() {
-            isAdmin = false;
-            document.getElementById('navAdminBtn').style.display = 'none';
-            document.getElementById('loginBtnUI').innerHTML = `<i class="fas fa-user"></i> <span data-i18n="btn_login">${translations[currentLang].btn_login}</span>`;
-            showToast("Logged out successfully.");
-            navigateTo('view-home');
-        }
-
-        // 5. CANVAS RENDERER PENTRU BRELOC
-        const canvas = document.getElementById('previewCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function openConfigurator() {
-            openModal('configModal');
-            setTimeout(renderCanvas, 100);
-        }
-
-        function renderCanvas() {
-            let text = document.getElementById('brelocText').value.toUpperCase().trim();
-            if (!text) text = " ";
-            const baseColor = document.getElementById('baseColor').value;
-            const textColor = document.getElementById('textColor').value;
-            
-            const letterCount = text.replace(/\s/g, '').length;
-            const total = (3.00 + (letterCount * 0.50)).toFixed(2);
-            document.getElementById('priceDisplay').innerText = `€${total}`;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.font = "bold 44px 'Bebas Neue', sans-serif";
-            const textWidth = ctx.measureText(text).width;
-            
-            const paddingX = 40; const ringSpace = 50;
-            const rectWidth = Math.max(160, textWidth + paddingX * 2 + ringSpace);
-            const rectHeight = 70;
-            const startX = (canvas.width - rectWidth) / 2;
-            const startY = (canvas.height - rectHeight) / 2;
-
-            const shadowColor = shadeHEX(baseColor, -30);
-            ctx.fillStyle = shadowColor;
-            roundRect(ctx, startX, startY + 8, rectWidth, rectHeight, 35);
-            ctx.fill();
-
-            ctx.fillStyle = baseColor;
-            roundRect(ctx, startX, startY, rectWidth, rectHeight, 35);
-            ctx.fill();
-
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath(); ctx.arc(startX + 35, startY + (rectHeight/2), 12, 0, Math.PI * 2); ctx.fill();
-            
-            ctx.globalCompositeOperation = 'source-over';
-            ctx.strokeStyle = shadowColor; ctx.lineWidth = 3;
-            ctx.beginPath(); ctx.arc(startX + 35, startY + (rectHeight/2), 12, 0, Math.PI * 2); ctx.stroke();
-
-            const textX = startX + ringSpace + (rectWidth - ringSpace) / 2;
-            const textY = startY + (rectHeight / 2) + 2;
-            
-            ctx.textAlign = "center"; ctx.textBaseline = "middle";
-            ctx.fillStyle = shadeHEX(textColor, -40);
-            for(let i = 4; i > 0; i--) ctx.fillText(text, textX, textY + i);
-            
-            ctx.fillStyle = textColor;
-            ctx.fillText(text, textX, textY);
-        }
-
-        function roundRect(ctx, x, y, width, height, radius) {
-            ctx.beginPath(); ctx.moveTo(x + radius, y); ctx.lineTo(x + width - radius, y);
-            ctx.quadraticCurveTo(x + width, y, x + width, y + radius); ctx.lineTo(x + width, y + height - radius);
-            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height); ctx.lineTo(x + radius, y + height);
-            ctx.quadraticCurveTo(x, y + height, x, y + height - radius); ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y); ctx.closePath();
-        }
-
-        function shadeHEX(color, percent) {
-            let R = parseInt(color.substring(1,3),16); let G = parseInt(color.substring(3,5),16); let B = parseInt(color.substring(5,7),16);
-            R = parseInt(R * (100 + percent) / 100); G = parseInt(G * (100 + percent) / 100); B = parseInt(B * (100 + percent) / 100);
-            R = (R<255)?R:255; R = (R>0)?R:0; G = (G<255)?G:255; G = (G>0)?G:0; B = (B<255)?B:255; B = (B>0)?B:0;
-            return "#"+((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16))+((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16))+((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
-        }
+        // Initial render triggers
+        renderShop();
     </script>
 </body>
 </html>
