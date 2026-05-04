@@ -17,7 +17,6 @@
     <style>
         /* --- Variabile Globale & Theming --- */
         :root {
-            /* LIGHT THEME (Default) */
             --bg-base: #ffffff;
             --bg-surface: #f9f9f9;
             --bg-card: #ffffff;
@@ -51,7 +50,6 @@
         }
 
         [data-theme="dark"] {
-            /* DARK THEME */
             --bg-base: #0a0a0c;
             --bg-surface: #121214;
             --bg-card: #16161a;
@@ -73,25 +71,13 @@
 
         /* --- Reset & Base --- */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            transition: background-color 0.4s ease, color 0.4s ease;
-        }
-
+        body { background-color: var(--bg-base); color: var(--text-main); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; transition: background-color 0.4s ease, color 0.4s ease; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 8px; }
-
         h1, h2, h3, h4 { font-family: var(--font-head); letter-spacing: 1px; font-weight: normal; }
         a { text-decoration: none; color: inherit; transition: var(--transition); cursor: pointer; }
         button { font-family: inherit; cursor: pointer; outline: none; border: none; }
-        
         .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
         .page-padding { padding-top: 120px; padding-bottom: 80px; }
 
@@ -100,16 +86,11 @@
         .text-muted { color: var(--text-muted); }
 
         /* --- Loading Screen --- */
-        #loader {
-            position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
-        }
+        #loader { position: fixed; inset: 0; background: var(--bg-base); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
         #loader img { height: 80px; width: 80px; border-radius: 50%; margin-bottom: 1rem; animation: pulse 2s infinite; background: transparent; object-fit: cover;}
         #loader h2 { font-size: 2.5rem; letter-spacing: 2px; color: var(--text-main); margin-bottom: 2rem;}
         .loading-bar { width: 200px; height: 4px; background: var(--border-color); border-radius: 2px; overflow: hidden; }
         .loading-progress { width: 0%; height: 100%; background: var(--accent-primary); animation: load 2s ease forwards; }
-
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         @keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
 
@@ -118,86 +99,56 @@
         .view-section.active { display: block; opacity: 1; }
 
         /* --- Components --- */
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-            padding: 0.8rem 2rem; border-radius: 50px; font-weight: 500; font-size: 1rem;
-            transition: var(--transition);
-        }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 500; font-size: 1rem; transition: var(--transition); }
         .btn-primary { background: var(--text-main); color: var(--bg-base); }
         .btn-primary:hover { background: var(--accent-primary); color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-md); }
         .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
         .btn-outline:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
         .btn-accent { background: var(--accent-primary); color: white; border-radius: 8px;}
         .btn-accent:hover { background: var(--accent-hover); }
-        
         .btn-google { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); width: 100%; justify-content: center; display: flex; align-items: center; gap: 10px; font-weight: 600; padding: 0.8rem; border-radius: 8px; transition: var(--transition); cursor: pointer; }
         .btn-google:hover { background: var(--bg-surface); border-color: var(--text-muted); }
-
         .star-rating i { color: var(--border-color); font-size: 2.5rem; cursor: pointer; transition: 0.2s; }
         .star-rating i.active, .star-rating i:hover, .star-rating i:hover ~ i { color: var(--accent-primary); }
 
         /* --- Navbar --- */
-        header {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: transparent; transition: var(--transition); padding: 1rem 0;
-        }
+        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: transparent; transition: var(--transition); padding: 1rem 0; }
         header.scrolled { background: var(--nav-bg); backdrop-filter: blur(10px); box-shadow: var(--shadow-sm); padding: 0.5rem 0; }
         .nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 60px; }
-        .logo { font-family: var(--font-head); font-size: 2rem; display: flex; align-items: center; gap: 0.5rem;}
+        .logo { font-family: var(--font-head); font-size: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main); }
         .logo img { height: 35px; width: 35px; border-radius: 50%; object-fit: cover; background: transparent; }
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: var(--text-main); opacity: 0.7; }
         .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-primary); }
         .nav-tools { display: flex; align-items: center; gap: 1.5rem; }
-        
-        .lang-switch {
-            background: transparent; color: var(--text-main) !important; border: none; 
-            font-family: var(--font-tech); font-size: 0.9rem; cursor: pointer; outline: none;
-        }
+        .lang-switch { background: transparent; color: var(--text-main) !important; border: none; font-family: var(--font-tech); font-size: 0.9rem; cursor: pointer; outline: none; }
         .lang-switch option { background: var(--bg-card); color: var(--text-main); }
-        
         .icon-btn { background: transparent; color: var(--text-main); font-size: 1.2rem; position: relative; }
         .icon-btn:hover { color: var(--accent-primary); }
         .badge { position: absolute; top: -5px; right: -8px; background: var(--accent-primary); color: #fff; font-size: 0.6rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;}
 
         /* --- Hero Section --- */
-        .hero {
-            min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center;
-            position: relative; padding-top: 60px; overflow: hidden;
-        }
-        .hero-bg {
-            position: absolute; inset: -10px; z-index: 0;
-            background-image: url('mountain.png');
-            background-size: cover; background-position: center;
-            opacity: 0.8;
-            transition: opacity 0.4s;
-        }
+        .hero { min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; padding-top: 60px; overflow: hidden; }
+        .hero-bg { position: absolute; inset: -10px; z-index: 0; background-image: url('mountain.png'); background-size: cover; background-position: center; opacity: 0.8; transition: opacity 0.4s; }
         [data-theme="dark"] .hero-bg { opacity: 0.4; }
-        .hero::after {
-            content: ''; position: absolute; inset: 0; z-index: 1;
-            background: linear-gradient(to bottom, var(--hero-overlay) 0%, var(--bg-base) 100%);
-        }
+        .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, var(--hero-overlay) 0%, var(--bg-base) 100%); }
         .hero-content { max-width: 800px; position: relative; z-index: 2; }
         .hero h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; margin-bottom: 1.5rem; text-transform: uppercase; }
-        .hero p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 500px; margin-inline: auto; font-weight: 500;}
+        .hero p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 2.5rem; max-width: 500px; margin-inline: auto; font-weight: 500;}
 
-        /* --- Clean Cards (Home, Shop & Reviews) --- */
+        /* --- Clean Cards --- */
         .section-header { text-align: center; margin-bottom: 3rem; }
         .section-title { font-size: 3rem; }
-        
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
-        
         .clean-card { display: flex; flex-direction: column; cursor: pointer; transition: var(--transition); background: var(--bg-card); border-radius: var(--radius-md); padding: 1rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
         .clean-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--border-color); }
         .card-img-box { background: var(--product-bg); border-radius: var(--radius-sm); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 1rem; transition: var(--transition); position: relative; }
         .card-img-box img { max-width: 80%; max-height: 80%; object-fit: contain; mix-blend-mode: multiply; transition: 0.3s; }
         [data-theme="dark"] .card-img-box img { mix-blend-mode: normal; }
-        
         .card-info { padding: 0 0.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
         .card-title { font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.2rem; color: var(--text-main); }
         .card-desc { color: var(--text-muted); font-size: 0.9rem; }
         .card-price { font-family: var(--font-tech); font-weight: bold; color: var(--text-main); font-size: 1.1rem; }
-        
         .cat-img { width: 100%; height: 100%; object-fit: cover !important; mix-blend-mode: normal !important; border-radius: var(--radius-sm); }
 
         /* --- Reviews --- */
@@ -216,12 +167,10 @@
         .carousel-images { display: flex; transition: transform 0.4s ease-in-out; width: 100%; height: 100%; align-items: center;}
         .carousel-images img { flex: 0 0 100%; max-width: 100%; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: 0.3s; }
         [data-theme="dark"] .carousel-images img { mix-blend-mode: normal; }
-        
         .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; opacity: 0.6; transition: 0.2s; }
         .carousel-arrow:hover { opacity: 1; background: var(--text-main); color: var(--bg-base); }
         .carousel-arrow.left { left: 10px; }
         .carousel-arrow.right { right: 10px; }
-        
         .carousel-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
         .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.2); cursor: pointer; transition: 0.3s; }
         [data-theme="dark"] .carousel-dot { background: rgba(255,255,255,0.2); }
@@ -230,34 +179,26 @@
         /* --- Product Modals Shared --- */
         .prod-modal-body { display: flex; gap: 2rem; flex-wrap: wrap; }
         .prod-image-col { flex: 1; min-width: 250px; background: var(--product-bg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; padding: 1rem; position: relative; overflow:hidden;}
-        
         .color-overlay { position: absolute; inset: 0; background: transparent; mix-blend-mode: color; z-index: 3; pointer-events: none; transition: 0.3s; border-radius: var(--radius-md);}
-        
         .prod-details-col { flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: flex-start;}
         .prod-title { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-main); }
         .prod-price { font-family: var(--font-tech); font-size: 1.8rem; font-weight: bold; margin-bottom: 1.5rem; color: var(--accent-primary); }
         .option-label { font-size: 0.85rem; text-transform: uppercase; font-weight: bold; margin-bottom: 0.5rem; display: block; color: var(--text-muted); }
         
-        /* Selectors */
         .color-selector { display: flex; gap: 0.8rem; margin-bottom: 1.5rem; flex-wrap: wrap;}
         .color-btn { width: 35px; height: 35px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; position: relative; transition: 0.2s; }
         .color-btn.active { border-color: var(--accent-primary); transform: scale(1.1); box-shadow: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--accent-primary); }
         .color-btn.disabled { opacity: 0.3; cursor: not-allowed; }
         .color-btn.disabled::after { content: ''; position: absolute; top: 50%; left: -5px; right: -5px; height: 2px; background: red; transform: translateY(-50%) rotate(45deg); }
-        
-        .color-btn[data-tooltip]::before, .mat-btn[data-tooltip]::before {
-            content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-base); padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s; font-family: var(--font-body); font-weight: normal; z-index: 10;
-        }
+        .color-btn[data-tooltip]::before, .mat-btn[data-tooltip]::before { content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-base); padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s; font-family: var(--font-body); font-weight: normal; z-index: 10; }
         .color-btn:hover::before, .mat-btn:hover::before { opacity: 1; }
 
         .mat-selector { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap:wrap; }
         .mat-btn { padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); border-radius: 6px; cursor: pointer; font-family: var(--font-tech); transition: 0.2s; position: relative;}
         .mat-btn.active { background: var(--accent-primary); color: #fff; border-color: var(--accent-primary); }
-
         .shape-selector, .size-selector, .font-selector { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap:wrap; }
         .sel-btn { padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); border-radius: 6px; cursor: pointer; transition: 0.2s; }
         .sel-btn.active { background: var(--text-main); color: var(--bg-base); border-color: var(--text-main); }
-        
         .form-control { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); border-radius: var(--radius-sm); font-family: var(--font-body); outline: none; margin-bottom:1.5rem; transition: border 0.3s ease;}
         .form-control:focus { border-color: var(--accent-primary); }
 
@@ -289,18 +230,15 @@
         .action-btn-success:hover { background: rgba(18, 109, 46, 0.1); }
         .admin-badge { background: #dc2626; color: #fff; padding: 2px 6px; border-radius: 12px; font-size: 0.7rem; margin-left: 6px; font-family: var(--font-tech); vertical-align: middle; }
 
-        /* Profile specific */
         .profile-card { background: var(--bg-card); border-radius: var(--radius-md); padding: 1.5rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); height: 100%;}
         .address-item, .order-item, .voucher-item { padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); }
         
-        /* Product Reviews List */
         .product-reviews-container { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); width: 100%; }
         .review-item { padding: 0.8rem 1rem; background: var(--bg-card); border-radius: var(--radius-sm); border: 1px solid var(--border-light); margin-bottom: 0.8rem;}
         
         /* --- Toasts --- */
         .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; }
         .toast { background: var(--text-main); color: var(--bg-base); padding: 1rem 1.5rem; border-radius: var(--radius-sm); font-size: 0.95rem; box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 1rem; animation: slideInRight 0.3s ease forwards; border-left: 4px solid var(--accent-primary); }
-
         @keyframes slideInRight { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
         
         @media (max-width: 768px) {
@@ -397,6 +335,30 @@
                             <div><div class="card-title" data-i18n="cap_parts">Part Replacement</div><div class="card-desc text-muted" data-i18n="cap_parts_desc">Reverse engineering & printing</div></div>
                         </div>
                     </div>
+                    <div class="clean-card" onclick="navigateTo('view-custom')" style="border:none;">
+                        <div class="card-img-box">
+                            <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="Rapid Prototyping">
+                        </div>
+                        <div class="card-info">
+                            <div><div class="card-title" data-i18n="cap_proto">Rapid Prototyping</div><div class="card-desc text-muted" data-i18n="cap_proto_desc">Quick mechanical validation</div></div>
+                        </div>
+                    </div>
+                    <div class="clean-card" onclick="navigateTo('view-contact')" style="border:none;">
+                        <div class="card-img-box">
+                            <img src="https://images.unsplash.com/photo-1536859355448-76f92ebdc33d?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="CAD Design">
+                        </div>
+                        <div class="card-info">
+                            <div><div class="card-title" data-i18n="cap_cad">CAD Design</div><div class="card-desc text-muted" data-i18n="cap_cad_desc">From sketch to 3D model</div></div>
+                        </div>
+                    </div>
+                    <div class="clean-card" onclick="navigateTo('view-contact')" style="border:none;">
+                        <div class="card-img-box">
+                            <img src="https://images.unsplash.com/photo-1565439390236-c4d3ceee3991?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="Batch Production">
+                        </div>
+                        <div class="card-info">
+                            <div><div class="card-title" data-i18n="cap_batch">Batch Production</div><div class="card-desc text-muted" data-i18n="cap_batch_desc">Small to medium runs</div></div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -406,7 +368,36 @@
                     <h2 class="section-title"><span data-i18n="reviews_title">What our</span> <span class="text-accent" data-i18n="reviews_clients">Clients Say</span></h2>
                 </div>
                 <div class="grid-3" id="homeReviewsGrid">
-                    <!-- Populated via JS -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://ui-avatars.com/api/?name=Markus+T&background=126d2e&color=fff" class="review-avatar" alt="User">
+                            <div>
+                                <div style="font-weight: bold; font-family: var(--font-body); color: var(--text-main);">Markus T.</div>
+                                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            </div>
+                        </div>
+                        <p class="text-muted" data-i18n="rev_1">"I sent them a broken gear from my mixer. They modeled it perfectly and printed it in ABS. It works better than the original!"</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://ui-avatars.com/api/?name=Elena+V&background=126d2e&color=fff" class="review-avatar" alt="User">
+                            <div>
+                                <div style="font-weight: bold; font-family: var(--font-body); color: var(--text-main);">Elena V.</div>
+                                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            </div>
+                        </div>
+                        <p class="text-muted" data-i18n="rev_2">"The lithophane I ordered for my parents' anniversary was stunning. Such an amazing and emotional gift."</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+J&background=126d2e&color=fff" class="review-avatar" alt="User">
+                            <div>
+                                <div style="font-weight: bold; font-family: var(--font-body); color: var(--text-main);">Sarah J.</div>
+                                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            </div>
+                        </div>
+                        <p class="text-muted" data-i18n="rev_3">"The wall text configurator is brilliant. Fast delivery, flawless finish. My studio looks great now."</p>
+                    </div>
                 </div>
             </section>
         </main>
@@ -416,7 +407,6 @@
             <div class="section-header">
                 <h2 class="section-title"><span class="text-accent" data-i18n="nav_shop">Shop</span> <span data-i18n="shop_col">Collection</span></h2>
             </div>
-            
             <div class="category-bar" id="shopCategories"></div>
             <div class="grid-3" id="shopGrid"></div>
         </main>
@@ -437,10 +427,16 @@
                 </div>
 
                 <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); margin-top: 2rem;">
-                    <input type="text" id="cqName" class="form-control" placeholder="Your Name">
-                    <input type="email" id="cqEmail" class="form-control" placeholder="Email Address">
-                    <textarea id="cqNotes" class="form-control" rows="4" placeholder="Additional notes (e.g., Required material, color preference, specific infill)"></textarea>
-                    <button class="btn btn-primary" style="width: 100%;" onclick="submitCustomQuote()" data-i18n="btn_sendquote">Send Request for Quote</button>
+                    <span class="option-label" data-i18n="lbl_fullname">Full Name</span>
+                    <input type="text" id="cqName" class="form-control" data-i18n-placeholder="ph_name" placeholder="Your Name">
+                    
+                    <span class="option-label" data-i18n="lbl_email">Email Address</span>
+                    <input type="email" id="cqEmail" class="form-control" data-i18n-placeholder="ph_email" placeholder="Email Address">
+                    
+                    <span class="option-label" data-i18n="lbl_notes">Notes</span>
+                    <textarea id="cqNotes" class="form-control" rows="4" data-i18n-placeholder="ph_notes" placeholder="Additional notes..."></textarea>
+                    
+                    <button class="btn btn-primary" style="width: 100%;" onclick="submitCustomQuote()" data-i18n="btn_sendquote">Send Request</button>
                 </div>
             </div>
         </main>
@@ -448,7 +444,7 @@
         <!-- ================= VIEW: CONTACT ================= -->
         <main id="view-contact" class="view-section page-padding container">
             <h2 class="section-title text-center" style="margin-bottom: 3rem;"><span data-i18n="contact_get">Get in</span> <span class="text-accent" data-i18n="contact_send">Touch</span></h2>
-            <p class="text-center text-muted" style="max-width: 700px; margin: 0 auto 3rem auto;" data-i18n="contact_desc">Our engineering team is here to help bring your ideas to life. Whether you need a custom quote, have questions about our materials, or want to discuss a large-scale project, reach out to us via our channels.</p>
+            <p class="text-center text-muted" style="max-width: 700px; margin: 0 auto 3rem auto;" data-i18n="contact_desc">Our engineering team is here to help bring your ideas to life. Reach out to us via our channels or leave a message below.</p>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
                 <div>
@@ -464,9 +460,9 @@
                 </div>
                 <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); display: flex; flex-direction: column;">
                     <h3 style="margin-bottom: 1.5rem; font-size: 1.8rem; color: var(--text-main);" data-i18n="contact_send_msg">Send a Message</h3>
-                    <input type="text" id="reqName" class="form-control" placeholder="Your Name">
-                    <input type="email" id="reqEmail" class="form-control" placeholder="Email Address">
-                    <textarea id="reqMessage" class="form-control" rows="5" placeholder="How can we help you?"></textarea>
+                    <input type="text" id="reqName" class="form-control" data-i18n-placeholder="ph_name" placeholder="Your Name">
+                    <input type="email" id="reqEmail" class="form-control" data-i18n-placeholder="ph_email" placeholder="Email Address">
+                    <textarea id="reqMessage" class="form-control" rows="5" data-i18n-placeholder="ph_message" placeholder="How can we help you?"></textarea>
                     <button class="btn btn-primary" style="width: 100%;" onclick="submitContact()" data-i18n="btn_send">Send Message</button>
                 </div>
             </div>
@@ -492,19 +488,18 @@
                         
                         <div style="display: grid; grid-template-columns: 1fr; gap: 0.8rem;">
                             <div>
-                                <span class="option-label" style="margin-bottom: 0.2rem;">Full Name</span>
-                                <input type="text" id="profName" class="form-control" placeholder="Your Name" style="margin-bottom: 0;">
+                                <span class="option-label" style="margin-bottom: 0.2rem;" data-i18n="lbl_fullname">Full Name</span>
+                                <input type="text" id="profName" class="form-control" data-i18n-placeholder="ph_name" placeholder="Your Name" style="margin-bottom: 0;">
                             </div>
                             <div>
-                                <span class="option-label" style="margin-bottom: 0.2rem;">Email Address</span>
-                                <input type="email" id="profEmail" class="form-control" placeholder="Email" readonly style="opacity:0.6; margin-bottom: 0;">
+                                <span class="option-label" style="margin-bottom: 0.2rem;" data-i18n="lbl_email">Email Address</span>
+                                <input type="email" id="profEmail" class="form-control" data-i18n-placeholder="ph_email" placeholder="Email" readonly style="opacity:0.6; margin-bottom: 0;">
                             </div>
                             <div>
-                                <span class="option-label" style="margin-bottom: 0.2rem;">Phone Number</span>
-                                <input type="tel" id="profPhone" class="form-control" placeholder="+40 700 000 000" style="margin-bottom: 0;">
+                                <span class="option-label" style="margin-bottom: 0.2rem;" data-i18n="lbl_phone">Phone Number</span>
+                                <input type="tel" id="profPhone" class="form-control" data-i18n-placeholder="ph_phone" placeholder="+40 700 000 000" style="margin-bottom: 0;">
                             </div>
                         </div>
-                        
                         <button class="btn btn-primary" style="width:100%; margin-top: 1.2rem; padding: 0.6rem;" onclick="saveUserProfile()" data-i18n="prof_save">Save Changes</button>
                     </div>
 
@@ -544,7 +539,7 @@
         <main id="view-admin" class="view-section page-padding container">
             <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                 <h2 class="section-title" style="margin:0;">Admin <span class="text-accent">Panel</span></h2>
-                <button class="btn btn-outline" onclick="logoutAdmin()">Logout</button>
+                <button class="btn btn-outline" onclick="logoutAdmin()" data-i18n="btn_logout">Logout</button>
             </div>
             
             <div class="admin-nav">
@@ -555,17 +550,17 @@
                 <button onclick="switchAdminTab('vouchers')"><span data-i18n="admin_tab_vouchers">Vouchers</span></button>
                 <button onclick="switchAdminTab('quotes')"><span data-i18n="admin_tab_quotes">Price Requests</span> <span class="admin-badge" id="badge-quotes" style="display:none;">0</span></button>
                 <button onclick="switchAdminTab('reviews')"><span data-i18n="admin_tab_reviews">Reviews Moderation</span> <span class="admin-badge" id="badge-reviews" style="display:none;">0</span></button>
-                <button onclick="switchAdminTab('messages')"><span data-i18n="admin_tab_msg">Messages</span></button>
+                <button onclick="switchAdminTab('messages')"><span data-i18n="admin_tab_msg">Messages</span> <span class="admin-badge" id="badge-messages" style="display:none;">0</span></button>
             </div>
 
-            <!-- Tab: Stock (Material + Color) -->
+            <!-- Tab: Stock -->
             <div id="admin-stock" class="admin-panel-tab">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
                     <h3 style="color:var(--text-main);" data-i18n="admin_stock_title">Manage Materials & Colors</h3>
-                    <button class="btn btn-accent" onclick="openAdminMaterialModal()">+ Add Material</button>
+                    <button class="btn btn-accent" onclick="openAdminMaterialModal()" data-i18n="btn_add_material">+ Add Material</button>
                 </div>
                 <table class="data-table">
-                    <thead><tr><th data-i18n="lbl_mat">Material</th><th data-i18n="lbl_color">Color</th><th>Stock (KG)</th></tr></thead>
+                    <thead><tr><th data-i18n="th_material">Material</th><th data-i18n="th_color">Color</th><th data-i18n="th_stock">Stock (KG)</th></tr></thead>
                     <tbody id="stockTableBody"></tbody>
                 </table>
             </div>
@@ -574,10 +569,10 @@
             <div id="admin-categories" class="admin-panel-tab" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
                     <h3 style="color:var(--text-main);" data-i18n="admin_cat_title">Manage Categories</h3>
-                    <button class="btn btn-accent" onclick="promptAddCategory()">+ Add Category</button>
+                    <button class="btn btn-accent" onclick="promptAddCategory()" data-i18n="btn_add_category">+ Add Category</button>
                 </div>
                 <table class="data-table">
-                    <thead><tr><th>Category Name</th><th>Actions</th></tr></thead>
+                    <thead><tr><th data-i18n="admin_tab_cat">Category Name</th><th data-i18n="th_action">Actions</th></tr></thead>
                     <tbody id="catTableBody"></tbody>
                 </table>
             </div>
@@ -586,10 +581,10 @@
             <div id="admin-products" class="admin-panel-tab" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
                     <h3 style="color:var(--text-main);" data-i18n="admin_prod_title">Manage Products</h3>
-                    <button class="btn btn-accent" onclick="openAdminProductModal()">+ Add Product</button>
+                    <button class="btn btn-accent" onclick="openAdminProductModal()" data-i18n="btn_add_product">+ Add Product</button>
                 </div>
                 <table class="data-table">
-                    <thead><tr><th>Name</th><th>Category</th><th>Price (€)</th><th>Actions</th></tr></thead>
+                    <thead><tr><th data-i18n="th_name">Name</th><th data-i18n="admin_tab_cat">Category</th><th data-i18n="th_price">Price (€)</th><th data-i18n="th_action">Actions</th></tr></thead>
                     <tbody id="prodTableBody"></tbody>
                 </table>
             </div>
@@ -598,7 +593,7 @@
             <div id="admin-orders" class="admin-panel-tab" style="display: none;">
                 <h3 style="margin-bottom: 1rem; color:var(--text-main);" data-i18n="admin_orders_title">Manage Client Orders</h3>
                 <table class="data-table">
-                    <thead><tr><th>Order ID</th><th>Client</th><th>Date</th><th>Status</th><th>Total</th></tr></thead>
+                    <thead><tr><th>Order ID</th><th data-i18n="th_client">Client</th><th data-i18n="th_date">Date</th><th data-i18n="th_status">Status</th><th data-i18n="th_total">Total</th></tr></thead>
                     <tbody id="ordersTableBody"></tbody>
                 </table>
             </div>
@@ -606,20 +601,20 @@
             <!-- Tab: Vouchers -->
             <div id="admin-vouchers" class="admin-panel-tab" style="display: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                    <h3 style="color:var(--text-main);">Manage Vouchers</h3>
-                    <button class="btn btn-accent" onclick="promptAddVoucher()">+ Create Voucher</button>
+                    <h3 style="color:var(--text-main);" data-i18n="admin_tab_vouchers">Manage Vouchers</h3>
+                    <button class="btn btn-accent" onclick="promptAddVoucher()" data-i18n="btn_create_voucher">+ Create Voucher</button>
                 </div>
                 <table class="data-table">
-                    <thead><tr><th>Voucher Code</th><th>Discount (%)</th><th>Status</th><th>Actions</th></tr></thead>
+                    <thead><tr><th data-i18n="th_code">Voucher Code</th><th data-i18n="th_discount">Discount (%)</th><th data-i18n="th_status">Status</th><th data-i18n="th_action">Actions</th></tr></thead>
                     <tbody id="vouchersTableBody"></tbody>
                 </table>
             </div>
 
-            <!-- Tab: Custom Requests (Quotes) -->
+            <!-- Tab: Custom Requests -->
             <div id="admin-quotes" class="admin-panel-tab" style="display: none;">
-                <h3 style="margin-bottom: 1rem; color:var(--text-main);">Custom Model Quotes</h3>
+                <h3 style="margin-bottom: 1rem; color:var(--text-main);" data-i18n="admin_tab_quotes">Custom Model Quotes</h3>
                 <table class="data-table">
-                    <thead><tr><th>Client</th><th>File Name</th><th>Notes</th><th>Action</th></tr></thead>
+                    <thead><tr><th data-i18n="th_client">Client</th><th data-i18n="th_file">File Name</th><th data-i18n="th_notes">Notes</th><th data-i18n="th_action">Action</th></tr></thead>
                     <tbody id="quotesTableBody"></tbody>
                 </table>
             </div>
@@ -628,7 +623,7 @@
             <div id="admin-reviews" class="admin-panel-tab" style="display: none;">
                 <h3 style="margin-bottom: 1rem; color:var(--text-main);" data-i18n="admin_rev_title">Moderate Reviews</h3>
                 <table class="data-table">
-                    <thead><tr><th>User</th><th>Product</th><th>Rating</th><th>Comment</th><th>Actions</th></tr></thead>
+                    <thead><tr><th data-i18n="th_user">User</th><th data-i18n="th_product">Product</th><th data-i18n="th_rating">Rating</th><th data-i18n="th_comment">Comment</th><th data-i18n="th_action">Actions</th></tr></thead>
                     <tbody id="reviewsTableBody"></tbody>
                 </table>
             </div>
@@ -637,7 +632,7 @@
             <div id="admin-messages" class="admin-panel-tab" style="display: none;">
                 <h3 style="margin-bottom: 1rem; color:var(--text-main);" data-i18n="admin_msg_title">Incoming Messages</h3>
                 <table class="data-table">
-                    <thead><tr><th>Name</th><th>Email</th><th>Message</th></tr></thead>
+                    <thead><tr><th data-i18n="th_name">Name</th><th data-i18n="lbl_email">Email</th><th data-i18n="th_comment">Message</th></tr></thead>
                     <tbody id="messagesTableBody"></tbody>
                 </table>
             </div>
@@ -658,12 +653,11 @@
 
     <!-- ================= MODALS ================= -->
 
-    <!-- Product Modal (Standard cu Image Carousel) -->
+    <!-- Product Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content" style="max-width: 900px;">
             <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
             <div class="prod-modal-body">
-                <!-- Zona Imagini Carousel -->
                 <div class="prod-image-col">
                     <div class="carousel-wrapper" id="pm-carousel"></div>
                     <div class="color-overlay" id="pm-overlay"></div>
@@ -681,7 +675,6 @@
                     <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="addToCart(activeProduct, selectedColor, selectedMaterial, null)" data-i18n="btn_addcart">Add to Cart</button>
                 </div>
                 
-                <!-- Product Reviews Section -->
                 <div class="product-reviews-container">
                     <h3 style="margin-bottom: 1.5rem; color:var(--text-main);" data-i18n="prod_reviews">Customer Reviews</h3>
                     <div id="pm-reviews-list"></div>
@@ -699,13 +692,13 @@
                     <img id="litho-img" src="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80" alt="Lithophane" style="mix-blend-mode: normal; filter:sepia(30%); border-radius:4px;">
                 </div>
                 <div class="prod-details-col">
-                    <h2 class="prod-title" style="color:var(--text-main);">Lithophane Art</h2>
+                    <h2 class="prod-title" style="color:var(--text-main);" data-i18n="cap_litho">Lithophane Art</h2>
                     <div class="prod-price text-accent" id="litho-price">€25.00</div>
                     
                     <span class="option-label" data-i18n="lbl_shape">Shape</span>
                     <div class="shape-selector" id="litho-shapes">
-                        <button class="sel-btn active" onclick="selectLithoShape('rectangular')">Rectangular</button>
-                        <button class="sel-btn" onclick="selectLithoShape('curved')">Curved</button>
+                        <button class="sel-btn active" onclick="selectLithoShape('rectangular')" data-i18n="lbl_rectangular">Rectangular</button>
+                        <button class="sel-btn" onclick="selectLithoShape('curved')" data-i18n="lbl_curved">Curved</button>
                     </div>
 
                     <span class="option-label" data-i18n="lbl_size">Dimensions</span>
@@ -727,14 +720,14 @@
             <button class="modal-close" onclick="closeModal('textModal')"><i class="fas fa-times"></i></button>
             <div class="prod-modal-body">
                 <div class="prod-image-col" style="background:var(--product-bg); flex-direction:column;">
-                    <span style="font-family:var(--font-tech); font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">LIVE PREVIEW</span>
+                    <span style="font-family:var(--font-tech); font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;" data-i18n="lbl_live_preview">LIVE PREVIEW</span>
                     <canvas id="textCanvas" width="350" height="200" style="width:100%; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));"></canvas>
                 </div>
                 <div class="prod-details-col">
                     <h2 class="prod-title" data-i18n="cap_text" style="color:var(--text-main);">Wall Text</h2>
                     <div class="prod-price text-accent" id="text-price">€0.00</div>
                     
-                    <input type="text" id="wallTextVal" class="form-control" placeholder="Enter your text..." value="PRINTWALD" oninput="updateTextPreview()">
+                    <input type="text" id="wallTextVal" class="form-control" placeholder="Enter text..." value="PRINTWALD" oninput="updateTextPreview()">
                     
                     <span class="option-label" data-i18n="lbl_font">Font Style</span>
                     <div class="font-selector">
@@ -774,7 +767,7 @@
             <div id="voucherMessage" style="color:var(--accent-primary); font-size:0.85rem; font-weight:bold; margin-bottom:1rem; display:none;"></div>
 
             <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; color:var(--text-main);">
-                <span>Total:</span>
+                <span data-i18n="lbl_total">Total:</span>
                 <span id="cartTotalUI" class="text-accent">€0.00</span>
             </div>
             
@@ -785,10 +778,10 @@
                 <span class="option-label" data-i18n="lbl_pay">Payment Method</span>
                 <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; color:var(--text-main);">
                     <label style="flex:1; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; cursor: pointer; text-align: center;">
-                        <input type="radio" name="payment" value="card" checked> Card
+                        <input type="radio" name="payment" value="card" checked> <span data-i18n="lbl_card">Card</span>
                     </label>
                     <label style="flex:1; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; cursor: pointer; text-align: center;">
-                        <input type="radio" name="payment" value="cod"> Cash on Delivery
+                        <input type="radio" name="payment" value="cod"> <span data-i18n="lbl_cod">Cash on Delivery</span>
                     </label>
                 </div>
                 <button class="btn btn-primary" style="width: 100%;" onclick="processCheckout()" data-i18n="btn_checkout">Checkout Now</button>
@@ -819,10 +812,10 @@
                 <div style="flex:1; height:1px; background:var(--border-color);"></div>
             </div>
 
-            <input type="text" class="form-control" placeholder="Email or Phone Number" id="loginEmail">
+            <input type="text" class="form-control" data-i18n-placeholder="ph_email" placeholder="Email or Phone Number" id="loginEmail">
             <input type="password" class="form-control" placeholder="Password">
             <button class="btn btn-primary" style="width: 100%;" onclick="processLogin()" data-i18n="btn_login">Enter</button>
-            <p style="text-align:center; font-size:0.8rem; color:var(--accent-primary); margin-top:1rem; font-weight:bold;" data-i18n="login_hint_client">Hint: Type 'admin' for Admin or 'client' for Demo</p>
+            <p style="text-align:center; font-size:0.8rem; color:var(--accent-primary); margin-top:1rem; font-weight:bold;" data-i18n="login_hint_client">Hint: Type 'admin' for Admin or 'client' for Client Demo</p>
         </div>
     </div>
 
@@ -830,13 +823,13 @@
     <div class="modal-overlay" id="adminProdModal">
         <div class="modal-content" style="max-width: 500px;">
             <button class="modal-close" onclick="closeModal('adminProdModal')"><i class="fas fa-times"></i></button>
-            <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; color:var(--text-main);">Manage Product</h2>
-            <input type="text" id="apName" class="form-control" placeholder="Product Name">
+            <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; color:var(--text-main);" data-i18n="admin_prod_title">Manage Product</h2>
+            <input type="text" id="apName" class="form-control" data-i18n-placeholder="ph_name" placeholder="Product Name">
             <input type="number" id="apPrice" class="form-control" placeholder="Price (€)">
             <input type="text" id="apImg" class="form-control" placeholder="Images URLs (comma separated)">
             <select id="apCat" class="form-control"></select>
             <input type="text" id="apMats" class="form-control" placeholder="Materials (comma separated, e.g. PLA,PETG)">
-            <button class="btn btn-primary" style="width: 100%;" onclick="saveAdminProduct()">Save Product</button>
+            <button class="btn btn-primary" style="width: 100%;" onclick="saveAdminProduct()" data-i18n="prof_save">Save Product</button>
         </div>
     </div>
 
@@ -844,14 +837,14 @@
     <div class="modal-overlay" id="adminMatModal">
         <div class="modal-content" style="max-width: 500px;">
             <button class="modal-close" onclick="closeModal('adminMatModal')"><i class="fas fa-times"></i></button>
-            <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; color:var(--text-main);">Add New Material</h2>
+            <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; color:var(--text-main);" data-i18n="btn_add_material">Add New Material</h2>
             <input type="text" id="amName" class="form-control" placeholder="Material Name (e.g. TPU, Nylon)">
             <input type="text" id="amDesc" class="form-control" placeholder="Description">
             
             <span class="option-label" style="margin-top:1rem;">Select Colors to include:</span>
             <div id="amColors" style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom: 1.5rem;"></div>
 
-            <button class="btn btn-primary" style="width: 100%;" onclick="saveAdminMaterial()">Save Material</button>
+            <button class="btn btn-primary" style="width: 100%;" onclick="saveAdminMaterial()" data-i18n="prof_save">Save</button>
         </div>
     </div>
 
@@ -861,10 +854,8 @@
             <button class="modal-close" onclick="closeModal('ratingModal')"><i class="fas fa-times"></i></button>
             <h2 style="font-size: 1.8rem; margin-bottom: 1rem; color:var(--text-main);" data-i18n="rate_title">Rate Product</h2>
             <p id="ratingProductName" style="color:var(--text-muted); font-weight:bold; margin-bottom: 1.5rem;">Product Name</p>
-            <div class="star-rating" id="starContainer" style="display:flex; justify-content:center; gap:0.5rem; margin-bottom:1.5rem;">
-                <!-- JS -->
-            </div>
-            <textarea id="ratingCommentVal" class="form-control" rows="3" placeholder="Leave a comment (optional)..." data-i18n-placeholder="lbl_comment"></textarea>
+            <div class="star-rating" id="starContainer" style="display:flex; justify-content:center; gap:0.5rem; margin-bottom:1.5rem;"></div>
+            <textarea id="ratingCommentVal" class="form-control" rows="3" data-i18n-placeholder="lbl_comment" placeholder="Leave a comment (optional)..."></textarea>
             <button class="btn btn-primary" style="width: 100%;" onclick="submitRating()" data-i18n="btn_submit_rating">Submit Rating</button>
         </div>
     </div>
@@ -893,18 +884,32 @@
                 cap_litho: "Lithophane Art", cap_litho_desc: "Custom 3D illuminated photos",
                 cap_text: "Wall Text Customizer", cap_text_desc: "Design quotes & letters",
                 cap_parts: "Part Replacement", cap_parts_desc: "Reverse engineering & printing",
+                cap_proto: "Rapid Prototyping", cap_proto_desc: "Quick mechanical validation",
+                cap_cad: "CAD Design", cap_cad_desc: "From sketch to 3D model",
+                cap_batch: "Batch Production", cap_batch_desc: "Small to medium runs",
+                cat_home_decor: "Home Decor", cat_accessories: "Accessories", cat_keychains: "Keychains", cat_stencils: "Stencils", cat_miniatures: "Miniatures", cat_functional: "Functional", cat_toys: "Toys", cat_molds: "Molds", cat_figurines: "Figurines",
                 reviews_title: "What our", reviews_clients: "Clients Say",
                 shop_col: "Collection", filter_all: "All Products",
                 custom_req: "Request", custom_quote: "Quote", custom_desc: "Have your own 3D model? Upload it here. Our engineers will slice it, analyze the required time and material, and send you a custom price offer.", custom_drop: "Click or Drag & Drop Model", btn_sendquote: "Send Request for Quote",
                 contact_get: "Get in", contact_send: "Touch", contact_send_msg: "Send a Message", contact_desc: "Our engineering team is here to help bring your ideas to life. Whether you need a custom quote, have questions about our materials, or want to discuss a large-scale project, reach out to us via our channels.", btn_send: "Send Message",
                 lbl_mat: "Material", lbl_color: "Color", lbl_shape: "Shape", lbl_size: "Dimensions", lbl_font: "Font Style", lbl_height: "Letter Height", lbl_pay: "Payment Method", lbl_address: "Delivery Address",
+                lbl_rectangular: "Rectangular", lbl_curved: "Curved", lbl_live_preview: "LIVE PREVIEW", lbl_total: "Total:", lbl_card: "Card", lbl_cod: "Cash on Delivery",
+                lbl_fullname: "Full Name", lbl_email: "Email Address", lbl_phone: "Phone Number", lbl_notes: "Notes",
+                ph_name: "Your Name", ph_email: "Email Address", ph_phone: "+49 000 000 000", ph_notes: "Additional notes...", ph_message: "How can we help you?",
+                btn_change_photo: "Change Photo", btn_upload_photo: "Upload Photo",
                 cart_your: "Your", cart_title: "Cart", btn_checkout: "Checkout Now", btn_addcart: "Add to Cart", lbl_voucher: "Voucher Code", btn_apply: "Apply", cart_login_req: "You must be logged in to place an order.", btn_login_checkout: "Login to Checkout", err_no_addr: "You don't have any saved addresses!",
                 login_sub: "Sign in to your account", login_google: "Continue with Google", login_hint_client: "Hint: Type 'admin' for Admin or 'client' for Client Demo",
                 prof_title: "Profile", prof_details: "Personal Details", prof_save: "Save Changes", prof_saved_addr: "Saved Addresses", prof_orders: "Past Orders", prof_vouchers: "My Vouchers", prof_my_reviews: "My Reviews", prof_upload: "Upload Photo",
-                admin_tab_stock: "Material & Color Stock", admin_tab_cat: "Categories", admin_tab_prod: "Products", admin_tab_quotes: "Price Requests", admin_tab_orders: "Orders", admin_tab_reviews: "Reviews Moderation", admin_tab_vouchers: "Vouchers",
+                msg_no_reviews: "No reviews yet.", msg_no_addresses: "No addresses saved.", msg_no_orders: "No past orders.", msg_no_vouchers: "No vouchers available.", msg_no_products: "No products in this category yet.", msg_no_messages: "No incoming messages.",
+                admin_tab_stock: "Material & Color Stock", admin_tab_cat: "Categories", admin_tab_prod: "Products", admin_tab_quotes: "Price Requests", admin_tab_orders: "Orders", admin_tab_reviews: "Reviews Moderation", admin_tab_vouchers: "Vouchers", admin_tab_msg: "Messages",
                 admin_stock_title: "Manage Materials & Colors Availability", admin_cat_title: "Manage Categories", admin_prod_title: "Manage Products", admin_orders_title: "Manage Client Orders", admin_rev_title: "Moderate Reviews",
+                btn_add_material: "+ Add Material", btn_add_category: "+ Add Category", btn_add_product: "+ Add Product", btn_create_voucher: "+ Create Voucher",
+                th_material: "Material", th_color: "Color", th_stock: "Stock (KG)", th_action: "Actions", th_name: "Name", th_price: "Price (€)", th_client: "Client", th_date: "Date", th_status: "Status", th_total: "Total", th_file: "File Name", th_notes: "Notes", th_discount: "Discount (%)", th_code: "Voucher Code", th_user: "User", th_product: "Product", th_rating: "Rating", th_comment: "Comment",
                 rate_title: "Rate Product", btn_submit_rating: "Submit Rating", lbl_comment: "Leave a comment (optional)...", prod_reviews: "Customer Reviews",
                 rev_approved: "Approved", rev_rejected: "Rejected", rev_pending: "Pending",
+                rev_1: `"I sent them a broken gear from my mixer. They modeled it perfectly and printed it in ABS. It works better than the original!"`,
+                rev_2: `"The lithophane I ordered for my parents' anniversary was stunning. Such an amazing and emotional gift."`,
+                rev_3: `"The wall text configurator is brilliant. Fast delivery, flawless finish. My studio looks great now."`,
                 footer_desc: "German precision, digital innovation. Printing the future, layer by layer."
             },
             ro: {
@@ -915,18 +920,32 @@
                 cap_litho: "Artă Lithophane", cap_litho_desc: "Fotografii 3D iluminate",
                 cap_text: "Text de Perete", cap_text_desc: "Configurează litere 3D",
                 cap_parts: "Piese de Schimb", cap_parts_desc: "Inginerie inversă & printare",
+                cap_proto: "Prototipare Rapidă", cap_proto_desc: "Validare mecanică",
+                cap_cad: "Proiectare CAD", cap_cad_desc: "De la schiță la model 3D",
+                cap_batch: "Producție în Serie", cap_batch_desc: "Volume mici și medii",
+                cat_home_decor: "Decorațiuni", cat_accessories: "Accesorii", cat_keychains: "Brelocuri", cat_stencils: "Șabloane", cat_miniatures: "Miniaturi", cat_functional: "Funcționale", cat_toys: "Jucării", cat_molds: "Matrițe", cat_figurines: "Figurine",
                 reviews_title: "Ce spun", reviews_clients: "Clienții Noștri",
                 shop_col: "Completă", filter_all: "Toate Produsele",
                 custom_req: "Cere o", custom_quote: "Ofertă de Preț", custom_desc: "Ai propriul model 3D? Încarcă-l aici. Inginerii noștri îl vor analiza (timp & material) și îți vor trimite o ofertă de preț personalizată.", custom_drop: "Apasă sau Drag & Drop", btn_sendquote: "Trimite Cerere de Preț",
                 contact_get: "Contactează", contact_send: "Ne", contact_send_msg: "Trimite un Mesaj", contact_desc: "Echipa noastră de ingineri este aici pentru a-ți aduce ideile la realitate. Dacă ai nevoie de o ofertă personalizată, ai întrebări despre materiale sau vrei să discuți un proiect complex, scrie-ne pe canalele noastre.", btn_send: "Trimite Mesaj",
                 lbl_mat: "Material", lbl_color: "Culoare", lbl_shape: "Formă", lbl_size: "Dimensiuni", lbl_font: "Stil Font", lbl_height: "Înălțime Litere", lbl_pay: "Metoda de plată", lbl_address: "Adresă Livrare",
+                lbl_rectangular: "Dreptunghiular", lbl_curved: "Curbat", lbl_live_preview: "PREVIZUALIZARE LIVE", lbl_total: "Total:", lbl_card: "Card", lbl_cod: "Ramburs la Livrare",
+                lbl_fullname: "Nume Complet", lbl_email: "Adresă Email", lbl_phone: "Număr Telefon", lbl_notes: "Notițe",
+                ph_name: "Numele Tău", ph_email: "Adresă Email", ph_phone: "+40 700 000 000", ph_notes: "Notițe suplimentare...", ph_message: "Cu ce te putem ajuta?",
+                btn_change_photo: "Schimbă Poza", btn_upload_photo: "Încarcă Poză",
                 cart_your: "Coșul", cart_title: "Tău", btn_checkout: "Cumpără Acum", btn_addcart: "Adaugă în Coș", lbl_voucher: "Cod Reducere", btn_apply: "Aplică", cart_login_req: "Trebuie să fii autentificat pentru a plasa o comandă.", btn_login_checkout: "Autentificare", err_no_addr: "Nu ai nicio adresă salvată!",
                 login_sub: "Autentifică-te în contul tău", login_google: "Continuă cu Google", login_hint_client: "Sfat: Tastează 'admin' pentru Admin sau 'client' pentru demo Client",
                 prof_title: "Meu", prof_details: "Detalii Personale", prof_save: "Salvează Modificările", prof_saved_addr: "Adrese Salvate", prof_orders: "Istoric Comenzi", prof_vouchers: "Voucherele Mele", prof_my_reviews: "Recenziile Mele", prof_upload: "Încarcă Poză",
-                admin_tab_stock: "Stoc Material & Culoare", admin_tab_cat: "Categorii", admin_tab_prod: "Produse", admin_tab_quotes: "Cereri Preț", admin_tab_orders: "Comenzi", admin_tab_reviews: "Moderare Recenzii", admin_tab_vouchers: "Vouchere",
+                msg_no_reviews: "Nicio recenzie momentan.", msg_no_addresses: "Nicio adresă salvată.", msg_no_orders: "Nicio comandă anterioară.", msg_no_vouchers: "Niciun voucher disponibil.", msg_no_products: "Niciun produs în această categorie.", msg_no_messages: "Niciun mesaj nou.",
+                admin_tab_stock: "Stoc Material & Culoare", admin_tab_cat: "Categorii", admin_tab_prod: "Produse", admin_tab_quotes: "Cereri Preț", admin_tab_orders: "Comenzi", admin_tab_reviews: "Moderare Recenzii", admin_tab_vouchers: "Vouchere", admin_tab_msg: "Mesaje",
                 admin_stock_title: "Gestionează Stocul (Material + Culoare)", admin_cat_title: "Gestionează Categoriile", admin_prod_title: "Gestionează Produsele", admin_orders_title: "Gestionează Comenzile", admin_rev_title: "Moderează Recenziile",
+                btn_add_material: "+ Adaugă Material", btn_add_category: "+ Adaugă Categorie", btn_add_product: "+ Adaugă Produs", btn_create_voucher: "+ Creează Voucher",
+                th_material: "Material", th_color: "Culoare", th_stock: "Stoc (KG)", th_action: "Acțiuni", th_name: "Nume", th_price: "Preț (€)", th_client: "Client", th_date: "Data", th_status: "Status", th_total: "Total", th_file: "Nume Fișier", th_notes: "Notițe", th_discount: "Reducere (%)", th_code: "Cod Voucher", th_user: "Utilizator", th_product: "Produs", th_rating: "Notă", th_comment: "Comentariu",
                 rate_title: "Acordă o Notă", btn_submit_rating: "Trimite Evaluarea", lbl_comment: "Lasă un comentariu (opțional)...", prod_reviews: "Recenziile Clienților",
                 rev_approved: "Aprobat", rev_rejected: "Respins", rev_pending: "În Așteptare",
+                rev_1: `"Le-am trimis o rotiță ruptă de la mixer. Au modelat-o perfect și au printat-o în ABS. Funcționează mai bine ca originalul!"`,
+                rev_2: `"Tabloul Lithophane comandat pentru aniversarea părinților a fost superb. Un cadou emoționant și unic."`,
+                rev_3: `"Configuratorul de text este genial. Livrare rapidă, print impecabil. Studioul meu arată grozav acum."`,
                 footer_desc: "Precizie germană, inovație digitală. Printăm viitorul, strat cu strat."
             },
             de: {
@@ -937,18 +956,32 @@
                 cap_litho: "Lithophane Kunst", cap_litho_desc: "Beleuchtete 3D-Fotos",
                 cap_text: "Wandtext Konfigurator", cap_text_desc: "Zitate & Buchstaben",
                 cap_parts: "Ersatzteile", cap_parts_desc: "Reverse Engineering",
+                cap_proto: "Rapid Prototyping", cap_proto_desc: "Schnelle Validierung",
+                cap_cad: "CAD Design", cap_cad_desc: "Von der Skizze zum Modell",
+                cap_batch: "Serienproduktion", cap_batch_desc: "Kleine bis mittlere Serien",
+                cat_home_decor: "Wohnkultur", cat_accessories: "Zubehör", cat_keychains: "Schlüsselanhänger", cat_stencils: "Schablonen", cat_miniatures: "Miniaturen", cat_functional: "Funktional", cat_toys: "Spielzeug", cat_molds: "Formen", cat_figurines: "Figuren",
                 reviews_title: "Was unsere", reviews_clients: "Kunden Sagen",
                 shop_col: "Kollektion", filter_all: "Alle Produkte",
                 custom_req: "Angebot", custom_quote: "Anfragen", custom_desc: "Haben Sie ein eigenes 3D-Modell? Laden Sie es hoch. Wir berechnen Zeit & Material und senden Ihnen ein individuelles Angebot.", custom_drop: "Klicken oder Drag & Drop", btn_sendquote: "Anfrage Senden",
                 contact_get: "Kontakt", contact_send: "aufnehmen", contact_send_msg: "Nachricht Senden", contact_desc: "Unser Ingenieurteam hilft Ihnen gerne dabei, Ihre Ideen zum Leben zu erwecken. Wenn Sie ein Angebot benötigen oder ein Projekt besprechen möchten, kontaktieren Sie uns über unsere Kanäle.", btn_send: "Nachricht Senden",
                 lbl_mat: "Material", lbl_color: "Farbe", lbl_shape: "Form", lbl_size: "Abmessungen", lbl_font: "Schriftart", lbl_height: "Buchstabenhöhe", lbl_pay: "Zahlungsmethode", lbl_address: "Lieferadresse",
+                lbl_rectangular: "Rechteckig", lbl_curved: "Gebogen", lbl_live_preview: "LIVE VORSCHAU", lbl_total: "Gesamt:", lbl_card: "Karte", lbl_cod: "Nachnahme",
+                lbl_fullname: "Vollständiger Name", lbl_email: "E-Mail-Adresse", lbl_phone: "Telefonnummer", lbl_notes: "Notizen",
+                ph_name: "Dein Name", ph_email: "E-Mail-Adresse", ph_phone: "+49 000 000 000", ph_notes: "Zusätzliche Notizen...", ph_message: "Wie können wir Ihnen helfen?",
+                btn_change_photo: "Foto ändern", btn_upload_photo: "Foto hochladen",
                 cart_your: "Dein", cart_title: "Warenkorb", btn_checkout: "Jetzt Kaufen", btn_addcart: "In den Warenkorb", lbl_voucher: "Gutscheincode", btn_apply: "Anwenden", cart_login_req: "Sie müssen angemeldet sein, um eine Bestellung aufzugeben.", btn_login_checkout: "Anmelden zur Kasse", err_no_addr: "Sie haben keine gespeicherten Adressen!",
                 login_sub: "Melden Sie sich an", login_google: "Weiter mit Google", login_hint_client: "Tipp: Tippen Sie 'admin' für Admin oder 'client' für Client-Demo",
                 prof_title: "Profil", prof_details: "Persönliche Daten", prof_save: "Änderungen speichern", prof_saved_addr: "Gespeicherte Adressen", prof_orders: "Bisherige Bestellungen", prof_vouchers: "Meine Gutscheine", prof_my_reviews: "Meine Bewertungen", prof_upload: "Foto hochladen",
-                admin_tab_stock: "Material & Farbe (KG)", admin_tab_cat: "Kategorien", admin_tab_prod: "Produkte", admin_tab_quotes: "Anfragen", admin_tab_orders: "Bestellungen", admin_tab_reviews: "Bewertungen", admin_tab_vouchers: "Gutscheine",
+                msg_no_reviews: "Noch keine Bewertungen.", msg_no_addresses: "Keine Adressen gespeichert.", msg_no_orders: "Keine bisherigen Bestellungen.", msg_no_vouchers: "Keine Gutscheine verfügbar.", msg_no_products: "Noch keine Produkte in dieser Kategorie.", msg_no_messages: "Keine eingehenden Nachrichten.",
+                admin_tab_stock: "Material & Farbe", admin_tab_cat: "Kategorien", admin_tab_prod: "Produkte", admin_tab_quotes: "Anfragen", admin_tab_orders: "Bestellungen", admin_tab_reviews: "Bewertungen", admin_tab_vouchers: "Gutscheine", admin_tab_msg: "Nachrichten",
                 admin_stock_title: "Material & Farbe Verwalten", admin_cat_title: "Kategorien Verwalten", admin_prod_title: "Produkte Verwalten", admin_orders_title: "Bestellungen Verwalten", admin_rev_title: "Bewertungen moderieren",
+                btn_add_material: "+ Material hinzufügen", btn_add_category: "+ Kategorie hinzufügen", btn_add_product: "+ Produkt hinzufügen", btn_create_voucher: "+ Gutschein erstellen",
+                th_material: "Material", th_color: "Farbe", th_stock: "Bestand (KG)", th_action: "Aktionen", th_name: "Name", th_price: "Preis (€)", th_client: "Kunde", th_date: "Datum", th_status: "Status", th_total: "Gesamt", th_file: "Dateiname", th_notes: "Notizen", th_discount: "Rabatt (%)", th_code: "Gutscheincode", th_user: "Benutzer", th_product: "Produkt", th_rating: "Bewertung", th_comment: "Kommentar",
                 rate_title: "Produkt bewerten", btn_submit_rating: "Bewertung abgeben", lbl_comment: "Hinterlasse einen Kommentar (optional)...", prod_reviews: "Kundenrezensionen",
                 rev_approved: "Genehmigt", rev_rejected: "Abgelehnt", rev_pending: "Ausstehend",
+                rev_1: `"Ich habe ein defektes Zahnrad geschickt. Sie haben es perfekt modelliert und in ABS gedruckt. Es funktioniert besser als das Original!"`,
+                rev_2: `"Das Lithophane für den Jahrestag meiner Eltern war atemberaubend. Ein unglaubliches und emotionales Geschenk."`,
+                rev_3: `"Der Wandtext-Konfigurator ist genial. Schnelle Lieferung, makelloses Finish. Mein Studio sieht jetzt toll aus."`,
                 footer_desc: "Deutsche Präzision, digitale Innovation. Die Zukunft drucken, Schicht für Schicht."
             }
         };
@@ -974,7 +1007,13 @@
             renderHomeReviews();
             renderShopCategories(); renderShop();
             if(currentUser) renderProfile();
-            if(isAdmin) { renderAdminCategories(); renderAdminProducts(); renderAdminStock(); renderAdminReviews(); renderAdminVouchers(); }
+            if(isAdmin) { renderAdminCategories(); renderAdminProducts(); renderAdminStock(); renderAdminReviews(); renderAdminVouchers(); renderAdminOrders(); renderAdminQuotes(); renderAdminMessages(); }
+            
+            // Re-render cart if open
+            if(document.getElementById('cartModal').classList.contains('active')) {
+                document.getElementById('cartTotalUI').previousElementSibling.innerText = translate('lbl_total');
+                renderCheckoutAddresses();
+            }
         }
 
         /* --- 3. DATA ARCHITECTURE --- */
@@ -1011,13 +1050,13 @@
 
         let products = [
             { id: 1, type: 'standard', cat: 'Home Decor', name: "Geo Vase", price: 24.00, discountPrice: 19.99, rating: 4.8, reviews: 24, images: ["https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1581783898377-1c85bf937427?auto=format&fit=crop&w=400&q=80"], materials: ['PLA', 'PETG'] },
-            { id: 2, type: 'standard', cat: 'Accessories', name: "Desk Stand", price: 18.50, rating: 4.5, reviews: 12, images: ["https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1620843437120-1ce49fcab5ff?auto=format&fit=crop&w=400&q=80"], materials: ['PLA', 'ABS'] },
+            { id: 2, type: 'standard', cat: 'Accessories', name: "Desk Stand", price: 18.50, rating: 4.5, reviews: 12, images: ["https://images.unsplash.com/photo-1586105251261-72a756497a11?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1620843437120-1ce49fcab5ff?auto=format&fit=crop&w=400&q=80"], materials: ['PLA', 'ABS'] },
             { id: 3, type: 'standard', cat: 'Functional', name: "Headphone Mount", price: 12.00, rating: 4.9, reviews: 38, images: ["https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80"], materials: ['PETG', 'ABS'] },
             { id: 4, type: 'standard', cat: 'Home Decor', name: "Geometric Planter", price: 28.00, rating: 4.7, reviews: 19, images: ["https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=400&q=80"], materials: ['PLA'] },
-            { id: 5, type: 'standard', cat: 'Miniatures', name: "D&D Fantasy Hero", price: 9.99, rating: 4.2, reviews: 8, images: ["https://images.unsplash.com/photo-1608889175123-8ee362201f81?auto=format&fit=crop&w=400&q=80"], materials: ['PLA'] },
-            { id: 6, type: 'standard', cat: 'Toys', name: "Articulated Dragon", price: 15.00, rating: 4.9, reviews: 105, images: ["https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=400&q=80"], materials: ['PLA', 'PETG'] },
-            { id: 7, type: 'standard', cat: 'Molds', name: "Silicone Cast Mold", price: 14.50, rating: 4.6, reviews: 22, images: ["https://images.unsplash.com/photo-1628155930542-3c7a64e2fd6a?auto=format&fit=crop&w=400&q=80"], materials: ['PETG', 'ABS'] },
-            { id: 8, type: 'standard', cat: 'Stencils', name: "Coffee Art Stencil", price: 5.00, rating: 4.3, reviews: 11, images: ["https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"], materials: ['PLA'] },
+            { id: 5, type: 'standard', cat: 'Miniatures', name: "D&D Fantasy Hero", price: 9.99, rating: 4.2, reviews: 8, images: ["https://images.unsplash.com/photo-1611604548018-d56bbd85d681?auto=format&fit=crop&w=400&q=80"], materials: ['PLA'] },
+            { id: 6, type: 'standard', cat: 'Toys', name: "Articulated Dragon", price: 15.00, rating: 4.9, reviews: 105, images: ["https://images.unsplash.com/photo-1533513365851-9f9bdf3d6840?auto=format&fit=crop&w=400&q=80"], materials: ['PLA', 'PETG'] },
+            { id: 7, type: 'standard', cat: 'Molds', name: "Silicone Cast Mold", price: 14.50, rating: 4.6, reviews: 22, images: ["https://images.unsplash.com/photo-1556690171-9f6c04f91196?auto=format&fit=crop&w=400&q=80"], materials: ['PETG', 'ABS'] },
+            { id: 8, type: 'standard', cat: 'Stencils', name: "Coffee Art Stencil", price: 5.00, rating: 4.3, reviews: 11, images: ["https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80"], materials: ['PLA'] },
         ];
 
         let globalOrders = [
@@ -1042,9 +1081,10 @@
         let currentSlideIndex = 0; let currentProductImages = [];
         
         let isAdmin = false; let currentUser = null; 
-        let adminMessages = []; let adminCustomRequests = [];
+        let adminCustomRequests = [];
+        let adminMessages = [];
 
-        let unreadOrders = 0; let unreadQuotes = 0; let unreadReviews = 0;
+        let unreadOrders = 0; let unreadQuotes = 0; let unreadReviews = 0; let unreadMessages = 0;
 
         function updateAdminBadges() {
             const bo = document.getElementById('badge-orders');
@@ -1053,11 +1093,14 @@
             if(bq) { bq.innerText = unreadQuotes; bq.style.display = unreadQuotes > 0 ? 'inline-block' : 'none'; }
             const br = document.getElementById('badge-reviews');
             if(br) { br.innerText = unreadReviews; br.style.display = unreadReviews > 0 ? 'inline-block' : 'none'; }
+            const bm = document.getElementById('badge-messages');
+            if(bm) { bm.innerText = unreadMessages; bm.style.display = unreadMessages > 0 ? 'inline-block' : 'none'; }
         }
 
         /* --- 4. REVIEWS ON HOME --- */
         function renderHomeReviews() {
             const grid = document.getElementById('homeReviewsGrid');
+            if (!grid) return;
             grid.innerHTML = `
                 <div class="review-card">
                     <div class="review-header">
@@ -1101,7 +1144,7 @@
             document.getElementById('profAvatar').src = currentUser.avatar || `https://ui-avatars.com/api/?name=${currentUser.name}&background=126d2e&color=fff`;
             
             const addrContainer = document.getElementById('profileAddressList'); addrContainer.innerHTML = '';
-            if(currentUser.addresses.length === 0) addrContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">No addresses saved.</p>`;
+            if(currentUser.addresses.length === 0) addrContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">${translate('msg_no_addresses')}</p>`;
             else currentUser.addresses.forEach((a, index) => {
                 addrContainer.innerHTML += `
                     <div class="address-item">
@@ -1116,7 +1159,7 @@
             const ordContainer = document.getElementById('profileOrdersList'); ordContainer.innerHTML = '';
             const myOrders = globalOrders.filter(o => o.email === currentUser.email);
             
-            if(myOrders.length === 0) ordContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">No past orders.</p>`;
+            if(myOrders.length === 0) ordContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">${translate('msg_no_orders')}</p>`;
             else myOrders.forEach(o => {
                 let itemsHtml = '';
                 o.items.forEach(item => {
@@ -1147,7 +1190,7 @@
             // My Reviews (Client)
             const revContainer = document.getElementById('profileMyReviewsList'); revContainer.innerHTML = '';
             const myReviews = globalReviews.filter(r => r.user === currentUser.name);
-            if(myReviews.length === 0) revContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">No reviews yet.</p>`;
+            if(myReviews.length === 0) revContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">${translate('msg_no_reviews')}</p>`;
             else myReviews.forEach(r => {
                 const prod = products.find(p => p.id === r.productId) || { name: 'Unknown' };
                 let statusColor = r.status === 'approved' ? 'var(--accent-primary)' : (r.status === 'rejected' ? 'red' : 'orange');
@@ -1165,7 +1208,7 @@
             });
 
             const vouchContainer = document.getElementById('profileVouchersList'); vouchContainer.innerHTML = '';
-            if(currentUser.vouchers.length === 0) vouchContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">No vouchers available.</p>`;
+            if(currentUser.vouchers.length === 0) vouchContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">${translate('msg_no_vouchers')}</p>`;
             else currentUser.vouchers.forEach(v => {
                 vouchContainer.innerHTML += `
                     <div class="voucher-item" style="border-style: dashed; border-color: var(--accent-primary);">
@@ -1205,18 +1248,30 @@
         function deleteAddress(index) { if(confirm("Delete this address?")) { currentUser.addresses.splice(index, 1); renderProfile(); } }
 
         /* --- 6. SHOP & CAROUSEL LOGIC --- */
+        function getCatTranslate(catEn) {
+            const map = {
+                'Home Decor': 'cat_home_decor', 'Accessories': 'cat_accessories', 'Keychains': 'cat_keychains',
+                'Stencils': 'cat_stencils', 'Miniatures': 'cat_miniatures', 'Functional': 'cat_functional',
+                'Toys': 'cat_toys', 'Molds': 'cat_molds', 'Figurines': 'cat_figurines'
+            };
+            return translate(map[catEn] || catEn);
+        }
+
         function renderShopCategories() {
             const bar = document.getElementById('shopCategories');
+            if(!bar) return;
             bar.innerHTML = `<button class="cat-btn ${currentFilter==='All'?'active':''}" onclick="filterShop('All')">${translate('filter_all')}</button>`;
-            appCategories.forEach(cat => { bar.innerHTML += `<button class="cat-btn ${currentFilter===cat?'active':''}" onclick="filterShop('${cat}')">${cat}</button>`; });
+            appCategories.forEach(cat => { bar.innerHTML += `<button class="cat-btn ${currentFilter===cat?'active':''}" onclick="filterShop('${cat}')">${getCatTranslate(cat)}</button>`; });
         }
 
         function filterShop(cat) { currentFilter = cat; renderShopCategories(); renderShop(); }
 
         function renderShop() {
-            const grid = document.getElementById('shopGrid'); grid.innerHTML = '';
+            const grid = document.getElementById('shopGrid');
+            if(!grid) return;
+            grid.innerHTML = '';
             const filtered = currentFilter === 'All' ? products : products.filter(p => p.cat === currentFilter);
-            if(filtered.length === 0) { grid.innerHTML = '<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">No products in this category yet.</p>'; return; }
+            if(filtered.length === 0) { grid.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">${translate('msg_no_products')}</p>`; return; }
             filtered.forEach(p => {
                 let priceHtml = `€${p.price.toFixed(2)}`;
                 if(p.discountPrice) priceHtml = `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.9em; margin-right: 0.5rem;">€${p.price.toFixed(2)}</span><span class="text-accent">€${p.discountPrice.toFixed(2)}</span>`;
@@ -1233,7 +1288,7 @@
                             <div>
                                 <div class="card-title">${p.name}</div>
                                 ${ratingHtml}
-                                <div class="card-desc text-muted">${p.cat}</div>
+                                <div class="card-desc text-muted">${getCatTranslate(p.cat)}</div>
                             </div>
                             <div class="card-price">${priceHtml}</div>
                         </div>
@@ -1302,7 +1357,7 @@
             const approvedReviews = globalReviews.filter(r => r.productId === productId && r.status === 'approved');
             
             if(approvedReviews.length === 0) {
-                container.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">No reviews yet.</p>`;
+                container.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">${translate('msg_no_reviews')}</p>`;
                 return;
             }
 
@@ -1396,14 +1451,15 @@
         let uploadedFileName = '';
         function handleFileSelect(e) { const file = e.target.files[0]; if(file) { uploadedFileName = file.name; document.getElementById('fileNameDisplay').innerText = `File ready: ${file.name}`; } }
         function submitCustomQuote() {
-            const name = document.getElementById('cqName').value; const email = document.getElementById('cqEmail').value; const notes = document.getElementById('cqNotes').value;
+            const name = document.getElementById('cqName').value.trim(); const email = document.getElementById('cqEmail').value.trim(); const notes = document.getElementById('cqNotes').value.trim();
             if(!name || !email || !uploadedFileName) { showToast("Please fill all fields and upload a file."); return; }
-            adminCustomRequests.push({ client: name, email: email, file: uploadedFileName, notes: notes });
+            adminCustomRequests.unshift({ client: name, email: email, file: uploadedFileName, notes: notes });
             document.getElementById('cqName').value=''; document.getElementById('cqEmail').value=''; document.getElementById('cqNotes').value=''; document.getElementById('fileNameDisplay').innerText=''; uploadedFileName='';
             
             unreadQuotes++; updateAdminBadges();
 
-            showToast("Model uploaded! We'll send a quote soon."); renderAdminQuotes();
+            showToast("Model uploaded! We'll send a quote soon."); 
+            if (isAdmin) renderAdminQuotes();
         }
 
         /* --- 8. CART, VOUCHER & CHECKOUT LOGIC --- */
@@ -1421,14 +1477,14 @@
 
             if(!currentUser) {
                 container.innerHTML = `<div style="text-align:center; padding: 2rem; background: var(--bg-surface); border-radius: var(--radius-md);">
-                    <p style="margin-bottom:1rem; color:var(--text-main); font-weight:bold;" data-i18n="cart_login_req">${translate('cart_login_req')}</p>
-                    <button class="btn btn-primary" onclick="closeModal('cartModal'); openModal('loginModal')" data-i18n="btn_login_checkout">${translate('btn_login_checkout')}</button>
+                    <p style="margin-bottom:1rem; color:var(--text-main); font-weight:bold;">${translate('cart_login_req')}</p>
+                    <button class="btn btn-primary" onclick="closeModal('cartModal'); openModal('loginModal')">${translate('btn_login_checkout')}</button>
                 </div>`;
                 paymentSection.style.display = 'none';
             } else {
                 paymentSection.style.display = 'block';
                 if(currentUser.addresses.length === 0) {
-                    container.innerHTML = `<p style="color:red; font-weight:bold; margin-bottom:0.5rem;" data-i18n="err_no_addr">${translate('err_no_addr')}</p>
+                    container.innerHTML = `<p style="color:red; font-weight:bold; margin-bottom:0.5rem;">${translate('err_no_addr')}</p>
                     <button class="btn btn-outline" style="width:100%; padding: 0.8rem;" onclick="promptNewAddress(true)">+ Add New Address</button>`;
                 } else {
                     let html = `<select id="selectedAddress" class="form-control" style="margin-bottom:0.5rem; font-weight:bold;">`;
@@ -1610,6 +1666,7 @@
             if(tab === 'orders') { unreadOrders = 0; updateAdminBadges(); }
             if(tab === 'quotes') { unreadQuotes = 0; updateAdminBadges(); }
             if(tab === 'reviews') { unreadReviews = 0; updateAdminBadges(); }
+            if(tab === 'messages') { unreadMessages = 0; updateAdminBadges(); }
         }
 
         // Admin Stock (MATERIAL + COLOR LOGIC)
@@ -1652,7 +1709,7 @@
         }
 
         // Admin Categories
-        function renderAdminCategories() { const tbody = document.getElementById('catTableBody'); tbody.innerHTML = ''; appCategories.forEach(cat => { tbody.innerHTML += `<tr><td style="font-weight:bold; color:var(--text-main);">${cat}</td><td><button class="action-btn action-btn-danger" onclick="deleteCategory('${cat}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
+        function renderAdminCategories() { const tbody = document.getElementById('catTableBody'); tbody.innerHTML = ''; appCategories.forEach(cat => { tbody.innerHTML += `<tr><td style="font-weight:bold; color:var(--text-main);">${getCatTranslate(cat)}</td><td><button class="action-btn action-btn-danger" onclick="deleteCategory('${cat}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
         function promptAddCategory() { const name = prompt("Enter new category name:"); if(name && !appCategories.includes(name)) { appCategories.push(name); renderAdminCategories(); renderShopCategories(); showToast("Category Added");} }
         function deleteCategory(cat) { if(confirm(`Delete category ${cat}?`)) { appCategories = appCategories.filter(c => c !== cat); renderAdminCategories(); renderShopCategories(); showToast("Category Deleted"); } }
 
@@ -1713,7 +1770,7 @@
                     if (p.discountPrice) priceDisplay = `<span style="text-decoration:line-through; color:var(--text-muted); font-size:0.8rem;">€${p.price.toFixed(2)}</span> <span class="text-accent font-bold">€${p.discountPrice.toFixed(2)}</span>`;
                     tbody.innerHTML += `<tr>
                         <td style="color:var(--text-main);"><div style="display:flex; align-items:center; gap:10px;"><img src="${p.images[0]}" style="width:30px;height:30px;object-fit:cover;border-radius:4px;"> ${p.name}</div></td>
-                        <td style="color:var(--text-main);">${p.cat}</td><td style="color:var(--text-main);">${priceDisplay}</td>
+                        <td style="color:var(--text-main);">${getCatTranslate(p.cat)}</td><td style="color:var(--text-main);">${priceDisplay}</td>
                         <td style="display:flex; gap:0.5rem;">
                             <button class="action-btn" onclick="promptDiscount(${p.id})" title="Set Discount"><i class="fas fa-tags"></i></button>
                             <button class="action-btn action-btn-danger" onclick="deleteProduct(${p.id})" title="Delete"><i class="fas fa-trash"></i></button>
@@ -1724,8 +1781,8 @@
         }
         function deleteProduct(id) { if(confirm("Delete this product?")) { products = products.filter(p => p.id !== id); renderAdminProducts(); renderShop(); showToast("Product Deleted"); } }
         function promptDiscount(id) { const p = products.find(prod => prod.id === id); const val = prompt(`Set discounted price for ${p.name} (Current: €${p.price}). Leave empty to remove discount:`, p.discountPrice || ''); if (val !== null) { if (val.trim() === '') delete p.discountPrice; else p.discountPrice = parseFloat(val); renderAdminProducts(); renderShop(); showToast("Discount updated!"); } }
-        function openAdminProductModal() { const sel = document.getElementById('apCat'); sel.innerHTML = ''; appCategories.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`); openModal('adminProdModal'); }
-        function saveAdminProduct() { const n = document.getElementById('apName').value; const p = parseFloat(document.getElementById('apPrice').value); const i = document.getElementById('apImg').value.split(',').map(s=>s.trim()) || ['https://via.placeholder.com/400']; const c = document.getElementById('apCat').value; const m = document.getElementById('apMats').value.split(',').map(s=>s.trim()); if(!n || !p) { showToast("Name and Price required"); return; } products.push({ id: Date.now(), type: 'standard', name: n, price: p, images: i, cat: c, materials: m.length?m:['PLA'] }); renderAdminProducts(); renderShop(); closeModal('adminProdModal'); showToast("Product added successfully!"); }
+        function openAdminProductModal() { const sel = document.getElementById('apCat'); sel.innerHTML = ''; appCategories.forEach(c => sel.innerHTML += `<option value="${c}">${getCatTranslate(c)}</option>`); openModal('adminProdModal'); }
+        function saveAdminProduct() { const n = document.getElementById('apName').value.trim(); const p = parseFloat(document.getElementById('apPrice').value); const i = document.getElementById('apImg').value.split(',').map(s=>s.trim()) || ['https://via.placeholder.com/400']; const c = document.getElementById('apCat').value; const m = document.getElementById('apMats').value.split(',').map(s=>s.trim()); if(!n || !p) { showToast("Name and Price required"); return; } products.push({ id: Date.now(), type: 'standard', name: n, price: p, images: i, cat: c, materials: m.length?m:['PLA'] }); renderAdminProducts(); renderShop(); closeModal('adminProdModal'); showToast("Product added successfully!"); }
         
         function renderAdminQuotes() {
             const tbody = document.getElementById('quotesTableBody'); tbody.innerHTML = '';
@@ -1741,12 +1798,7 @@
         function downloadModel(filename) {
             showToast(`Downloading ${filename}...`);
             setTimeout(() => {
-                const a = document.createElement('a');
-                a.href = "data:text/plain;charset=utf-8,Mock%203D%20Model%20Content";
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                const a = document.createElement('a'); a.href = "data:text/plain;charset=utf-8,Mock%203D%20Model%20Content"; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a);
             }, 800);
         }
 
@@ -1779,11 +1831,9 @@
             if (action === 'approved') {
                 const prod = products.find(p => p.id === rev.productId);
                 if(prod) {
-                    if(!prod.reviews) prod.reviews = 0;
-                    if(!prod.rating) prod.rating = 0;
+                    if(!prod.reviews) prod.reviews = 0; if(!prod.rating) prod.rating = 0;
                     const totalStars = (prod.rating * prod.reviews) + rev.rating;
-                    prod.reviews += 1;
-                    prod.rating = totalStars / prod.reviews;
+                    prod.reviews += 1; prod.rating = totalStars / prod.reviews;
                 }
             }
         }
@@ -1793,12 +1843,13 @@
             const email = document.getElementById('reqEmail').value.trim(); 
             const msg = document.getElementById('reqMessage').value.trim();
             if(!name || !email || !msg) { showToast("Please fill all fields."); return; }
-            adminMessages.push({ name, email, msg }); 
+            adminMessages.unshift({ name, email, msg }); 
             showToast("Message sent! Admin will review it.");
             document.getElementById('reqName').value = ''; 
             document.getElementById('reqEmail').value = ''; 
             document.getElementById('reqMessage').value = '';
-            renderAdminMessages();
+            unreadMessages++; updateAdminBadges();
+            if(isAdmin) renderAdminMessages();
         }
 
         function renderAdminMessages() {
@@ -1806,7 +1857,7 @@
             if(!tbody) return;
             tbody.innerHTML = '';
             if(adminMessages.length === 0) { 
-                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No incoming messages.</td></tr>'; 
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">${translate('msg_no_messages')}</td></tr>`; 
                 return; 
             }
             adminMessages.forEach(m => {
@@ -1825,7 +1876,7 @@
             if(event && event.target.tagName === 'A') event.target.classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
             if(viewId === 'view-shop') renderShop();
-            if(viewId === 'view-admin' && isAdmin) { renderAdminVouchers(); } // load vouchers specifically
+            if(viewId === 'view-admin' && isAdmin) { renderAdminVouchers(); renderAdminMessages(); }
         }
 
         window.addEventListener('scroll', () => { const header = document.getElementById('header'); if (window.scrollY > 50) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
