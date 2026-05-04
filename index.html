@@ -33,9 +33,7 @@
             --accent-hover: #0e5423;
             
             --nav-bg: rgba(255, 255, 255, 0.95);
-            --hero-overlay-1: rgba(255, 255, 255, 0.9);
-            --hero-overlay-2: rgba(255, 255, 255, 0.6);
-            --hero-text-shadow: none;
+            --hero-overlay: rgba(255, 255, 255, 0.7); 
             
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
             --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
@@ -66,8 +64,7 @@
             --border-light: rgba(255, 255, 255, 0.05);
             
             --nav-bg: rgba(10, 10, 12, 0.95);
-            --hero-overlay-1: rgba(10, 10, 12, 0.9);
-            --hero-overlay-2: rgba(10, 10, 12, 0.6);
+            --hero-overlay: rgba(10, 10, 12, 0.7);
             
             --shadow-sm: 0 4px 12px rgba(0,0,0,0.5);
             --shadow-md: 0 8px 24px rgba(0,0,0,0.6);
@@ -100,6 +97,7 @@
 
         /* --- Text Utilities --- */
         .text-accent { color: var(--accent-primary) !important; }
+        .text-muted { color: var(--text-muted); }
 
         /* --- Loading Screen --- */
         #loader {
@@ -107,7 +105,7 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: opacity 0.5s ease;
         }
-        #loader img { height: 60px; margin-bottom: 1rem; animation: pulse 2s infinite; }
+        #loader img { height: 80px; width: 80px; border-radius: 50%; margin-bottom: 1rem; animation: pulse 2s infinite; background: transparent; object-fit: cover;}
         #loader h2 { font-size: 2.5rem; letter-spacing: 2px; color: var(--text-main); margin-bottom: 2rem;}
         .loading-bar { width: 200px; height: 4px; background: var(--border-color); border-radius: 2px; overflow: hidden; }
         .loading-progress { width: 0%; height: 100%; background: var(--accent-primary); animation: load 2s ease forwards; }
@@ -143,6 +141,7 @@
         header.scrolled { background: var(--nav-bg); backdrop-filter: blur(10px); box-shadow: var(--shadow-sm); padding: 0.5rem 0; }
         .nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .logo { font-family: var(--font-head); font-size: 2rem; display: flex; align-items: center; gap: 0.5rem;}
+        .logo img { height: 35px; width: 35px; border-radius: 50%; object-fit: cover; background: transparent; }
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: var(--text-main); opacity: 0.7; }
         .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-primary); }
@@ -150,7 +149,7 @@
         
         .lang-switch {
             background: transparent; color: var(--text-main) !important; border: none; 
-            font-family: var(--font-tech); font-size: 0.9rem; cursor: pointer;
+            font-family: var(--font-tech); font-size: 0.9rem; cursor: pointer; outline: none;
         }
         .lang-switch option { background: var(--bg-card); color: var(--text-main); }
         
@@ -161,13 +160,24 @@
         /* --- Hero Section --- */
         .hero {
             min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center;
-            position: relative; padding-top: 60px;
-            background-image: linear-gradient(to bottom, var(--hero-overlay-1) 0%, var(--bg-base) 100%), url('mountain.png');
+            position: relative; padding-top: 60px; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: -10px; z-index: 0;
+            background-image: url('mountain.png');
             background-size: cover; background-position: center;
+            filter: blur(4px); 
+            opacity: 0.6;
+            transition: opacity 0.4s;
+        }
+        [data-theme="dark"] .hero-bg { opacity: 0.3; }
+        .hero::after {
+            content: ''; position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(to bottom, var(--hero-overlay) 0%, var(--bg-base) 100%);
         }
         .hero-content { max-width: 800px; position: relative; z-index: 2; }
         .hero h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; margin-bottom: 1.5rem; text-transform: uppercase; }
-        .hero p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 500px; margin-inline: auto; }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 500px; margin-inline: auto; font-weight: 500;}
 
         /* --- Clean Cards (Home, Shop & Reviews) --- */
         .section-header { text-align: center; margin-bottom: 3rem; }
@@ -184,7 +194,7 @@
         .card-info { padding: 0 0.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
         .card-title { font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.2rem; }
         .card-desc { color: var(--text-muted); font-size: 0.9rem; }
-        .card-price { font-family: var(--font-tech); font-weight: bold; color: var(--accent-primary); font-size: 1.1rem; }
+        .card-price { font-family: var(--font-tech); font-weight: bold; color: var(--text-main); font-size: 1.1rem; }
         
         .cat-img { width: 100%; height: 100%; object-fit: cover !important; mix-blend-mode: normal !important; border-radius: var(--radius-sm); }
 
@@ -247,7 +257,7 @@
         .upload-area:hover { border-color: var(--accent-primary); background: var(--product-bg); }
         .upload-area i { font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem; }
 
-        /* --- Admin --- */
+        /* --- Admin & Profile --- */
         .admin-nav { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; flex-wrap:wrap;}
         .admin-nav button { background: none; border: none; font-size: 1rem; font-weight: bold; color: var(--text-muted); cursor: pointer; padding: 0.5rem 1rem; border-radius: var(--radius-sm); }
         .admin-nav button.active { background: rgba(18, 109, 46, 0.1); color: var(--accent-primary); }
@@ -259,6 +269,10 @@
         .action-btn-danger { color: #dc2626; border-color: transparent; background: transparent;}
         .action-btn-danger:hover { background: rgba(220, 38, 38, 0.1); }
 
+        /* Profile specific */
+        .profile-card { background: var(--bg-card); border-radius: var(--radius-md); padding: 2rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem; height: 100%;}
+        .address-item, .order-item, .voucher-item { padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); }
+        
         /* --- Toasts --- */
         .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; }
         .toast { background: var(--text-main); color: var(--bg-base); padding: 1rem 1.5rem; border-radius: var(--radius-sm); font-size: 0.95rem; box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 1rem; animation: slideInRight 0.3s ease forwards; border-left: 4px solid var(--accent-primary); }
@@ -284,7 +298,7 @@
     <header id="header">
         <div class="container nav-wrapper">
             <a onclick="navigateTo('view-home')" class="logo">
-                <img src="logo.png" alt="PrintWALD Logo" style="height: 30px; object-fit: contain;">
+                <img src="logo.png" alt="PrintWALD Logo">
                 PRINTWALD
             </a>
             
@@ -318,6 +332,7 @@
         <!-- ================= VIEW: HOME ================= -->
         <main id="view-home" class="view-section active">
             <section class="hero">
+                <div class="hero-bg"></div> 
                 <div class="container hero-content">
                     <h1 id="hero_title">Precision Crafted.<br><span class="text-accent">Elegantly Printed.</span></h1>
                     <p data-i18n="hero_desc">Explore our premium 3D printing services. From bespoke art to high-performance industrial replacement parts.</p>
@@ -339,7 +354,7 @@
                             <img src="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="Lithophane Art" style="filter: sepia(50%) hue-rotate(10deg);">
                         </div>
                         <div class="card-info">
-                            <div><div class="card-title" data-i18n="cap_litho">Lithophane Art</div><div class="card-desc" data-i18n="cap_litho_desc">Custom 3D illuminated photos</div></div>
+                            <div><div class="card-title" data-i18n="cap_litho">Lithophane Art</div><div class="card-desc text-muted" data-i18n="cap_litho_desc">Custom 3D illuminated photos</div></div>
                         </div>
                     </div>
                     <div class="clean-card" onclick="openProductConfig('walltext')" style="border:none;">
@@ -347,7 +362,7 @@
                             <i class="fas fa-font" style="font-size: 5rem; color: var(--text-muted);"></i>
                         </div>
                         <div class="card-info">
-                            <div><div class="card-title" data-i18n="cap_text">Wall Text Customizer</div><div class="card-desc" data-i18n="cap_text_desc">Design quotes & letters</div></div>
+                            <div><div class="card-title" data-i18n="cap_text">Wall Text Customizer</div><div class="card-desc text-muted" data-i18n="cap_text_desc">Design quotes & letters</div></div>
                         </div>
                     </div>
                     <div class="clean-card" onclick="navigateTo('view-contact')" style="border:none;">
@@ -355,7 +370,7 @@
                             <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="Broken Part">
                         </div>
                         <div class="card-info">
-                            <div><div class="card-title" data-i18n="cap_parts">Part Replacement</div><div class="card-desc" data-i18n="cap_parts_desc">Reverse engineering</div></div>
+                            <div><div class="card-title" data-i18n="cap_parts">Part Replacement</div><div class="card-desc text-muted" data-i18n="cap_parts_desc">Reverse engineering & printing</div></div>
                         </div>
                     </div>
                 </div>
@@ -461,6 +476,58 @@
             </div>
         </main>
 
+        <!-- ================= VIEW: USER PROFILE ================= -->
+        <main id="view-profile" class="view-section page-padding container">
+            <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+                <h2 class="section-title" style="margin:0;"><span data-i18n="prof_my">My</span> <span class="text-accent" data-i18n="prof_title">Profile</span></h2>
+                <button class="btn btn-outline" onclick="logoutUser()" data-i18n="btn_logout">Logout</button>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <!-- Profile Settings -->
+                <div class="profile-card">
+                    <h3 style="margin-bottom: 1.5rem;" data-i18n="prof_details">Personal Details</h3>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                        <img src="https://ui-avatars.com/api/?name=User&background=126d2e&color=fff" id="profAvatar" alt="Avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+                        <button class="btn-outline" style="padding: 0.4rem 1rem; border-radius: 4px; font-size: 0.9rem;">Change Photo</button>
+                    </div>
+                    
+                    <span class="option-label">Full Name</span>
+                    <input type="text" id="profName" class="form-control" placeholder="Your Name">
+                    <span class="option-label">Email Address</span>
+                    <input type="email" id="profEmail" class="form-control" placeholder="Email">
+                    <span class="option-label">Phone Number</span>
+                    <input type="tel" id="profPhone" class="form-control" placeholder="+40 700 000 000">
+                    
+                    <button class="btn btn-primary" style="width:100%; margin-top: 1rem;" onclick="saveUserProfile()" data-i18n="prof_save">Save Changes</button>
+                </div>
+
+                <!-- Orders, Vouchers & Addresses -->
+                <div style="display:flex; flex-direction:column; gap:2rem;">
+                    <!-- Past Orders -->
+                    <div class="profile-card">
+                        <h3 style="margin-bottom: 1.5rem;" data-i18n="prof_orders">Past Orders</h3>
+                        <div id="profileOrdersList"></div>
+                    </div>
+                    
+                    <!-- Vouchers -->
+                    <div class="profile-card">
+                        <h3 style="margin-bottom: 1.5rem;" data-i18n="prof_vouchers">My Vouchers</h3>
+                        <div id="profileVouchersList"></div>
+                    </div>
+
+                    <!-- Addresses -->
+                    <div class="profile-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
+                            <h3 style="margin:0;" data-i18n="prof_saved_addr">Saved Addresses</h3>
+                            <button class="action-btn" onclick="promptNewAddress(false)" title="Add new address"><i class="fas fa-plus text-accent"></i></button>
+                        </div>
+                        <div id="profileAddressList"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
         <!-- ================= VIEW: ADMIN DASHBOARD ================= -->
         <main id="view-admin" class="view-section page-padding container">
             <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
@@ -469,18 +536,18 @@
             </div>
             
             <div class="admin-nav">
-                <button class="active" onclick="switchAdminTab('stock')" data-i18n="admin_tab_stock">Color Stock (KG)</button>
+                <button class="active" onclick="switchAdminTab('stock')" data-i18n="admin_tab_stock">Material & Color Stock</button>
                 <button onclick="switchAdminTab('categories')" data-i18n="admin_tab_cat">Categories</button>
                 <button onclick="switchAdminTab('products')" data-i18n="admin_tab_prod">Products</button>
                 <button onclick="switchAdminTab('quotes')" data-i18n="admin_tab_quotes">Price Requests</button>
                 <button onclick="switchAdminTab('messages')" data-i18n="admin_tab_msg">Messages</button>
             </div>
 
-            <!-- Tab: Stock (KG) -->
+            <!-- Tab: Stock (Material + Color) -->
             <div id="admin-stock" class="admin-panel-tab">
-                <h3 style="margin-bottom: 1rem;" data-i18n="admin_stock_title">Manage Colors Availability</h3>
+                <h3 style="margin-bottom: 1rem;" data-i18n="admin_stock_title">Manage Materials & Colors Availability</h3>
                 <table class="data-table">
-                    <thead><tr><th>Color Name</th><th>Hex</th><th>Stock Amount</th></tr></thead>
+                    <thead><tr><th data-i18n="lbl_mat">Material</th><th data-i18n="lbl_color">Color</th><th>Stock (KG)</th></tr></thead>
                     <tbody id="stockTableBody"></tbody>
                 </table>
             </div>
@@ -574,7 +641,6 @@
             <button class="modal-close" onclick="closeModal('lithoModal')"><i class="fas fa-times"></i></button>
             <div class="prod-modal-body">
                 <div class="prod-image-col" style="background:#000;">
-                    <!-- Imaginea se schimba dupa forma -->
                     <img id="litho-img" src="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80" alt="Lithophane" style="mix-blend-mode: normal; filter:sepia(30%); border-radius:4px;">
                 </div>
                 <div class="prod-details-col">
@@ -605,7 +671,6 @@
         <div class="modal-content" style="max-width: 900px;">
             <button class="modal-close" onclick="closeModal('textModal')"><i class="fas fa-times"></i></button>
             <div class="prod-modal-body">
-                <!-- Preview Canvas pentru text -->
                 <div class="prod-image-col" style="background:var(--product-bg); flex-direction:column;">
                     <span style="font-family:var(--font-tech); font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">LIVE PREVIEW</span>
                     <canvas id="textCanvas" width="350" height="200" style="width:100%; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));"></canvas>
@@ -631,9 +696,7 @@
                     </select>
 
                     <span class="option-label" data-i18n="lbl_color">Color</span>
-                    <div class="color-selector" id="text-colors">
-                        <!-- JS populated -->
-                    </div>
+                    <div class="color-selector" id="text-colors"></div>
                     
                     <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="addTextToCart()">Add to Cart</button>
                 </div>
@@ -647,12 +710,21 @@
             <button class="modal-close" onclick="closeModal('cartModal')"><i class="fas fa-times"></i></button>
             <h2 style="font-size: 2rem; margin-bottom: 1.5rem;"><span data-i18n="cart_your">Your</span> <span class="text-accent" data-i18n="cart_title">Cart</span></h2>
             
-            <div id="cartItemsList" style="margin-bottom: 2rem; max-height: 300px; overflow-y: auto;"></div>
+            <div id="cartItemsList" style="margin-bottom: 1.5rem; max-height: 250px; overflow-y: auto;"></div>
             
+            <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                <input type="text" id="cartVoucher" class="form-control" placeholder="Voucher Code (e.g. WELCOME10)" style="margin-bottom:0; flex:1;" data-i18n-placeholder="lbl_voucher">
+                <button class="btn btn-outline" onclick="applyVoucher()" data-i18n="btn_apply">Apply</button>
+            </div>
+            <div id="voucherMessage" style="color:var(--accent-primary); font-size:0.85rem; font-weight:bold; margin-bottom:1rem; display:none;"></div>
+
             <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold;">
                 <span>Total:</span>
                 <span id="cartTotalUI" class="text-accent">€0.00</span>
             </div>
+            
+            <span class="option-label" data-i18n="lbl_address">Delivery Address</span>
+            <div id="checkout-addresses" style="margin-bottom: 1.5rem;"></div>
             
             <span class="option-label" data-i18n="lbl_pay">Payment Method</span>
             <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
@@ -667,14 +739,14 @@
         </div>
     </div>
 
-    <!-- Redesigned Login Modal with Google/Email/Phone -->
+    <!-- Login Modal -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-content" style="max-width: 400px; padding: 3rem 2.5rem;">
             <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
             <h2 style="font-size: 2rem; margin-bottom: 0.5rem; text-align:center;" data-i18n="btn_login">Login</h2>
             <p style="color: var(--text-muted); margin-bottom: 2rem; text-align:center; font-size: 0.9rem;" data-i18n="login_sub">Sign in to your account</p>
             
-            <button class="btn-google" onclick="showToast('Google Sign-In API integrated.')">
+            <button class="btn-google" onclick="mockGoogleLogin()">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" style="width:20px; height:20px;">
                     <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
                     <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
@@ -693,7 +765,7 @@
             <input type="text" class="form-control" placeholder="Email or Phone Number" id="loginEmail">
             <input type="password" class="form-control" placeholder="Password">
             <button class="btn btn-primary" style="width: 100%;" onclick="processLogin()" data-i18n="btn_login">Enter</button>
-            <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">Hint: Type 'admin' in email for Admin panel</p>
+            <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">Hint: Type 'admin' for Admin panel</p>
         </div>
     </div>
 
@@ -722,13 +794,14 @@
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
                 setTimeout(() => loader.style.display = 'none', 500);
-            }, 1000); 
+            }, 800); 
         });
 
         /* --- 2. TRANSLATIONS (i18n) --- */
         const translations = {
             en: {
-                nav_home: "Home", nav_shop: "Shop", nav_custom: "Custom Print", nav_contact: "Contact", nav_admin: "Admin", btn_login: "Login",
+                nav_home: "Home", nav_shop: "Shop", nav_custom: "Custom Print", nav_contact: "Contact", nav_admin: "Admin", nav_profile: "My",
+                btn_login: "Login", btn_logout: "Logout",
                 hero_desc: "Explore our premium 3D printing services. From bespoke art to high-performance industrial replacement parts.",
                 btn_goshop: "Go to Shop", home_our: "Our", home_cap: "Capabilities",
                 cap_litho: "Lithophane Art", cap_litho_desc: "Custom 3D illuminated photos",
@@ -741,20 +814,22 @@
                 shop_col: "Collection", filter_all: "All Products",
                 custom_req: "Request", custom_quote: "Quote", custom_desc: "Have your own 3D model? Upload it here. Our engineers will slice it, analyze the required time and material, and send you a custom price offer.", custom_drop: "Click or Drag & Drop Model", btn_sendquote: "Send Request for Quote",
                 contact_get: "Get in", contact_send: "Send a", btn_send: "Send Message",
-                lbl_mat: "Material", lbl_color: "Color", lbl_shape: "Shape", lbl_size: "Dimensions", lbl_font: "Font Style", lbl_height: "Letter Height", lbl_pay: "Payment Method",
-                cart_your: "Your", cart_title: "Cart", btn_checkout: "Checkout Now", btn_addcart: "Add to Cart",
+                lbl_mat: "Material", lbl_color: "Color", lbl_shape: "Shape", lbl_size: "Dimensions", lbl_font: "Font Style", lbl_height: "Letter Height", lbl_pay: "Payment Method", lbl_address: "Delivery Address",
+                cart_your: "Your", cart_title: "Cart", btn_checkout: "Checkout Now", btn_addcart: "Add to Cart", lbl_voucher: "Voucher Code", btn_apply: "Apply",
                 login_sub: "Sign in to your account", login_google: "Continue with Google",
-                admin_tab_stock: "Color Stock (KG)", admin_tab_cat: "Categories", admin_tab_prod: "Products", admin_tab_quotes: "Price Requests", admin_tab_msg: "Messages",
-                admin_stock_title: "Manage Colors Availability", admin_cat_title: "Manage Categories", admin_prod_title: "Manage Products", admin_msg_title: "Incoming Messages",
+                prof_title: "Profile", prof_details: "Personal Details", prof_save: "Save Changes", prof_saved_addr: "Saved Addresses", prof_orders: "Past Orders", prof_vouchers: "My Vouchers",
+                admin_tab_stock: "Material & Color Stock", admin_tab_cat: "Categories", admin_tab_prod: "Products", admin_tab_quotes: "Price Requests", admin_tab_msg: "Messages",
+                admin_stock_title: "Manage Materials & Colors Availability", admin_cat_title: "Manage Categories", admin_prod_title: "Manage Products", admin_msg_title: "Incoming Messages",
                 footer_desc: "German precision, digital innovation. Printing the future, layer by layer."
             },
             ro: {
-                nav_home: "Acasă", nav_shop: "Magazin", nav_custom: "Printare Custom", nav_contact: "Contact", nav_admin: "Admin", btn_login: "Cont",
+                nav_home: "Acasă", nav_shop: "Magazin", nav_custom: "Printare Custom", nav_contact: "Contact", nav_admin: "Admin", nav_profile: "Contul",
+                btn_login: "Cont", btn_logout: "Deconectare",
                 hero_desc: "Explorează serviciile noastre premium de printare 3D. De la artă la piese industriale de înaltă performanță.",
                 btn_goshop: "Spre Magazin", home_our: "", home_cap: "Capabilități",
-                cap_litho: "Artă Lithophane", cap_litho_desc: "Fotografii 3D iluminate",
-                cap_text: "Text de Perete", cap_text_desc: "Configurează litere 3D",
-                cap_parts: "Piese de Schimb", cap_parts_desc: "Inginerie inversă & print",
+                cap_litho: "Fotografii 3D iluminate", cap_litho_desc: "Artă Lithophane personalizată",
+                cap_text: "Configurează litere 3D", cap_text_desc: "Texte pentru perete",
+                cap_parts: "Inginerie inversă & printare 3D", cap_parts_desc: "Piese de schimb rezistente",
                 reviews_title: "Ce spun", reviews_clients: "Clienții Noștri",
                 rev_1: `"Le-am trimis o rotiță ruptă de la mixer. Au modelat-o perfect și au printat-o în ABS. Funcționează mai bine ca originalul!"`,
                 rev_2: `"Tabloul Lithophane comandat pentru aniversarea părinților a fost superb. Un cadou emoționant și unic."`,
@@ -762,15 +837,17 @@
                 shop_col: "Completă", filter_all: "Toate Produsele",
                 custom_req: "Cere o", custom_quote: "Cotație", custom_desc: "Ai propriul model 3D? Încarcă-l aici. Inginerii noștri îl vor analiza (timp & material) și îți vor trimite o ofertă de preț personalizată.", custom_drop: "Apasă sau Drag & Drop", btn_sendquote: "Trimite Cerere de Preț",
                 contact_get: "Contactează", contact_send: "Trimite", btn_send: "Trimite Mesaj",
-                lbl_mat: "Material", lbl_color: "Culoare", lbl_shape: "Formă", lbl_size: "Dimensiuni", lbl_font: "Stil Font", lbl_height: "Înălțime Litere", lbl_pay: "Metodă de Plată",
-                cart_your: "Coșul", cart_title: "Tău", btn_checkout: "Cumpără Acum", btn_addcart: "Adaugă în Coș",
+                lbl_mat: "Material", lbl_color: "Culoare", lbl_shape: "Formă", lbl_size: "Dimensiuni", lbl_font: "Stil Font", lbl_height: "Înălțime Litere", lbl_pay: "Metodă de Plată", lbl_address: "Adresă Livrare",
+                cart_your: "Coșul", cart_title: "Tău", btn_checkout: "Cumpără Acum", btn_addcart: "Adaugă în Coș", lbl_voucher: "Cod Reducere", btn_apply: "Aplică",
                 login_sub: "Autentifică-te în contul tău", login_google: "Continuă cu Google",
-                admin_tab_stock: "Stoc Culori (KG)", admin_tab_cat: "Categorii", admin_tab_prod: "Produse", admin_tab_quotes: "Cereri Preț", admin_tab_msg: "Mesaje",
-                admin_stock_title: "Gestionează Cantitatea Culorilor (KG)", admin_cat_title: "Gestionează Categoriile", admin_prod_title: "Gestionează Produsele", admin_msg_title: "Mesaje Primite",
+                prof_title: "Meu", prof_details: "Detalii Personale", prof_save: "Salvează Modificările", prof_saved_addr: "Adrese Salvate", prof_orders: "Istoric Comenzi", prof_vouchers: "Voucherele Mele",
+                admin_tab_stock: "Stoc Material & Culoare", admin_tab_cat: "Categorii", admin_tab_prod: "Produse", admin_tab_quotes: "Cereri Preț", admin_tab_msg: "Mesaje",
+                admin_stock_title: "Gestionează Stocul (Material + Culoare)", admin_cat_title: "Gestionează Categoriile", admin_prod_title: "Gestionează Produsele", admin_msg_title: "Mesaje Primite",
                 footer_desc: "Precizie germană, inovație digitală. Printăm viitorul, strat cu strat."
             },
             de: {
-                nav_home: "Startseite", nav_shop: "Shop", nav_custom: "Eigener Druck", nav_contact: "Kontakt", nav_admin: "Admin", btn_login: "Anmelden",
+                nav_home: "Startseite", nav_shop: "Shop", nav_custom: "Eigener Druck", nav_contact: "Kontakt", nav_admin: "Admin", nav_profile: "Mein",
+                btn_login: "Anmelden", btn_logout: "Abmelden",
                 hero_desc: "Entdecken Sie unsere Premium-3D-Druckdienste. Von maßgeschneiderter Kunst bis hin zu Hochleistungs-Industrieersatzteilen.",
                 btn_goshop: "Zum Shop", home_our: "Unsere", home_cap: "Fähigkeiten",
                 cap_litho: "Lithophane Kunst", cap_litho_desc: "Beleuchtete 3D-Fotos",
@@ -783,11 +860,12 @@
                 shop_col: "Kollektion", filter_all: "Alle Produkte",
                 custom_req: "Angebot", custom_quote: "Anfragen", custom_desc: "Haben Sie ein eigenes 3D-Modell? Laden Sie es hoch. Wir berechnen Zeit & Material und senden Ihnen ein individuelles Angebot.", custom_drop: "Klicken oder Drag & Drop", btn_sendquote: "Anfrage Senden",
                 contact_get: "Kontakt", contact_send: "Senden", btn_send: "Nachricht Senden",
-                lbl_mat: "Material", lbl_color: "Farbe", lbl_shape: "Form", lbl_size: "Abmessungen", lbl_font: "Schriftart", lbl_height: "Buchstabenhöhe", lbl_pay: "Zahlungsmethode",
-                cart_your: "Dein", cart_title: "Warenkorb", btn_checkout: "Jetzt Kaufen", btn_addcart: "In den Warenkorb",
+                lbl_mat: "Material", lbl_color: "Farbe", lbl_shape: "Form", lbl_size: "Abmessungen", lbl_font: "Schriftart", lbl_height: "Buchstabenhöhe", lbl_pay: "Zahlungsmethode", lbl_address: "Lieferadresse",
+                cart_your: "Dein", cart_title: "Warenkorb", btn_checkout: "Jetzt Kaufen", btn_addcart: "In den Warenkorb", lbl_voucher: "Gutscheincode", btn_apply: "Anwenden",
                 login_sub: "Melden Sie sich an", login_google: "Weiter mit Google",
-                admin_tab_stock: "Farbbestand (KG)", admin_tab_cat: "Kategorien", admin_tab_prod: "Produkte", admin_tab_quotes: "Anfragen", admin_tab_msg: "Nachrichten",
-                admin_stock_title: "Farbmengen Verwalten (KG)", admin_cat_title: "Kategorien Verwalten", admin_prod_title: "Produkte Verwalten", admin_msg_title: "Eingehende Nachrichten",
+                prof_title: "Profil", prof_details: "Persönliche Daten", prof_save: "Änderungen speichern", prof_saved_addr: "Gespeicherte Adressen", prof_orders: "Bisherige Bestellungen", prof_vouchers: "Meine Gutscheine",
+                admin_tab_stock: "Material & Farbe (KG)", admin_tab_cat: "Kategorien", admin_tab_prod: "Produkte", admin_tab_quotes: "Anfragen", admin_tab_msg: "Nachrichten",
+                admin_stock_title: "Material & Farbe Verwalten", admin_cat_title: "Kategorien Verwalten", admin_prod_title: "Produkte Verwalten", admin_msg_title: "Eingehende Nachrichten",
                 footer_desc: "Deutsche Präzision, digitale Innovation. Die Zukunft drucken, Schicht für Schicht."
             }
         };
@@ -801,27 +879,49 @@
                 const key = el.getAttribute('data-i18n');
                 if(translations[lang][key]) el.innerHTML = translations[lang][key];
             });
-            // Custom hero title
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if(translations[lang][key]) el.placeholder = translations[lang][key];
+            });
+            
             if(lang === 'ro') document.getElementById('hero_title').innerHTML = "Precizie. <br><span class='text-accent'>Design Elegant.</span>";
             if(lang === 'de') document.getElementById('hero_title').innerHTML = "Präzision.<br><span class='text-accent'>Elegant Gedruckt.</span>";
             if(lang === 'en') document.getElementById('hero_title').innerHTML = "Precision Crafted.<br><span class='text-accent'>Elegantly Printed.</span>";
             
-            renderShopCategories();
-            renderShop();
+            renderShopCategories(); renderShop();
+            if(currentUser) renderProfile();
             if(isAdmin) { renderAdminCategories(); renderAdminProducts(); renderAdminStock(); }
         }
 
-        /* --- 3. DATA ARCHITECTURE --- */
+        /* --- 3. DATA ARCHITECTURE (STOCK REWORK) --- */
         let appCategories = ['Home Decor', 'Accessories', 'Keychains', 'Stencils', 'Miniatures', 'Functional', 'Toys', 'Molds', 'Figurines'];
         let currentFilter = 'All';
 
-        const globalColors = [
-            { id: 'c1', name: 'Matte White', hex: '#f0f0f0', stock: 15 }, // stock is in kg
-            { id: 'c2', name: 'Carbon Black', hex: '#222222', stock: 8 },
-            { id: 'c3', name: 'Watermelon Green', hex: '#126d2e', stock: 25 },
-            { id: 'c4', name: 'Deep Avocado', hex: '#849004', stock: 10 },
-            { id: 'c5', name: 'Ocean Blue', hex: '#1e3a8a', stock: 0 }
+        const baseColors = [
+            { id: 'c1', name: 'Matte White', hex: '#f0f0f0' },
+            { id: 'c2', name: 'Carbon Black', hex: '#222222' },
+            { id: 'c3', name: 'Watermelon Green', hex: '#126d2e' },
+            { id: 'c4', name: 'Deep Avocado', hex: '#849004' },
+            { id: 'c5', name: 'Ocean Blue', hex: '#1e3a8a' }
         ];
+
+        // Combined Inventory: Material + Color -> Stock in KG
+        let inventoryStock = [
+            { id: 'pla_c1', material: 'PLA', colorId: 'c1', stock: 15 },
+            { id: 'pla_c2', material: 'PLA', colorId: 'c2', stock: 8 },
+            { id: 'pla_c3', material: 'PLA', colorId: 'c3', stock: 25 },
+            { id: 'pla_c4', material: 'PLA', colorId: 'c4', stock: 10 },
+            { id: 'pla_c5', material: 'PLA', colorId: 'c5', stock: 0 },
+            
+            { id: 'petg_c1', material: 'PETG', colorId: 'c1', stock: 5 },
+            { id: 'petg_c2', material: 'PETG', colorId: 'c2', stock: 12 },
+            { id: 'petg_c3', material: 'PETG', colorId: 'c3', stock: 0 },
+            { id: 'petg_c4', material: 'PETG', colorId: 'c4', stock: 2 },
+            
+            { id: 'abs_c1', material: 'ABS', colorId: 'c1', stock: 0 },
+            { id: 'abs_c2', material: 'ABS', colorId: 'c2', stock: 4 },
+        ];
+
         const materialInfo = {
             'PLA': 'Easy to print, eco-friendly. Ideal for decorative models.',
             'PETG': 'Strong, slightly flexible, water & heat resistant.',
@@ -829,7 +929,7 @@
         };
 
         let products = [
-            { id: 1, type: 'standard', cat: 'Home Decor', name: "Geo Vase", price: 24.00, img: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&fit=crop&w=400&q=80", materials: ['PLA', 'PETG'] },
+            { id: 1, type: 'standard', cat: 'Home Decor', name: "Geo Vase", price: 24.00, discountPrice: 19.99, img: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&fit=crop&w=400&q=80", materials: ['PLA', 'PETG'] },
             { id: 2, type: 'standard', cat: 'Accessories', name: "Desk Stand", price: 18.50, img: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=400&q=80", materials: ['PLA', 'ABS'] },
             { id: 3, type: 'standard', cat: 'Functional', name: "Headphone Mount", price: 12.00, img: "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80", materials: ['PETG', 'ABS'] },
             { id: 4, type: 'standard', cat: 'Home Decor', name: "Geometric Planter", price: 28.00, img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=400&q=80", materials: ['PLA'] },
@@ -840,11 +940,98 @@
         ];
 
         let cart = [];
+        let cartDiscountPercent = 0;
         let activeProduct = null; let selectedMaterial = null; let selectedColor = null;
+        
+        let isAdmin = false;
+        let currentUser = null; 
         let adminMessages = [];
         let adminCustomRequests = [];
 
-        /* --- 4. SHOP & CATEGORIES LOGIC --- */
+        /* --- 4. USER PROFILE LOGIC --- */
+        function renderProfile() {
+            if(!currentUser) return;
+            document.getElementById('profName').value = currentUser.name || '';
+            document.getElementById('profEmail').value = currentUser.email || '';
+            document.getElementById('profPhone').value = currentUser.phone || '';
+            
+            // Addresses
+            const addrContainer = document.getElementById('profileAddressList');
+            addrContainer.innerHTML = '';
+            if(currentUser.addresses.length === 0) {
+                addrContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">No addresses saved.</p>`;
+            } else {
+                currentUser.addresses.forEach((a, index) => {
+                    addrContainer.innerHTML += `
+                        <div class="address-item">
+                            <div>
+                                <strong style="display:block; margin-bottom:0.2rem;">${a.label}</strong>
+                                <span class="text-muted" style="font-size:0.9rem;">${a.text}</span>
+                            </div>
+                            <button class="action-btn action-btn-danger" onclick="deleteAddress(${index})" style="border:none;"><i class="fas fa-trash"></i></button>
+                        </div>`;
+                });
+            }
+
+            // Orders
+            const ordContainer = document.getElementById('profileOrdersList');
+            ordContainer.innerHTML = '';
+            if(currentUser.orders.length === 0) {
+                ordContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">No past orders.</p>`;
+            } else {
+                currentUser.orders.forEach(o => {
+                    ordContainer.innerHTML += `
+                        <div class="order-item">
+                            <div>
+                                <strong style="font-family:var(--font-tech);">${o.id}</strong> <span style="margin: 0 10px; color:var(--text-muted);">|</span> <span>${o.date}</span>
+                                <div class="text-accent" style="font-size:0.9rem; font-weight:bold; margin-top:0.2rem;">${o.status}</div>
+                            </div>
+                            <div style="font-weight:bold;">€${o.total.toFixed(2)}</div>
+                        </div>`;
+                });
+            }
+
+            // Vouchers
+            const vouchContainer = document.getElementById('profileVouchersList');
+            vouchContainer.innerHTML = '';
+            if(currentUser.vouchers.length === 0) {
+                vouchContainer.innerHTML = `<p class="text-muted" style="font-size:0.9rem;">No vouchers available.</p>`;
+            } else {
+                currentUser.vouchers.forEach(v => {
+                    vouchContainer.innerHTML += `
+                        <div class="voucher-item" style="border-style: dashed; border-color: var(--accent-primary);">
+                            <div style="font-family:var(--font-tech); font-weight:bold; font-size:1.2rem; color:var(--accent-primary);">${v.code}</div>
+                            <div style="font-weight:bold;">-${v.discount}</div>
+                        </div>`;
+                });
+            }
+        }
+        
+        function saveUserProfile() {
+            currentUser.name = document.getElementById('profName').value;
+            currentUser.email = document.getElementById('profEmail').value;
+            currentUser.phone = document.getElementById('profPhone').value;
+            showToast(translate('prof_save') + " - OK");
+        }
+
+        function promptNewAddress(fromCheckout = false) {
+            const label = prompt("Address Label (e.g. Home, Office):");
+            if(!label) return;
+            const text = prompt("Full Address (Street, City, Zip):");
+            if(!text) return;
+            
+            if(!currentUser) { showToast("Please login to save address."); return; }
+            currentUser.addresses.push({ id: Date.now(), label: label, text: text });
+            showToast("Address saved!");
+            
+            if(fromCheckout) renderCheckoutAddresses(); else renderProfile();
+        }
+
+        function deleteAddress(index) {
+            if(confirm("Delete this address?")) { currentUser.addresses.splice(index, 1); renderProfile(); }
+        }
+
+        /* --- 5. SHOP & CATEGORIES LOGIC --- */
         function renderShopCategories() {
             const bar = document.getElementById('shopCategories');
             bar.innerHTML = `<button class="cat-btn ${currentFilter==='All'?'active':''}" onclick="filterShop('All')">${translate('filter_all')}</button>`;
@@ -853,159 +1040,205 @@
             });
         }
 
-        function filterShop(cat) {
-            currentFilter = cat; renderShopCategories(); renderShop();
-        }
+        function filterShop(cat) { currentFilter = cat; renderShopCategories(); renderShop(); }
 
         function renderShop() {
             const grid = document.getElementById('shopGrid'); grid.innerHTML = '';
             const filtered = currentFilter === 'All' ? products : products.filter(p => p.cat === currentFilter);
-            
-            if(filtered.length === 0) {
-                grid.innerHTML = '<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">No products in this category yet.</p>'; return;
-            }
-
+            if(filtered.length === 0) { grid.innerHTML = '<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">No products in this category yet.</p>'; return; }
             filtered.forEach(p => {
+                let priceHtml = `€${p.price.toFixed(2)}`;
+                if(p.discountPrice) {
+                    priceHtml = `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.9em; margin-right: 0.5rem;">€${p.price.toFixed(2)}</span><span class="text-accent">€${p.discountPrice.toFixed(2)}</span>`;
+                }
+
                 grid.innerHTML += `
                     <div class="clean-card" onclick="openProduct(${p.id})">
                         <div class="card-img-box"><img src="${p.img}" alt="${p.name}"></div>
                         <div class="card-info">
                             <div><div class="card-title">${p.name}</div><div class="card-desc text-muted">${p.cat}</div></div>
-                            <div class="card-price">€${p.price.toFixed(2)}</div>
+                            <div class="card-price">${priceHtml}</div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
         function openProduct(id) {
             activeProduct = products.find(p => p.id === id);
             document.getElementById('pm-title').innerText = activeProduct.name;
-            document.getElementById('pm-price').innerText = `€${activeProduct.price.toFixed(2)}`;
+            
+            let priceHtml = `€${activeProduct.price.toFixed(2)}`;
+            if(activeProduct.discountPrice) priceHtml = `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.8em; margin-right: 0.5rem;">€${activeProduct.price.toFixed(2)}</span><span class="text-accent">€${activeProduct.discountPrice.toFixed(2)}</span>`;
+            document.getElementById('pm-price').innerHTML = priceHtml;
+            
             document.getElementById('pm-img').src = activeProduct.img;
             document.getElementById('pm-overlay').style.backgroundColor = 'transparent';
             document.getElementById('pm-color-name').innerText = '';
 
             const matContainer = document.getElementById('pm-materials'); matContainer.innerHTML = '';
             activeProduct.materials.forEach((m, i) => {
-                const cls = i === 0 ? 'mat-btn active' : 'mat-btn';
-                if(i===0) selectedMaterial = m;
+                const cls = i === 0 ? 'mat-btn active' : 'mat-btn'; if(i===0) selectedMaterial = m;
                 matContainer.innerHTML += `<button class="${cls}" data-tooltip="${materialInfo[m]}" onclick="selectMaterial(this, '${m}')">${m}</button>`;
             });
 
-            const colContainer = document.getElementById('pm-colors'); colContainer.innerHTML = '';
-            selectedColor = null;
-            globalColors.forEach(c => {
-                const inStock = c.stock > 0;
-                const stateClass = inStock ? '' : 'disabled';
-                const tooltip = inStock ? c.name : 'Out of Stock';
-                colContainer.innerHTML += `<button class="color-btn ${stateClass}" style="background-color: ${c.hex}" data-tooltip="${tooltip}" onclick="selectColor(this, '${c.id}')"></button>`;
-            });
-
+            // Afisam culorile DOAR pentru materialul curent selectat (default e primul din lista)
+            renderColorsForMaterial(selectedMaterial);
             openModal('productModal');
         }
 
-        function selectMaterial(btn, mat) {
-            document.querySelectorAll('.mat-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active'); selectedMaterial = mat;
+        function selectMaterial(btn, mat) { 
+            document.querySelectorAll('.mat-btn').forEach(b => b.classList.remove('active')); 
+            btn.classList.add('active'); 
+            selectedMaterial = mat; 
+            renderColorsForMaterial(mat); // Actualizam culorile disp. pentru acest material
+        }
+
+        // Noua functie care arata stocul per material
+        function renderColorsForMaterial(mat) {
+            const colContainer = document.getElementById('pm-colors'); 
+            colContainer.innerHTML = '';
+            selectedColor = null;
+            document.getElementById('pm-color-name').innerText = '';
+            document.getElementById('pm-overlay').style.backgroundColor = 'transparent';
+
+            baseColors.forEach(c => {
+                // Cautam daca exista materialul + culoarea in stock array
+                const stockItem = inventoryStock.find(inv => inv.material === mat && inv.colorId === c.id);
+                const inStock = stockItem && stockItem.stock > 0; 
+                
+                const stateClass = inStock ? '' : 'disabled'; 
+                const tooltip = inStock ? c.name : 'Out of Stock';
+                colContainer.innerHTML += `<button class="color-btn ${stateClass}" style="background-color: ${c.hex}" data-tooltip="${tooltip}" onclick="selectColor(this, '${c.id}')"></button>`;
+            });
         }
 
         function selectColor(btn, colorId) {
-            const colorObj = globalColors.find(c => c.id === colorId);
-            if(colorObj.stock <= 0) return;
-            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active'); selectedColor = colorObj;
-            document.getElementById('pm-color-name').innerText = `- ${colorObj.name}`;
+            const stockItem = inventoryStock.find(inv => inv.material === selectedMaterial && inv.colorId === colorId);
+            if(!stockItem || stockItem.stock <= 0) return;
+            
+            const colorObj = baseColors.find(c => c.id === colorId);
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active')); 
+            btn.classList.add('active'); 
+            selectedColor = colorObj;
+            document.getElementById('pm-color-name').innerText = `- ${colorObj.name}`; 
             document.getElementById('pm-overlay').style.backgroundColor = colorObj.hex;
         }
 
-        /* --- 5. LITHOPHANE, TEXT & CUSTOM UPLOAD CONFIGURATORS --- */
+        /* --- 6. LITHOPHANE, TEXT & CUSTOM UPLOAD CONFIGURATORS --- */
         function openProductConfig(type) {
-            if(type === 'lithophane') {
-                calcLithoPrice(); openModal('lithoModal');
-            } else if (type === 'walltext') {
+            if(type === 'lithophane') { 
+                calcLithoPrice(); 
+                openModal('lithoModal'); 
+            } 
+            else if (type === 'walltext') {
                 const tc = document.getElementById('text-colors'); tc.innerHTML = '';
-                globalColors.forEach((c, i) => {
-                    if(c.stock > 0) {
-                        const active = i===0 ? 'active' : '';
-                        if(i===0) window.textActiveColor = c;
-                        tc.innerHTML += `<button class="color-btn ${active}" style="background-color: ${c.hex}" onclick="selectTextColor(this, '${c.id}')"></button>`;
+                // Setup colors for PLA as default for Configurator
+                const plaStock = inventoryStock.filter(inv => inv.material === 'PLA');
+                
+                baseColors.forEach((c, i) => {
+                    const stockItem = plaStock.find(inv => inv.colorId === c.id);
+                    if(stockItem && stockItem.stock > 0) { 
+                        const active = tc.innerHTML === '' ? 'active' : ''; 
+                        if(active) window.textActiveColor = c; 
+                        tc.innerHTML += `<button class="color-btn ${active}" style="background-color: ${c.hex}" onclick="selectTextColor(this, '${c.id}')"></button>`; 
                     }
                 });
                 window.textActiveFont = 'Bebas Neue'; updateTextPreview(); openModal('textModal');
             }
         }
 
-        // LITHOPHANE LOGIC
         let lithoShape = 'rectangular';
         const lithoImages = { 'rectangular': 'https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80', 'curved': 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80' };
-        function selectLithoShape(shape) {
-            document.querySelectorAll('#litho-shapes .sel-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active'); lithoShape = shape;
-            document.getElementById('litho-img').src = lithoImages[shape];
-        }
-        function calcLithoPrice() {
-            const size = document.getElementById('litho-size').value;
-            let price = 25; if(size === '15x20') price = 40; if(size === '20x25') price = 55;
-            document.getElementById('litho-price').innerText = `€${price.toFixed(2)}`; window.lithoActivePrice = price;
-        }
+        function selectLithoShape(shape) { document.querySelectorAll('#litho-shapes .sel-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); lithoShape = shape; document.getElementById('litho-img').src = lithoImages[shape]; }
+        function calcLithoPrice() { const size = document.getElementById('litho-size').value; let price = 25; if(size === '15x20') price = 40; if(size === '20x25') price = 55; document.getElementById('litho-price').innerText = `€${price.toFixed(2)}`; window.lithoActivePrice = price; }
         function addLithoToCart() {
             const size = document.getElementById('litho-size').value;
             cart.push({ product: { name: `Lithophane (${lithoShape})`, price: window.lithoActivePrice }, color: { name: 'White', hex: '#fff' }, material: 'PLA', customText: `Size: ${size}` });
             updateCartCount(); closeModal('lithoModal'); showToast("Lithophane added to cart!");
         }
 
-        // WALL TEXT LOGIC
         function selectTextFont(btn, font) { document.querySelectorAll('.font-selector .sel-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); window.textActiveFont = font; updateTextPreview(); }
-        function selectTextColor(btn, cid) { document.querySelectorAll('#text-colors .color-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); window.textActiveColor = globalColors.find(c => c.id === cid); updateTextPreview(); }
+        function selectTextColor(btn, cid) { document.querySelectorAll('#text-colors .color-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); window.textActiveColor = baseColors.find(c => c.id === cid); updateTextPreview(); }
         function updateTextPreview() {
-            const txt = document.getElementById('wallTextVal').value || 'TEXT';
-            const sizeVal = parseInt(document.getElementById('textSize').value);
+            const txt = document.getElementById('wallTextVal').value || 'TEXT'; const sizeVal = parseInt(document.getElementById('textSize').value);
             let pricePerLet = 1.5; if(sizeVal === 10) pricePerLet = 3.0; if(sizeVal === 15) pricePerLet = 5.0;
-            const total = txt.replace(/\s/g, '').length * pricePerLet;
-            document.getElementById('text-price').innerText = `€${total.toFixed(2)}`; window.textActivePrice = total;
-
+            const total = txt.replace(/\s/g, '').length * pricePerLet; document.getElementById('text-price').innerText = `€${total.toFixed(2)}`; window.textActivePrice = total;
             const c = document.getElementById('textCanvas'); const ctx = c.getContext('2d');
             ctx.clearRect(0,0,c.width,c.height); ctx.font = `bold 60px '${window.textActiveFont}'`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             const color = window.textActiveColor ? window.textActiveColor.hex : '#111';
-            
-            ctx.fillStyle = shadeHEX(color, -40);
-            for(let i=5; i>0; i--) ctx.fillText(txt, c.width/2 - i, c.height/2 + i);
+            ctx.fillStyle = shadeHEX(color, -40); for(let i=5; i>0; i--) ctx.fillText(txt, c.width/2 - i, c.height/2 + i);
             ctx.fillStyle = color; ctx.fillText(txt, c.width/2, c.height/2);
         }
         function addTextToCart() {
-            const txt = document.getElementById('wallTextVal').value;
-            if(!txt) { showToast("Enter text first."); return; }
+            const txt = document.getElementById('wallTextVal').value; if(!txt) { showToast("Enter text first."); return; }
             cart.push({ product: { name: `Wall Text: "${txt}"`, price: window.textActivePrice }, color: window.textActiveColor, material: 'PLA', customText: `Font: ${window.textActiveFont}` });
             updateCartCount(); closeModal('textModal'); showToast("Text added to cart!");
         }
 
-        // CUSTOM UPLOAD LOGIC
         let uploadedFileName = '';
-        function handleFileSelect(e) {
-            const file = e.target.files[0];
-            if(file) { uploadedFileName = file.name; document.getElementById('fileNameDisplay').innerText = `File ready: ${file.name}`; }
-        }
+        function handleFileSelect(e) { const file = e.target.files[0]; if(file) { uploadedFileName = file.name; document.getElementById('fileNameDisplay').innerText = `File ready: ${file.name}`; } }
         function submitCustomQuote() {
             const name = document.getElementById('cqName').value; const email = document.getElementById('cqEmail').value; const notes = document.getElementById('cqNotes').value;
             if(!name || !email || !uploadedFileName) { showToast("Please fill all fields and upload a file."); return; }
             adminCustomRequests.push({ client: name, email: email, file: uploadedFileName, notes: notes });
             document.getElementById('cqName').value=''; document.getElementById('cqEmail').value=''; document.getElementById('cqNotes').value=''; document.getElementById('fileNameDisplay').innerText=''; uploadedFileName='';
-            showToast("Model uploaded! We'll send a quote soon.");
-            renderAdminQuotes();
+            showToast("Model uploaded! We'll send a quote soon."); renderAdminQuotes();
         }
 
-        /* --- 6. CART LOGIC --- */
+        /* --- 7. CART, VOUCHER & CHECKOUT LOGIC --- */
         function addToCart(prod, color, mat, custom) {
             if(!color) { showToast("Select a color."); return; }
-            cart.push({ product: prod, color: color, material: mat, customText: custom });
+            let finalPrice = prod.discountPrice ? prod.discountPrice : prod.price; 
+            
+            cart.push({ product: { name: prod.name, price: finalPrice }, color: color, material: mat, customText: custom });
             updateCartCount(); closeModal('productModal'); showToast("Added to cart!");
         }
         function updateCartCount() { document.getElementById('cartCount').innerText = cart.length; }
+        
+        function renderCheckoutAddresses() {
+            const container = document.getElementById('checkout-addresses');
+            if(!currentUser) {
+                container.innerHTML = `<textarea id="guestAddress" class="form-control" placeholder="Enter full delivery address" rows="2"></textarea>`;
+            } else {
+                if(currentUser.addresses.length === 0) {
+                    container.innerHTML = `<button class="btn btn-outline" style="width:100%; padding: 0.8rem;" onclick="promptNewAddress(true)">+ Add New Address</button>`;
+                } else {
+                    let html = `<select id="selectedAddress" class="form-control" style="margin-bottom:0.5rem; font-weight:bold;">`;
+                    currentUser.addresses.forEach(a => { html += `<option value="${a.id}">${a.label} - ${a.text}</option>`; });
+                    html += `</select><button class="action-btn" style="width:100%; border:1px dashed var(--border-color); background:transparent;" onclick="promptNewAddress(true)">+ Or add new address</button>`;
+                    container.innerHTML = html;
+                }
+            }
+        }
+
+        function applyVoucher() {
+            const code = document.getElementById('cartVoucher').value.toUpperCase().trim();
+            const msgObj = document.getElementById('voucherMessage');
+            if (code === 'WELCOME10') {
+                cartDiscountPercent = 0.10; // 10%
+                msgObj.innerText = 'Voucher Applied: -10%';
+                msgObj.style.display = 'block';
+                msgObj.style.color = 'var(--accent-primary)';
+                openCart(); 
+            } else if (code === '') {
+                cartDiscountPercent = 0;
+                msgObj.style.display = 'none';
+                openCart();
+            } else {
+                cartDiscountPercent = 0;
+                msgObj.innerText = 'Invalid voucher code.';
+                msgObj.style.display = 'block';
+                msgObj.style.color = 'red';
+                openCart();
+            }
+        }
+
         function openCart() {
             const list = document.getElementById('cartItemsList'); list.innerHTML = ''; let total = 0;
-            if(cart.length === 0) list.innerHTML = '<p style="color:var(--text-muted);">Cart is empty.</p>';
-            else {
+            if(cart.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted);">Cart is empty.</p>';
+                document.getElementById('cartTotalUI').innerText = `€0.00`; 
+            } else {
                 cart.forEach((item, index) => {
                     total += item.product.price;
                     list.innerHTML += `
@@ -1014,40 +1247,88 @@
                                 <div style="width:20px; height:20px; border-radius:50%; background:${item.color.hex}; border:1px solid var(--border-color);"></div>
                                 <div><div style="font-weight:bold;">${item.product.name}</div><div style="font-size:0.8rem; color:var(--text-muted);">${item.material} | <span class="text-accent">${item.color.name}</span> ${item.customText ? '<br>'+item.customText : ''}</div></div>
                             </div>
-                            <div style="font-family:var(--font-tech); font-weight:bold; color:var(--accent-primary);">€${item.product.price.toFixed(2)}</div>
+                            <div style="font-family:var(--font-tech); font-weight:bold; color:var(--text-main);">€${item.product.price.toFixed(2)}</div>
                         </div>`;
                 });
+                
+                if (cartDiscountPercent > 0) {
+                    let discountAmount = total * cartDiscountPercent;
+                    total = total - discountAmount;
+                    document.getElementById('cartTotalUI').innerHTML = `<span style="text-decoration: line-through; color:var(--text-muted); font-size:0.8em; margin-right:10px;">€${(total + discountAmount).toFixed(2)}</span> <span class="text-accent">€${total.toFixed(2)}</span>`;
+                } else {
+                    document.getElementById('cartTotalUI').innerText = `€${total.toFixed(2)}`; 
+                }
             }
-            document.getElementById('cartTotalUI').innerText = `€${total.toFixed(2)}`; openModal('cartModal');
-        }
-        function processCheckout() {
-            if(cart.length === 0) { showToast("Cart is empty!"); return; }
-            showToast("Processing Order..."); setTimeout(() => { cart = []; updateCartCount(); closeModal('cartModal'); showToast("Order Placed Successfully!"); }, 1500);
+            
+            renderCheckoutAddresses();
+            openModal('cartModal');
         }
 
-        /* --- 7. ADMIN PANEL LOGIC --- */
-        let isAdmin = false;
+        function processCheckout() {
+            if(cart.length === 0) { showToast("Cart is empty!"); return; }
+            
+            if(currentUser && currentUser.addresses.length > 0) {
+                const sel = document.getElementById('selectedAddress');
+                if(!sel || !sel.value) { showToast("Please select a delivery address."); return; }
+            } else if (!currentUser) {
+                const guestAddr = document.getElementById('guestAddress').value;
+                if(!guestAddr) { showToast("Please enter a delivery address."); return; }
+            } else if (currentUser && currentUser.addresses.length === 0) {
+                 showToast("Please add a delivery address."); return;
+            }
+
+            showToast("Processing Order..."); 
+            setTimeout(() => { 
+                cart = []; 
+                cartDiscountPercent = 0; 
+                document.getElementById('cartVoucher').value = '';
+                document.getElementById('voucherMessage').style.display = 'none';
+                updateCartCount(); 
+                closeModal('cartModal'); 
+                showToast("Order Placed Successfully!"); 
+            }, 1500);
+        }
+
+        /* --- 8. LOGIN / ADMIN / PROFILE ROUTING --- */
         function handleUserIconClick() {
-            if(isAdmin) { if(confirm("Do you want to log out of Admin panel?")) logoutAdmin(); } 
+            if(isAdmin) { if(confirm("Do you want to log out of Admin panel?")) logoutUser(); } 
+            else if(currentUser) { navigateTo('view-profile'); renderProfile(); }
             else openModal('loginModal');
         }
+
+        function mockGoogleLogin() { document.getElementById('loginEmail').value = 'john.doe@gmail.com'; processLogin(); }
 
         function processLogin() {
             const email = document.getElementById('loginEmail').value.toLowerCase();
             closeModal('loginModal');
+            
             if(email.includes('admin')) {
-                isAdmin = true;
+                isAdmin = true; currentUser = null;
                 document.getElementById('navAdminBtn').style.display = 'block';
                 document.getElementById('loginBtnUI').innerHTML = '<i class="fas fa-user-shield text-accent"></i>';
                 showToast("Admin logged in.");
                 renderAdminStock(); renderAdminCategories(); renderAdminProducts(); renderAdminQuotes();
                 navigateTo('view-admin'); 
-            } else showToast("Logged in successfully.");
+            } else if (email) {
+                // Regular User mock
+                isAdmin = false;
+                currentUser = {
+                    name: email.split('@')[0], email: email, phone: "+40 700 000 000",
+                    addresses: [ { id: 1, label: "Home", text: "Main Street 1, Berlin" } ],
+                    orders: [ { id: '#ORD-902', date: '12 May 2026', total: 42.50, status: 'Delivered' } ],
+                    vouchers: [ { code: 'WELCOME10', discount: '10%' } ]
+                };
+                document.getElementById('navAdminBtn').style.display = 'none';
+                document.getElementById('loginBtnUI').innerHTML = '<i class="fas fa-user-check text-accent"></i>';
+                showToast("Logged in successfully.");
+            }
         }
 
-        function logoutAdmin() {
-            isAdmin = false; document.getElementById('navAdminBtn').style.display = 'none'; document.getElementById('loginBtnUI').innerHTML = '<i class="fas fa-user"></i>';
-            navigateTo('view-home'); showToast("Admin logged out.");
+        function logoutUser() {
+            isAdmin = false; currentUser = null;
+            document.getElementById('navAdminBtn').style.display = 'none'; 
+            document.getElementById('loginBtnUI').innerHTML = '<i class="fas fa-user"></i>';
+            navigateTo('view-home'); showToast("Logged out successfully.");
         }
 
         function switchAdminTab(tab) {
@@ -1055,49 +1336,63 @@
             document.querySelectorAll('.admin-panel-tab').forEach(t => t.style.display = 'none'); document.getElementById('admin-' + tab).style.display = 'block';
         }
 
+        // Admin Stock (MATERIAL + COLOR LOGIC)
         function renderAdminStock() {
             const tbody = document.getElementById('stockTableBody'); tbody.innerHTML = '';
-            globalColors.forEach(c => {
-                const stockStyle = c.stock > 0 ? '' : 'color:red; font-weight:bold;';
-                tbody.innerHTML += `<tr>
-                    <td><div style="display:flex; align-items:center; gap:10px;"><div style="width:15px;height:15px;border-radius:50%;background:${c.hex}; border:1px solid var(--border-color);"></div> ${c.name}</div></td>
-                    <td style="font-family:var(--font-tech);">${c.hex}</td>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <button class="action-btn" style="padding:0.2rem 0.6rem;" onclick="updateStock('${c.id}', -1)"><i class="fas fa-minus"></i></button>
-                            <span style="font-family:var(--font-tech); min-width: 40px; text-align:center; ${stockStyle}">${c.stock} kg</span>
-                            <button class="action-btn" style="padding:0.2rem 0.6rem;" onclick="updateStock('${c.id}', 1)"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </td>
-                </tr>`;
+            inventoryStock.forEach(inv => {
+                const colorObj = baseColors.find(c => c.id === inv.colorId);
+                if(colorObj) {
+                    const stockStyle = inv.stock > 0 ? '' : 'color:red; font-weight:bold;';
+                    tbody.innerHTML += `<tr>
+                        <td><strong>${inv.material}</strong></td>
+                        <td><div style="display:flex; align-items:center; gap:10px;"><div style="width:15px;height:15px;border-radius:50%;background:${colorObj.hex}; border:1px solid var(--border-color);"></div> ${colorObj.name}</div></td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <button class="action-btn" style="padding:0.2rem 0.6rem;" onclick="updateStock('${inv.id}', -1)"><i class="fas fa-minus"></i></button>
+                                <span style="font-family:var(--font-tech); min-width: 40px; text-align:center; ${stockStyle}">${inv.stock} kg</span>
+                                <button class="action-btn" style="padding:0.2rem 0.6rem;" onclick="updateStock('${inv.id}', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </td>
+                    </tr>`;
+                }
             });
         }
-        function updateStock(id, amount) {
-            const col = globalColors.find(c => c.id === id);
-            col.stock += amount; if(col.stock < 0) col.stock = 0;
-            renderAdminStock();
-        }
+        function updateStock(id, amount) { const item = inventoryStock.find(inv => inv.id === id); if(item) { item.stock += amount; if(item.stock < 0) item.stock = 0; renderAdminStock(); } }
 
-        function renderAdminCategories() {
-            const tbody = document.getElementById('catTableBody'); tbody.innerHTML = '';
-            appCategories.forEach(cat => { tbody.innerHTML += `<tr><td style="font-weight:bold;">${cat}</td><td><button class="action-btn action-btn-danger" onclick="deleteCategory('${cat}')"><i class="fas fa-trash"></i></button></td></tr>`; });
-        }
+        // Admin Categories
+        function renderAdminCategories() { const tbody = document.getElementById('catTableBody'); tbody.innerHTML = ''; appCategories.forEach(cat => { tbody.innerHTML += `<tr><td style="font-weight:bold;">${cat}</td><td><button class="action-btn action-btn-danger" onclick="deleteCategory('${cat}')"><i class="fas fa-trash"></i></button></td></tr>`; }); }
         function promptAddCategory() { const name = prompt("Enter new category name:"); if(name && !appCategories.includes(name)) { appCategories.push(name); renderAdminCategories(); renderShopCategories(); showToast("Category Added");} }
         function deleteCategory(cat) { if(confirm(`Delete category ${cat}?`)) { appCategories = appCategories.filter(c => c !== cat); renderAdminCategories(); renderShopCategories(); showToast("Category Deleted"); } }
 
+        // Admin Products & Discounts
         function renderAdminProducts() {
             const tbody = document.getElementById('prodTableBody'); tbody.innerHTML = '';
             products.forEach(p => {
                 if(p.type==='standard') {
+                    let priceDisplay = `€${p.price.toFixed(2)}`;
+                    if (p.discountPrice) priceDisplay = `<span style="text-decoration:line-through; color:var(--text-muted); font-size:0.8rem;">€${p.price.toFixed(2)}</span> <span class="text-accent font-bold">€${p.discountPrice.toFixed(2)}</span>`;
+                    
                     tbody.innerHTML += `<tr>
                         <td><div style="display:flex; align-items:center; gap:10px;"><img src="${p.img}" style="width:30px;height:30px;object-fit:cover;border-radius:4px;"> ${p.name}</div></td>
-                        <td>${p.cat}</td><td class="text-accent font-bold">€${p.price.toFixed(2)}</td>
-                        <td><button class="action-btn action-btn-danger" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button></td>
+                        <td>${p.cat}</td><td>${priceDisplay}</td>
+                        <td style="display:flex; gap:0.5rem;">
+                            <button class="action-btn" onclick="promptDiscount(${p.id})" title="Set Discount"><i class="fas fa-tags"></i></button>
+                            <button class="action-btn action-btn-danger" onclick="deleteProduct(${p.id})" title="Delete"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>`;
                 }
             });
         }
         function deleteProduct(id) { if(confirm("Delete this product?")) { products = products.filter(p => p.id !== id); renderAdminProducts(); renderShop(); showToast("Product Deleted"); } }
+        function promptDiscount(id) {
+            const p = products.find(prod => prod.id === id);
+            const val = prompt(`Set discounted price for ${p.name} (Current: €${p.price}). Leave empty to remove discount:`, p.discountPrice || '');
+            if (val !== null) {
+                if (val.trim() === '') delete p.discountPrice;
+                else p.discountPrice = parseFloat(val);
+                renderAdminProducts(); renderShop(); showToast("Discount updated!");
+            }
+        }
         function openAdminProductModal() { const sel = document.getElementById('apCat'); sel.innerHTML = ''; appCategories.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`); openModal('adminProdModal'); }
         function saveAdminProduct() {
             const n = document.getElementById('apName').value; const p = parseFloat(document.getElementById('apPrice').value); const i = document.getElementById('apImg').value || 'https://via.placeholder.com/400'; const c = document.getElementById('apCat').value; const m = document.getElementById('apMats').value.split(',').map(s=>s.trim());
@@ -1124,7 +1419,7 @@
             tbody.innerHTML += `<tr><td>${name}</td><td>${email}</td><td>${msg}</td></tr>`;
         }
 
-        /* --- 8. UTILS --- */
+        /* --- 9. GENERAL UTILS --- */
         function navigateTo(viewId) {
             document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active')); document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
