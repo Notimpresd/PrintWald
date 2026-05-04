@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintWALD | Premium 3D Printing & Engineering</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- Variabile Globale & Theming --- */
+        :root {
+            --bg-base: #030305;
+            --bg-surface: #0a0a0c;
+            --bg-card: #111114;
+            --bg-card-hover: #18181c;
+            
+            --accent-primary: #ff5a00;
+            --accent-hover: #ff7326;
+            --accent-glow: rgba(255, 90, 0, 0.25);
+            
+            --text-main: #ffffff;
+            --text-muted: #8e8e99;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.15);
+            
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-tech: 'Space Mono', monospace;
+            
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- Reset & Base --- */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center top;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+        h1, h2, h3, h4 { font-family: var(--font-head); letter-spacing: 1.5px; font-weight: normal; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        button { font-family: inherit; cursor: pointer; outline: none; border: none; }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+
+        /* --- Componente Reutilizabile --- */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: var(--accent-primary);
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 90, 0, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-light);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            background: rgba(255, 90, 0, 0.05);
+        }
+
+        /* --- Navbar --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(3, 3, 5, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .nav-wrapper {
+            display: flex; justify-content: space-between; align-items: center;
+            height: 80px;
+        }
+        .logo { font-family: var(--font-head); font-size: 2.2rem; display: flex; align-items: center; gap: 0.5rem;}
+        .logo span { color: var(--accent-primary); }
+        .logo-icon { width: 30px; height: 30px; background: var(--accent-primary); border-radius: 4px; display: inline-block; position: relative; }
+        .logo-icon::after { content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px; border: 2px solid #fff; border-radius: 2px; }
+
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-primary); }
+
+        .nav-tools { display: flex; align-items: center; gap: 1.5rem; }
+        .lang-switch {
+            background: transparent; color: var(--text-main); border: none; 
+            font-family: var(--font-tech); font-size: 0.9rem; cursor: pointer;
+        }
+        .lang-switch option { background: var(--bg-card); color: #fff; }
+        .icon-btn {
+            background: transparent; color: var(--text-main); font-size: 1.2rem;
+            position: relative; transition: var(--transition);
+        }
+        .icon-btn:hover { color: var(--accent-primary); transform: scale(1.1); }
+        .badge {
+            position: absolute; top: -8px; right: -10px; background: var(--accent-primary);
+            color: #fff; font-size: 0.6rem; font-family: var(--font-tech); font-weight: bold;
+            width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
+            width: 600px; height: 600px; background: var(--accent-primary);
+            border-radius: 50%; filter: blur(150px); opacity: 0.15; z-index: -1;
+        }
+        .hero-content { max-width: 800px; animation: slideUp 1s ease forwards; }
+        .hero h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); line-height: 0.9; margin-bottom: 1.5rem; text-transform: uppercase; }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; margin-inline: auto; }
+        .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        
+        .tech-stats {
+            display: flex; justify-content: center; gap: 3rem; margin-top: 4rem;
+            border-top: 1px solid var(--border-color); padding-top: 2rem;
+        }
+        .stat-item { text-align: center; }
+        .stat-value { font-family: var(--font-tech); font-size: 1.5rem; color: var(--accent-primary); font-weight: 700; display: block;}
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
+
+        /* --- Grid Categorii (Servicii) --- */
+        .section-padding { padding: 8rem 0; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-subtitle { color: var(--accent-primary); font-family: var(--font-tech); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 0.5rem;}
+        .section-title { font-size: 3.5rem; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2.5rem 2rem;
+            transition: var(--transition);
+            position: relative;
+            display: flex; flex-direction: column;
+            group: hover;
+        }
+        .service-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .service-icon {
+            width: 60px; height: 60px; border-radius: var(--radius-sm);
+            background: rgba(255, 90, 0, 0.1);
+            color: var(--accent-primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+        .service-card:hover .service-icon { background: var(--accent-primary); color: #fff; }
+        .service-card h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .service-card p { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; margin-bottom: 2rem; }
+        
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
+        .price-tag { font-family: var(--font-tech); color: var(--text-main); font-size: 0.9rem; }
+        .price-tag span { color: var(--text-muted); font-size: 0.8rem; }
+        
+        .btn-card {
+            background: transparent; color: var(--accent-primary); font-family: var(--font-tech);
+            font-size: 0.85rem; border: none; text-transform: uppercase; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .btn-card i { transition: transform 0.3s; }
+        .service-card:hover .btn-card i { transform: translateX(5px); }
+
+        /* --- Eigenes Modell (Upload Section) --- */
+        .upload-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .upload-dropzone {
+            border: 2px dashed var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 4rem 2rem;
+            margin: 2rem auto 0;
+            max-width: 600px;
+            transition: var(--transition);
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        .upload-dropzone:hover {
+            border-color: var(--accent-primary);
+            background: rgba(255, 90, 0, 0.05);
+        }
+        .upload-dropzone i { font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem; transition: var(--transition); }
+        .upload-dropzone:hover i { color: var(--accent-primary); transform: translateY(-5px); }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--bg-surface); border-top: 1px solid var(--border-color);
+            padding: 4rem 0 2rem; margin-top: 4rem;
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;}
+        .footer-col h4 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: var(--text-muted); font-size: 0.95rem; }
+        .footer-links a:hover { color: var(--accent-primary); }
+        .footer-bottom { border-top: 1px solid var(--border-color); padding-top: 2rem; display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-tech); }
+
+        /* --- Modale Generale --- */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center; z-index: 2000;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-content {
+            background: var(--bg-card); border: 1px solid var(--border-light);
+            border-radius: var(--radius-md); padding: 2.5rem; width: 90%; max-width: 450px;
+            position: relative; transform: translateY(30px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-close {
+            position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.1);
+            border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+        }
+        .modal-close:hover { background: var(--accent-primary); transform: rotate(90deg); }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; }
+        .form-control {
+            width: 100%; background: var(--bg-base); border: 1px solid var(--border-color);
+            color: #fff; padding: 0.9rem 1rem; border-radius: var(--radius-sm); font-family: var(--font-body); transition: 0.3s;
+        }
+        .form-control:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(255, 90, 0, 0.1); }
+
+        /* --- Configurator Modal Specific --- */
+        #configModal .modal-content { max-width: 900px; padding: 0; overflow: hidden; display: flex; flex-wrap: wrap; }
+        .config-sidebar { flex: 1; min-width: 300px; padding: 2.5rem; background: var(--bg-card); }
+        .config-preview { 
+            flex: 1.5; min-width: 300px; padding: 2.5rem; background: var(--bg-base);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative; border-left: 1px solid var(--border-color);
+        }
+        .canvas-container {
+            width: 100%; aspect-ratio: 16/9; background: repeating-linear-gradient(45deg, var(--bg-card) 0, var(--bg-card) 2px, transparent 2px, transparent 8px);
+            border-radius: var(--radius-sm); border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+        #previewCanvas { max-width: 100%; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6)); }
+        
+        .price-display {
+            margin-top: 2rem; padding: 1.5rem; background: rgba(255, 90, 0, 0.05);
+            border: 1px solid var(--accent-glow); border-radius: var(--radius-sm);
+        }
+
+        /* --- Toast Notifications --- */
+        .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; }
+        .toast {
+            background: var(--bg-card); border-left: 4px solid var(--accent-primary);
+            color: #fff; padding: 1rem 1.5rem; border-radius: 4px; font-size: 0.95rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 1rem;
+            animation: slideInRight 0.3s ease forwards;
+        }
+        .toast i { color: var(--accent-primary); font-size: 1.2rem; }
+
+        /* Animations */
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 3.5rem; }
+            #configModal .modal-content { flex-direction: column; }
+            .config-preview { border-left: none; border-top: 1px solid var(--border-color); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header id="header">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">
+                <span class="logo-icon"></span>
+                PRINT<span>WALD</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#servicii" class="active">Servicii</a>
+                <a href="#upload">Printează Fișier</a>
+                <a href="#magazin">Magazin</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            
+            <div class="nav-tools">
+                <select class="lang-switch">
+                    <option value="ro">RO</option>
+                    <option value="de">DE</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="icon-btn" onclick="showToast('Coșul este gol momentan.')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge">0</span>
+                </button>
+                <button class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 1rem;" onclick="openModal('loginModal')">
+                    <i class="fas fa-user"></i> Admin
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Inginerie 3D <br><span style="color: var(--accent-primary);">Fără Compromisuri</span></h1>
+            <p>De la prototipare rapidă industrială și piese de schimb din materiale de înaltă performanță (ABS, PETG, Nylon), până la configuratoare personalizate direct în browser.</p>
+            
+            <div class="hero-actions">
+                <a href="#upload" class="btn btn-primary"><i class="fas fa-upload"></i> Încarcă STL</a>
+                <a href="#servicii" class="btn btn-outline">Explorează Serviciile</a>
+            </div>
+            
+            <div class="tech-stats">
+                <div class="stat-item">
+                    <span class="stat-value">&lt; 24h</span>
+                    <span class="stat-label">Timp de Răspuns</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">0.05mm</span>
+                    <span class="stat-label">Precizie Print</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">In-House Gengenbach</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicii Section -->
+    <section id="servicii" class="section-padding container">
+        <div class="section-header">
+            <span class="section-subtitle">Aplicații & Configuratoare</span>
+            <h2 class="section-title">Soluții Complete</h2>
+        </div>
+        
+        <div class="services-grid">
+            
+            <!-- Card 1: Brelocuri (Cu integrare Canvas reală) -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-key"></i></div>
+                <h3>Brelocuri Custom</h3>
+                <p>Personalizează brelocuri cu textul tău. Previzualizare live pe platformă și calcul automat de preț.</p>
+                <div class="card-footer">
+                    <div class="price-tag">€3.00 <span>+ €0.50/literă</span></div>
+                    <button class="btn-card" onclick="openConfigurator()"><i class="fas fa-cog"></i> Configurator</button>
+                </div>
+            </div>
+
+            <!-- Card 2: Broken Parts -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                <h3>Piese de Schimb</h3>
+                <p>Înlocuim piese rupte pentru aparate casnice sau industriale. Re-proiectare CAD inclusă pentru rezistență superioară.</p>
+                <div class="card-footer">
+                    <div class="price-tag">Estimare <span>la cerere</span></div>
+                    <button class="btn-card" onclick="showToast('Se va deschide formularul de încărcare poze.')"><i class="fas fa-camera"></i> Solicită</button>
+                </div>
+            </div>
+
+            <!-- Card 3: Prototipare -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Prototipare Rapidă</h3>
+                <p>Validare mecanică pentru ingineri și designeri. Printăm în PLA+, PETG, ABS sau TPU flexibil.</p>
+                <div class="card-footer">
+                    <div class="price-tag">Dinamic <span>/ per volum</span></div>
+                    <button class="btn-card" onclick="showToast('Redirecționare către B2B portal.')"><i class="fas fa-arrow-right"></i> B2B Portal</button>
+                </div>
+            </div>
+
+            <!-- Card 4: CAD Design -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-drafting-compass"></i></div>
+                <h3>Servicii CAD</h3>
+                <p>Transformăm schițele tale pe șervețel în modele 3D gata de fabricație (STEP, STL, IGES).</p>
+                <div class="card-footer">
+                    <div class="price-tag">€25.00 <span>/ Oră</span></div>
+                    <button class="btn-card" onclick="showToast('Deschidere chat cu un inginer PrintWALD.')"><i class="fas fa-comments"></i> Discută</button>
+                </div>
+            </div>
+
+            <!-- Card 5: Lithophane -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-image"></i></div>
+                <h3>Lithophane Art</h3>
+                <p>Încarcă orice fotografie și software-ul nostru o va transforma într-un tablou 3D ce prinde viață la lumină.</p>
+                <div class="card-footer">
+                    <div class="price-tag">De la €15.00 <span></span></div>
+                    <button class="btn-card" onclick="showToast('Modul Upload Imagine în dezvoltare.')"><i class="fas fa-upload"></i> Upload Poză</button>
+                </div>
+            </div>
+
+            <!-- Card 6: Schubladen -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-th-large"></i></div>
+                <h3>Organizatoare (Schubladen)</h3>
+                <p>Sistem parametric pentru organizarea sertarelor. Introdu dimensiunile și generăm cutiile automat.</p>
+                <div class="card-footer">
+                    <div class="price-tag">Parametric <span></span></div>
+                    <button class="btn-card" onclick="showToast('Modulul de Grid 2D se încarcă...')"><i class="fas fa-vector-square"></i> Deschide UI</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="section-padding container">
+        <div class="upload-section">
+            <span class="section-subtitle">Ai propriul fișier?</span>
+            <h2 class="section-title" style="margin-bottom: 1rem;">Eigenes Modell</h2>
+            <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">Sistemul nostru va analiza geometria fișierului tău, va estima cantitatea de filament, timpul de printare și va genera prețul pe loc.</p>
+            
+            <div class="upload-dropzone" onclick="showToast('Sistemul de Slicing în cloud este simulat momentan.')">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3 style="margin-bottom: 0.5rem;">Click sau Drag & Drop</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-tech);">Suportă: .STL, .OBJ, .3MF (Max 50MB)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo" style="font-size: 1.8rem; margin-bottom: 1rem;">
+                        <span class="logo-icon" style="width: 24px; height: 24px;"></span>
+                        PRINT<span style="color: var(--text-main)">WALD</span>
+                    </a>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Precizie germană, inovație digitală. Printăm viitorul, strat cu strat.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Legături Rapide</h4>
+                    <ul class="footer-links" style="list-style: none;">
+                        <li><a href="#servicii">Servicii & Prețuri</a></li>
+                        <li><a href="#magazin">Magazin MakerWorld</a></li>
+                        <li><a href="#upload">Sistem Upload</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links" style="list-style: none;">
+                        <li><a href="mailto:contact@printwald.de"><i class="fas fa-envelope"></i> contact@printwald.de</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Gengenbach, DE</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> @printwald</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 PrintWALD. All rights reserved.</span>
+                <span>Powered by Advanced Web Tech</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: LOGIN / ADMIN -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
+            <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Autentificare</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Accesează panoul de client sau administrare (admin@printwald.de)</p>
+            
+            <div class="form-group">
+                <label>Adresă Email</label>
+                <input type="email" class="form-control" placeholder="nume@email.com" id="loginEmail">
+            </div>
+            <div class="form-group">
+                <label>Parolă</label>
+                <input type="password" class="form-control" placeholder="••••••••">
+            </div>
+            
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="processLogin()">Intră în Cont</button>
+        </div>
+    </div>
+
+    <!-- MODAL: CONFIGURATOR BRELOC (CANVAS) -->
+    <div class="modal-overlay" id="configModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('configModal')" style="z-index: 10; background: var(--bg-card);"><i class="fas fa-times"></i></button>
+            
+            <!-- Partea Stângă: Controale -->
+            <div class="config-sidebar">
+                <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Configurator <span style="color: var(--accent-primary);">Breloc</span></h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Editează textul și culorile. Modelul 3D se va genera și felia automat.</p>
+                
+                <div class="form-group">
+                    <label>Text Breloc (Max 12 Caractere)</label>
+                    <input type="text" class="form-control" id="brelocText" value="PRINTWALD" maxlength="12" oninput="renderCanvas()">
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Culoare Bază (Filament)</label>
+                        <input type="color" class="form-control" id="baseColor" value="#1a1a24" style="height: 50px; padding: 0.2rem; cursor: pointer;" oninput="renderCanvas()">
+                    </div>
+                    <div class="form-group">
+                        <label>Culoare Text (Filament)</label>
+                        <input type="color" class="form-control" id="textColor" value="#ff5a00" style="height: 50px; padding: 0.2rem; cursor: pointer;" oninput="renderCanvas()">
+                    </div>
+                </div>
+                
+                <div class="price-display">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span style="color: var(--text-muted); font-family: var(--font-tech); font-size: 0.8rem;">Bază: €3.00 | Litere: <span id="letterCount">8</span> x €0.50</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                        <span style="font-family: var(--font-head); font-size: 1.2rem; text-transform: uppercase;">Total Estimat</span>
+                        <span id="priceDisplay" style="font-family: var(--font-tech); font-size: 2rem; color: var(--accent-primary); font-weight: bold;">€7.00</span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="addToCart()">
+                    <i class="fas fa-cart-arrow-down"></i> Adaugă la Comandă
+                </button>
+            </div>
+            
+            <!-- Partea Dreaptă: Canvas Randare -->
+            <div class="config-preview">
+                <span style="position: absolute; top: 1.5rem; left: 1.5rem; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 8px; height: 8px; background: #00ff00; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #00ff00;"></span> LIVE RENDER VIEW
+                </span>
+                
+                <div class="canvas-container">
+                    <canvas id="previewCanvas" width="450" height="200"></canvas>
+                </div>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">*Reprezentare vizuală. Designul final va avea textură de strat 3D (layer lines).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistem Toasts (Notificari) -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripturi Interactivitate -->
+    <script>
+        // Efect Navbar la scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(3, 3, 5, 0.95)';
+                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+            } else {
+                header.style.background = 'rgba(3, 3, 5, 0.7)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Sistem Custom Toasts (Înlocuiește alert-ul inestetic)
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            // Elimină toast-ul după 3 secunde
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Logică Modale Generale
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function processLogin() {
+            const email = document.getElementById('loginEmail').value;
+            if(email.includes('admin')) {
+                showToast('Autentificare Admin reușită. Se încarcă dashboard-ul...');
+            } else {
+                showToast('Conectare client reușită!');
+            }
+            closeModal('loginModal');
+        }
+
+        // --- LOGICA CANVAS PENTRU BRELOC ---
+        const canvas = document.getElementById('previewCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function openConfigurator() {
+            openModal('configModal');
+            // Timeout scurt pentru a ne asigura ca modalul e vizibil inainte de randare
+            setTimeout(renderCanvas, 100);
+        }
+
+        function renderCanvas() {
+            let text = document.getElementById('brelocText').value.toUpperCase().trim();
+            if (!text) text = " "; // Previne erorile la calculul lățimii
+            
+            const baseColor = document.getElementById('baseColor').value;
+            const textColor = document.getElementById('textColor').value;
+            
+            // Actualizare UI Preț
+            const letterCount = text.replace(/\s/g, '').length;
+            document.getElementById('letterCount').innerText = letterCount;
+            const total = (3.00 + (letterCount * 0.50)).toFixed(2);
+            document.getElementById('priceDisplay').innerText = `€${total}`;
+
+            // Reset Canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Setări Font & Dimensiuni
+            ctx.font = "bold 44px 'Bebas Neue', sans-serif";
+            const textMetrics = ctx.measureText(text);
+            const textWidth = textMetrics.width;
+            
+            // Calculăm dimensiunea "bucății de plastic" (bazei)
+            const paddingX = 40;
+            const ringSpace = 50;
+            const rectWidth = Math.max(160, textWidth + paddingX * 2 + ringSpace);
+            const rectHeight = 70;
+            
+            // Centrare in Canvas
+            const startX = (canvas.width - rectWidth) / 2;
+            const startY = (canvas.height - rectHeight) / 2;
+
+            // 1. Randare Bază (Grosime / Umbră pentru efect 3D)
+            const shadowColor = shadeHEX(baseColor, -30);
+            ctx.fillStyle = shadowColor;
+            roundRect(ctx, startX, startY + 8, rectWidth, rectHeight, 35);
+            ctx.fill();
+
+            // Randare Bază (Suprafața de sus)
+            ctx.fillStyle = baseColor;
+            roundRect(ctx, startX, startY, rectWidth, rectHeight, 35);
+            ctx.fill();
+
+            // 2. Randare Gaură Breloc (Transparent cut-out)
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(startX + 35, startY + (rectHeight/2), 12, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Revenim la desenare normala si adaugam un inel subtil interior
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.strokeStyle = shadowColor;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(startX + 35, startY + (rectHeight/2), 12, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // 3. Randare Text (Efect 3D extruziv)
+            const textX = startX + ringSpace + (rectWidth - ringSpace) / 2;
+            const textY = startY + (rectHeight / 2) + 2; // adjustare optica
+            
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            
+            // Umbra/Grosimea literelor (straturile de dedesubt)
+            ctx.fillStyle = shadeHEX(textColor, -40);
+            for(let i = 4; i > 0; i--) {
+                ctx.fillText(text, textX, textY + i);
+            }
+            
+            // Suprafața literelor (stratul final de sus)
+            ctx.fillStyle = textColor;
+            ctx.fillText(text, textX, textY);
+        }
+
+        function addToCart() {
+            showToast("Designul a fost salvat și adăugat în coș!");
+            closeModal('configModal');
+            // Aici s-ar actualiza badge-ul cart-ului in realitate
+            document.querySelector('.badge').innerText = '1';
+        }
+
+        // Helper: Funcție pentru a desena un dreptunghi cu margini rotunjite (suport pentru browsere vechi fara ctx.roundRect)
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        // Helper: Întunecă sau deschide o culoare HEX
+        function shadeHEX(color, percent) {
+            let R = parseInt(color.substring(1,3),16);
+            let G = parseInt(color.substring(3,5),16);
+            let B = parseInt(color.substring(5,7),16);
+            R = parseInt(R * (100 + percent) / 100);
+            G = parseInt(G * (100 + percent) / 100);
+            B = parseInt(B * (100 + percent) / 100);
+            R = (R<255)?R:255; R = (R>0)?R:0;
+            G = (G<255)?G:255; G = (G>0)?G:0;
+            B = (B<255)?B:255; B = (B>0)?B:0;
+            let RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+            let GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+            let BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+            return "#"+RR+GG+BB;
+        }
+
+    </script>
+</body>
+</html>
