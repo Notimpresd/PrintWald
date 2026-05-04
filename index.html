@@ -131,6 +131,9 @@
         .btn-outline:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
         .btn-accent { background: var(--accent-primary); color: white; border-radius: 8px;}
         .btn-accent:hover { background: var(--accent-hover); }
+        
+        .btn-google { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); width: 100%; justify-content: center; display: flex; align-items: center; gap: 10px; font-weight: 600; padding: 0.8rem; border-radius: 8px; transition: var(--transition); cursor: pointer; }
+        .btn-google:hover { background: var(--bg-surface); border-color: var(--text-muted); }
 
         /* --- Navbar --- */
         header {
@@ -166,16 +169,15 @@
         .hero h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; margin-bottom: 1.5rem; text-transform: uppercase; }
         .hero p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 500px; margin-inline: auto; }
 
-        /* --- Clean Cards (Home & Shop) --- */
+        /* --- Clean Cards (Home, Shop & Reviews) --- */
         .section-header { text-align: center; margin-bottom: 3rem; }
         .section-title { font-size: 3rem; }
         
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
         
-        .clean-card { display: flex; flex-direction: column; cursor: pointer; transition: var(--transition); }
-        .clean-card:hover { transform: translateY(-5px); }
-        .card-img-box { background: var(--product-bg); border-radius: var(--radius-md); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 1rem; transition: var(--transition); position: relative; }
-        .clean-card:hover .card-img-box { box-shadow: var(--shadow-md); }
+        .clean-card { display: flex; flex-direction: column; cursor: pointer; transition: var(--transition); background: var(--bg-card); border-radius: var(--radius-md); padding: 1rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
+        .clean-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--border-color); }
+        .card-img-box { background: var(--product-bg); border-radius: var(--radius-sm); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 1rem; transition: var(--transition); position: relative; }
         .card-img-box img { max-width: 80%; max-height: 80%; object-fit: contain; mix-blend-mode: multiply; transition: 0.3s; }
         [data-theme="dark"] .card-img-box img { mix-blend-mode: normal; }
         
@@ -184,7 +186,13 @@
         .card-desc { color: var(--text-muted); font-size: 0.9rem; }
         .card-price { font-family: var(--font-tech); font-weight: bold; color: var(--accent-primary); font-size: 1.1rem; }
         
-        .cat-img { width: 100%; height: 100%; object-fit: cover !important; mix-blend-mode: normal !important; border-radius: var(--radius-md); }
+        .cat-img { width: 100%; height: 100%; object-fit: cover !important; mix-blend-mode: normal !important; border-radius: var(--radius-sm); }
+
+        /* --- Reviews --- */
+        .review-card { background: var(--bg-surface); padding: 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); }
+        .review-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .review-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .review-stars { color: var(--accent-primary); font-size: 0.9rem; margin-top: 0.2rem; }
 
         /* --- Categories Filter Bar --- */
         .category-bar { display:flex; gap:0.5rem; justify-content:center; margin-bottom: 3rem; flex-wrap:wrap; }
@@ -222,7 +230,8 @@
         .shape-selector, .size-selector, .font-selector { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap:wrap; }
         .sel-btn { padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 6px; cursor: pointer; transition: 0.2s; }
         .sel-btn.active { background: var(--text-main); color: var(--bg-base); border-color: var(--text-main); }
-        .form-control { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); border-radius: var(--radius-sm); font-family: var(--font-body); outline: none; margin-bottom:1.5rem;}
+        
+        .form-control { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); border-radius: var(--radius-sm); font-family: var(--font-body); outline: none; margin-bottom:1.5rem; transition: border 0.3s ease;}
         .form-control:focus { border-color: var(--accent-primary); }
 
         /* --- Modals Setup --- */
@@ -233,6 +242,11 @@
         .modal-close { position: absolute; top: 1rem; right: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; z-index: 10; }
         .modal-close:hover { background: var(--accent-primary); color: #fff; border-color: var(--accent-primary); }
 
+        /* --- Custom Upload View --- */
+        .upload-area { border: 2px dashed var(--border-color); border-radius: var(--radius-md); padding: 3rem 2rem; text-align: center; cursor: pointer; transition: var(--transition); background: var(--bg-card); }
+        .upload-area:hover { border-color: var(--accent-primary); background: var(--product-bg); }
+        .upload-area i { font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem; }
+
         /* --- Admin --- */
         .admin-nav { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; flex-wrap:wrap;}
         .admin-nav button { background: none; border: none; font-size: 1rem; font-weight: bold; color: var(--text-muted); cursor: pointer; padding: 0.5rem 1rem; border-radius: var(--radius-sm); }
@@ -240,8 +254,10 @@
         .data-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom:2rem;}
         .data-table th, .data-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); }
         .data-table th { background: var(--bg-surface); font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; }
-        .action-btn { background:transparent; border:none; cursor:pointer; color:var(--text-muted); padding:0.5rem; transition:0.2s; }
-        .action-btn:hover { color:red; }
+        .action-btn { background: var(--bg-surface); border:1px solid var(--border-color); cursor:pointer; color:var(--text-main); padding:0.4rem 0.8rem; border-radius: 4px; transition:0.2s; font-weight: bold; }
+        .action-btn:hover { background: var(--border-color); }
+        .action-btn-danger { color: #dc2626; border-color: transparent; background: transparent;}
+        .action-btn-danger:hover { background: rgba(220, 38, 38, 0.1); }
 
         /* --- Toasts --- */
         .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; }
@@ -275,6 +291,7 @@
             <nav class="nav-links">
                 <a onclick="navigateTo('view-home')" class="nav-btn active" data-i18n="nav_home">Home</a>
                 <a onclick="navigateTo('view-shop')" class="nav-btn" data-i18n="nav_shop">Shop</a>
+                <a onclick="navigateTo('view-custom')" class="nav-btn text-accent" data-i18n="nav_custom">Custom Print</a>
                 <a onclick="navigateTo('view-contact')" class="nav-btn" data-i18n="nav_contact">Contact</a>
                 <a onclick="navigateTo('view-admin')" class="nav-btn text-accent" id="navAdminBtn" style="display:none;" data-i18n="nav_admin">Admin</a>
             </nav>
@@ -306,6 +323,7 @@
                     <p data-i18n="hero_desc">Explore our premium 3D printing services. From bespoke art to high-performance industrial replacement parts.</p>
                     <div class="hero-actions">
                         <a onclick="navigateTo('view-shop')" class="btn btn-primary" data-i18n="btn_goshop">Go to Shop</a>
+                        <a onclick="navigateTo('view-custom')" class="btn btn-outline bg-card" data-i18n="nav_custom">Custom Print</a>
                     </div>
                 </div>
             </section>
@@ -316,8 +334,7 @@
                 </div>
                 
                 <div class="grid-3">
-                    <!-- Category: Lithophane -->
-                    <div class="clean-card" onclick="openProductConfig('lithophane')">
+                    <div class="clean-card" onclick="openProductConfig('lithophane')" style="border:none;">
                         <div class="card-img-box">
                             <img src="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="Lithophane Art" style="filter: sepia(50%) hue-rotate(10deg);">
                         </div>
@@ -325,8 +342,7 @@
                             <div><div class="card-title" data-i18n="cap_litho">Lithophane Art</div><div class="card-desc" data-i18n="cap_litho_desc">Custom 3D illuminated photos</div></div>
                         </div>
                     </div>
-                    <!-- Category: Wall Text Configurator -->
-                    <div class="clean-card" onclick="openProductConfig('walltext')">
+                    <div class="clean-card" onclick="openProductConfig('walltext')" style="border:none;">
                         <div class="card-img-box" style="background: #e9ecef;">
                             <i class="fas fa-font" style="font-size: 5rem; color: var(--text-muted);"></i>
                         </div>
@@ -334,14 +350,52 @@
                             <div><div class="card-title" data-i18n="cap_text">Wall Text Customizer</div><div class="card-desc" data-i18n="cap_text_desc">Design quotes & letters</div></div>
                         </div>
                     </div>
-                    <!-- Category: Broken Parts -->
-                    <div class="clean-card" onclick="navigateTo('view-contact')">
+                    <div class="clean-card" onclick="navigateTo('view-contact')" style="border:none;">
                         <div class="card-img-box">
                             <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="cat-img" alt="Broken Part">
                         </div>
                         <div class="card-info">
                             <div><div class="card-title" data-i18n="cap_parts">Part Replacement</div><div class="card-desc" data-i18n="cap_parts_desc">Reverse engineering</div></div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews Section -->
+            <section class="page-padding container" style="border-top: 1px solid var(--border-light);">
+                <div class="section-header">
+                    <h2 class="section-title"><span data-i18n="reviews_title">What our</span> <span class="text-accent" data-i18n="reviews_clients">Clients Say</span></h2>
+                </div>
+                <div class="grid-3">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" class="review-avatar" alt="User">
+                            <div>
+                                <div style="font-weight: bold; font-family: var(--font-body);">Markus T.</div>
+                                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            </div>
+                        </div>
+                        <p class="text-muted" data-i18n="rev_1">"I sent them a broken gear from my mixer. They modeled it perfectly and printed it in ABS. It works better than the original!"</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" class="review-avatar" alt="User">
+                            <div>
+                                <div style="font-weight: bold; font-family: var(--font-body);">Elena V.</div>
+                                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            </div>
+                        </div>
+                        <p class="text-muted" data-i18n="rev_2">"The lithophane I ordered for my parents' anniversary was stunning. Such an amazing and emotional gift."</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80" class="review-avatar" alt="User">
+                            <div>
+                                <div style="font-weight: bold; font-family: var(--font-body);">Sarah J.</div>
+                                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            </div>
+                        </div>
+                        <p class="text-muted" data-i18n="rev_3">"The wall text configurator is brilliant. Fast delivery, flawless finish. My studio looks great now."</p>
                     </div>
                 </div>
             </section>
@@ -353,14 +407,31 @@
                 <h2 class="section-title"><span class="text-accent" data-i18n="nav_shop">Shop</span> <span data-i18n="shop_col">Collection</span></h2>
             </div>
             
-            <!-- Dynamic Category Filter Bar -->
-            <div class="category-bar" id="shopCategories">
-                <!-- JS Populated -->
-            </div>
+            <div class="category-bar" id="shopCategories"></div>
+            <div class="grid-3" id="shopGrid"></div>
+        </main>
 
-            <!-- Dynamic Shop Grid -->
-            <div class="grid-3" id="shopGrid">
-                <!-- Populated by JS -->
+        <!-- ================= VIEW: CUSTOM UPLOAD ================= -->
+        <main id="view-custom" class="view-section page-padding container">
+            <h2 class="section-title text-center" style="margin-bottom: 3rem;"><span data-i18n="custom_req">Request</span> <span class="text-accent" data-i18n="custom_quote">Quote</span></h2>
+            
+            <div style="max-width: 700px; margin: 0 auto;">
+                <p class="text-center text-muted" style="margin-bottom: 2rem;" data-i18n="custom_desc">Have your own 3D model? Upload it here. Our engineers will slice it, analyze the required time and material, and send you a custom price offer.</p>
+                
+                <div class="upload-area" onclick="document.getElementById('fileUploadInput').click()">
+                    <i class="fas fa-file-upload"></i>
+                    <h3 data-i18n="custom_drop">Click or Drag & Drop Model</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Supported formats: .STL, .OBJ, .STEP (Max 50MB)</p>
+                    <input type="file" id="fileUploadInput" style="display: none;" accept=".stl,.obj,.step" onchange="handleFileSelect(event)">
+                    <div id="fileNameDisplay" class="text-accent" style="margin-top: 1rem; font-weight: bold;"></div>
+                </div>
+
+                <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); margin-top: 2rem;">
+                    <input type="text" id="cqName" class="form-control" placeholder="Your Name">
+                    <input type="email" id="cqEmail" class="form-control" placeholder="Email Address">
+                    <textarea id="cqNotes" class="form-control" rows="4" placeholder="Additional notes (e.g., Required material, color preference, specific infill)"></textarea>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="submitCustomQuote()" data-i18n="btn_sendquote">Send Request for Quote</button>
+                </div>
             </div>
         </main>
 
@@ -369,7 +440,6 @@
             <h2 class="section-title text-center" style="margin-bottom: 3rem;"><span data-i18n="contact_get">Get in</span> <span class="text-accent" data-i18n="nav_contact">Touch</span></h2>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
-                <!-- Contact Info & Map -->
                 <div>
                     <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
                         <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;"><i class="fab fa-whatsapp" style="color:var(--accent-primary); font-size:1.5rem;"></i> <span>+49 123 456 789</span></div>
@@ -377,18 +447,15 @@
                         <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;"><i class="fab fa-instagram" style="color:var(--accent-primary); font-size:1.5rem;"></i> <span>@printwald</span></div>
                         <div style="display:flex; align-items:center; gap:1rem;"><i class="fas fa-map-marker-alt" style="color:var(--accent-primary); font-size:1.5rem;"></i> <span>Gengenbach, DE</span></div>
                     </div>
-                    <!-- Google Maps Iframe -->
                     <div style="width:100%; height:250px; border-radius:var(--radius-md); overflow:hidden; margin-top:2rem; border:1px solid var(--border-light);">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2668.742337726359!2d8.0135113!3d48.4039121!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47912ebc2e71d791%3A0x41f6bb7a5df6620!2sGengenbach%2C%20Germany!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
-
-                <!-- Contact Form -->
                 <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); display: flex; flex-direction: column;">
-                    <h3 style="margin-bottom: 1.5rem; font-size: 1.8rem;" data-i18n="contact_send">Send a <span class="text-accent">Request</span></h3>
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.8rem;" data-i18n="contact_send">Send a <span class="text-accent">Message</span></h3>
                     <input type="text" id="reqName" class="form-control" placeholder="Your Name">
                     <input type="email" id="reqEmail" class="form-control" placeholder="Email Address">
-                    <textarea id="reqMessage" class="form-control" rows="5" placeholder="How can we help you? (e.g., Need a broken gear replaced)"></textarea>
+                    <textarea id="reqMessage" class="form-control" rows="5" placeholder="How can we help you?"></textarea>
                     <button class="btn btn-primary" style="width: 100%;" onclick="submitContact()" data-i18n="btn_send">Send Message</button>
                 </div>
             </div>
@@ -402,17 +469,18 @@
             </div>
             
             <div class="admin-nav">
-                <button class="active" onclick="switchAdminTab('stock')" data-i18n="admin_tab_stock">Color Stock</button>
+                <button class="active" onclick="switchAdminTab('stock')" data-i18n="admin_tab_stock">Color Stock (KG)</button>
                 <button onclick="switchAdminTab('categories')" data-i18n="admin_tab_cat">Categories</button>
                 <button onclick="switchAdminTab('products')" data-i18n="admin_tab_prod">Products</button>
-                <button onclick="switchAdminTab('messages')" data-i18n="admin_tab_msg">Client Messages</button>
+                <button onclick="switchAdminTab('quotes')" data-i18n="admin_tab_quotes">Price Requests</button>
+                <button onclick="switchAdminTab('messages')" data-i18n="admin_tab_msg">Messages</button>
             </div>
 
-            <!-- Tab: Stock -->
+            <!-- Tab: Stock (KG) -->
             <div id="admin-stock" class="admin-panel-tab">
                 <h3 style="margin-bottom: 1rem;" data-i18n="admin_stock_title">Manage Colors Availability</h3>
                 <table class="data-table">
-                    <thead><tr><th>Color Name</th><th>Hex</th><th>Status</th></tr></thead>
+                    <thead><tr><th>Color Name</th><th>Hex</th><th>Stock Amount</th></tr></thead>
                     <tbody id="stockTableBody"></tbody>
                 </table>
             </div>
@@ -441,9 +509,18 @@
                 </table>
             </div>
 
+            <!-- Tab: Custom Requests (Quotes) -->
+            <div id="admin-quotes" class="admin-panel-tab" style="display: none;">
+                <h3 style="margin-bottom: 1rem;">Custom Model Quotes</h3>
+                <table class="data-table">
+                    <thead><tr><th>Client</th><th>File Name</th><th>Notes</th><th>Action</th></tr></thead>
+                    <tbody id="quotesTableBody"></tbody>
+                </table>
+            </div>
+
             <!-- Tab: Messages -->
             <div id="admin-messages" class="admin-panel-tab" style="display: none;">
-                <h3 style="margin-bottom: 1rem;" data-i18n="admin_msg_title">Incoming Requests</h3>
+                <h3 style="margin-bottom: 1rem;" data-i18n="admin_msg_title">Incoming Messages</h3>
                 <table class="data-table">
                     <thead><tr><th>Name</th><th>Email</th><th>Message</th></tr></thead>
                     <tbody id="messagesTableBody"></tbody>
@@ -590,15 +667,33 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
+    <!-- Redesigned Login Modal with Google/Email/Phone -->
     <div class="modal-overlay" id="loginModal">
-        <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-content" style="max-width: 400px; padding: 3rem 2.5rem;">
             <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
             <h2 style="font-size: 2rem; margin-bottom: 0.5rem; text-align:center;" data-i18n="btn_login">Login</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem; text-align:center; font-size: 0.9rem;">Type 'admin' in email for Dashboard</p>
-            <input type="email" class="form-control" placeholder="Email Address" id="loginEmail">
+            <p style="color: var(--text-muted); margin-bottom: 2rem; text-align:center; font-size: 0.9rem;" data-i18n="login_sub">Sign in to your account</p>
+            
+            <button class="btn-google" onclick="showToast('Google Sign-In API integrated.')">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" style="width:20px; height:20px;">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                </svg>
+                <span data-i18n="login_google">Continue with Google</span>
+            </button>
+            
+            <div style="display:flex; align-items:center; margin: 1.5rem 0;">
+                <div style="flex:1; height:1px; background:var(--border-color);"></div>
+                <span style="padding: 0 1rem; color:var(--text-muted); font-size:0.8rem; text-transform:uppercase;">OR</span>
+                <div style="flex:1; height:1px; background:var(--border-color);"></div>
+            </div>
+
+            <input type="text" class="form-control" placeholder="Email or Phone Number" id="loginEmail">
             <input type="password" class="form-control" placeholder="Password">
-            <button class="btn btn-primary" style="width: 100%;" onclick="processLogin()">Enter</button>
+            <button class="btn btn-primary" style="width: 100%;" onclick="processLogin()" data-i18n="btn_login">Enter</button>
+            <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">Hint: Type 'admin' in email for Admin panel</p>
         </div>
     </div>
 
@@ -610,7 +705,7 @@
             <input type="text" id="apName" class="form-control" placeholder="Product Name">
             <input type="number" id="apPrice" class="form-control" placeholder="Price (€)">
             <input type="text" id="apImg" class="form-control" placeholder="Image URL">
-            <select id="apCat" class="form-control"></select> <!-- Populated dynamically -->
+            <select id="apCat" class="form-control"></select>
             <input type="text" id="apMats" class="form-control" placeholder="Materials (comma separated, e.g. PLA,PETG)">
             <button class="btn btn-primary" style="width: 100%;" onclick="saveAdminProduct()">Save Product</button>
         </div>
@@ -633,48 +728,66 @@
         /* --- 2. TRANSLATIONS (i18n) --- */
         const translations = {
             en: {
-                nav_home: "Home", nav_shop: "Shop", nav_contact: "Contact", nav_admin: "Admin", btn_login: "Login",
+                nav_home: "Home", nav_shop: "Shop", nav_custom: "Custom Print", nav_contact: "Contact", nav_admin: "Admin", btn_login: "Login",
                 hero_desc: "Explore our premium 3D printing services. From bespoke art to high-performance industrial replacement parts.",
                 btn_goshop: "Go to Shop", home_our: "Our", home_cap: "Capabilities",
                 cap_litho: "Lithophane Art", cap_litho_desc: "Custom 3D illuminated photos",
                 cap_text: "Wall Text Customizer", cap_text_desc: "Design quotes & letters",
                 cap_parts: "Part Replacement", cap_parts_desc: "Reverse engineering & printing",
+                reviews_title: "What our", reviews_clients: "Clients Say",
+                rev_1: `"I sent them a broken gear from my mixer. They modeled it perfectly and printed it in ABS. It works better than the original!"`,
+                rev_2: `"The lithophane I ordered for my parents' anniversary was stunning. Such an amazing and emotional gift."`,
+                rev_3: `"The wall text configurator is brilliant. Fast delivery, flawless finish. My studio looks great now."`,
                 shop_col: "Collection", filter_all: "All Products",
+                custom_req: "Request", custom_quote: "Quote", custom_desc: "Have your own 3D model? Upload it here. Our engineers will slice it, analyze the required time and material, and send you a custom price offer.", custom_drop: "Click or Drag & Drop Model", btn_sendquote: "Send Request for Quote",
                 contact_get: "Get in", contact_send: "Send a", btn_send: "Send Message",
                 lbl_mat: "Material", lbl_color: "Color", lbl_shape: "Shape", lbl_size: "Dimensions", lbl_font: "Font Style", lbl_height: "Letter Height", lbl_pay: "Payment Method",
                 cart_your: "Your", cart_title: "Cart", btn_checkout: "Checkout Now", btn_addcart: "Add to Cart",
-                admin_tab_stock: "Color Stock", admin_tab_cat: "Categories", admin_tab_prod: "Products", admin_tab_msg: "Client Messages",
-                admin_stock_title: "Manage Colors Availability", admin_cat_title: "Manage Categories", admin_prod_title: "Manage Products", admin_msg_title: "Incoming Requests",
+                login_sub: "Sign in to your account", login_google: "Continue with Google",
+                admin_tab_stock: "Color Stock (KG)", admin_tab_cat: "Categories", admin_tab_prod: "Products", admin_tab_quotes: "Price Requests", admin_tab_msg: "Messages",
+                admin_stock_title: "Manage Colors Availability", admin_cat_title: "Manage Categories", admin_prod_title: "Manage Products", admin_msg_title: "Incoming Messages",
                 footer_desc: "German precision, digital innovation. Printing the future, layer by layer."
             },
             ro: {
-                nav_home: "Acasă", nav_shop: "Magazin", nav_contact: "Contact", nav_admin: "Admin", btn_login: "Cont",
+                nav_home: "Acasă", nav_shop: "Magazin", nav_custom: "Printare Custom", nav_contact: "Contact", nav_admin: "Admin", btn_login: "Cont",
                 hero_desc: "Explorează serviciile noastre premium de printare 3D. De la artă la piese industriale de înaltă performanță.",
                 btn_goshop: "Spre Magazin", home_our: "", home_cap: "Capabilități",
                 cap_litho: "Artă Lithophane", cap_litho_desc: "Fotografii 3D iluminate",
                 cap_text: "Text de Perete", cap_text_desc: "Configurează litere 3D",
                 cap_parts: "Piese de Schimb", cap_parts_desc: "Inginerie inversă & print",
+                reviews_title: "Ce spun", reviews_clients: "Clienții Noștri",
+                rev_1: `"Le-am trimis o rotiță ruptă de la mixer. Au modelat-o perfect și au printat-o în ABS. Funcționează mai bine ca originalul!"`,
+                rev_2: `"Tabloul Lithophane comandat pentru aniversarea părinților a fost superb. Un cadou emoționant și unic."`,
+                rev_3: `"Configuratorul de text este genial. Livrare rapidă, print impecabil. Studioul meu arată grozav acum."`,
                 shop_col: "Completă", filter_all: "Toate Produsele",
+                custom_req: "Cere o", custom_quote: "Cotație", custom_desc: "Ai propriul model 3D? Încarcă-l aici. Inginerii noștri îl vor analiza (timp & material) și îți vor trimite o ofertă de preț personalizată.", custom_drop: "Apasă sau Drag & Drop", btn_sendquote: "Trimite Cerere de Preț",
                 contact_get: "Contactează", contact_send: "Trimite", btn_send: "Trimite Mesaj",
                 lbl_mat: "Material", lbl_color: "Culoare", lbl_shape: "Formă", lbl_size: "Dimensiuni", lbl_font: "Stil Font", lbl_height: "Înălțime Litere", lbl_pay: "Metodă de Plată",
                 cart_your: "Coșul", cart_title: "Tău", btn_checkout: "Cumpără Acum", btn_addcart: "Adaugă în Coș",
-                admin_tab_stock: "Stoc Culori", admin_tab_cat: "Categorii", admin_tab_prod: "Produse", admin_tab_msg: "Mesaje Clienți",
-                admin_stock_title: "Gestionează Disponibilitatea Culorilor", admin_cat_title: "Gestionează Categoriile", admin_prod_title: "Gestionează Produsele", admin_msg_title: "Cereri Primite",
+                login_sub: "Autentifică-te în contul tău", login_google: "Continuă cu Google",
+                admin_tab_stock: "Stoc Culori (KG)", admin_tab_cat: "Categorii", admin_tab_prod: "Produse", admin_tab_quotes: "Cereri Preț", admin_tab_msg: "Mesaje",
+                admin_stock_title: "Gestionează Cantitatea Culorilor (KG)", admin_cat_title: "Gestionează Categoriile", admin_prod_title: "Gestionează Produsele", admin_msg_title: "Mesaje Primite",
                 footer_desc: "Precizie germană, inovație digitală. Printăm viitorul, strat cu strat."
             },
             de: {
-                nav_home: "Startseite", nav_shop: "Shop", nav_contact: "Kontakt", nav_admin: "Admin", btn_login: "Anmelden",
+                nav_home: "Startseite", nav_shop: "Shop", nav_custom: "Eigener Druck", nav_contact: "Kontakt", nav_admin: "Admin", btn_login: "Anmelden",
                 hero_desc: "Entdecken Sie unsere Premium-3D-Druckdienste. Von maßgeschneiderter Kunst bis hin zu Hochleistungs-Industrieersatzteilen.",
                 btn_goshop: "Zum Shop", home_our: "Unsere", home_cap: "Fähigkeiten",
                 cap_litho: "Lithophane Kunst", cap_litho_desc: "Beleuchtete 3D-Fotos",
                 cap_text: "Wandtext Konfigurator", cap_text_desc: "Zitate & Buchstaben",
                 cap_parts: "Ersatzteile", cap_parts_desc: "Reverse Engineering",
+                reviews_title: "Was unsere", reviews_clients: "Kunden Sagen",
+                rev_1: `"Ich habe ein defektes Zahnrad geschickt. Sie haben es perfekt modelliert und in ABS gedruckt. Es funktioniert besser als das Original!"`,
+                rev_2: `"Das Lithophane für den Jahrestag meiner Eltern war atemberaubend. Ein unglaubliches und emotionales Geschenk."`,
+                rev_3: `"Der Wandtext-Konfigurator ist genial. Schnelle Lieferung, makelloses Finish. Mein Studio sieht jetzt toll aus."`,
                 shop_col: "Kollektion", filter_all: "Alle Produkte",
+                custom_req: "Angebot", custom_quote: "Anfragen", custom_desc: "Haben Sie ein eigenes 3D-Modell? Laden Sie es hoch. Wir berechnen Zeit & Material und senden Ihnen ein individuelles Angebot.", custom_drop: "Klicken oder Drag & Drop", btn_sendquote: "Anfrage Senden",
                 contact_get: "Kontakt", contact_send: "Senden", btn_send: "Nachricht Senden",
                 lbl_mat: "Material", lbl_color: "Farbe", lbl_shape: "Form", lbl_size: "Abmessungen", lbl_font: "Schriftart", lbl_height: "Buchstabenhöhe", lbl_pay: "Zahlungsmethode",
                 cart_your: "Dein", cart_title: "Warenkorb", btn_checkout: "Jetzt Kaufen", btn_addcart: "In den Warenkorb",
-                admin_tab_stock: "Farbbestand", admin_tab_cat: "Kategorien", admin_tab_prod: "Produkte", admin_tab_msg: "Nachrichten",
-                admin_stock_title: "Farben Verwalten", admin_cat_title: "Kategorien Verwalten", admin_prod_title: "Produkte Verwalten", admin_msg_title: "Anfragen",
+                login_sub: "Melden Sie sich an", login_google: "Weiter mit Google",
+                admin_tab_stock: "Farbbestand (KG)", admin_tab_cat: "Kategorien", admin_tab_prod: "Produkte", admin_tab_quotes: "Anfragen", admin_tab_msg: "Nachrichten",
+                admin_stock_title: "Farbmengen Verwalten (KG)", admin_cat_title: "Kategorien Verwalten", admin_prod_title: "Produkte Verwalten", admin_msg_title: "Eingehende Nachrichten",
                 footer_desc: "Deutsche Präzision, digitale Innovation. Die Zukunft drucken, Schicht für Schicht."
             }
         };
@@ -693,7 +806,6 @@
             if(lang === 'de') document.getElementById('hero_title').innerHTML = "Präzision.<br><span class='text-accent'>Elegant Gedruckt.</span>";
             if(lang === 'en') document.getElementById('hero_title').innerHTML = "Precision Crafted.<br><span class='text-accent'>Elegantly Printed.</span>";
             
-            // Re-render UI to translate dynamic content
             renderShopCategories();
             renderShop();
             if(isAdmin) { renderAdminCategories(); renderAdminProducts(); renderAdminStock(); }
@@ -704,11 +816,11 @@
         let currentFilter = 'All';
 
         const globalColors = [
-            { id: 'c1', name: 'Matte White', hex: '#f0f0f0', inStock: true },
-            { id: 'c2', name: 'Carbon Black', hex: '#222222', inStock: true },
-            { id: 'c3', name: 'Watermelon Green', hex: '#126d2e', inStock: true },
-            { id: 'c4', name: 'Deep Avocado', hex: '#849004', inStock: true },
-            { id: 'c5', name: 'Ocean Blue', hex: '#1e3a8a', inStock: false }
+            { id: 'c1', name: 'Matte White', hex: '#f0f0f0', stock: 15 }, // stock is in kg
+            { id: 'c2', name: 'Carbon Black', hex: '#222222', stock: 8 },
+            { id: 'c3', name: 'Watermelon Green', hex: '#126d2e', stock: 25 },
+            { id: 'c4', name: 'Deep Avocado', hex: '#849004', stock: 10 },
+            { id: 'c5', name: 'Ocean Blue', hex: '#1e3a8a', stock: 0 }
         ];
         const materialInfo = {
             'PLA': 'Easy to print, eco-friendly. Ideal for decorative models.',
@@ -729,6 +841,8 @@
 
         let cart = [];
         let activeProduct = null; let selectedMaterial = null; let selectedColor = null;
+        let adminMessages = [];
+        let adminCustomRequests = [];
 
         /* --- 4. SHOP & CATEGORIES LOGIC --- */
         function renderShopCategories() {
@@ -740,19 +854,15 @@
         }
 
         function filterShop(cat) {
-            currentFilter = cat;
-            renderShopCategories();
-            renderShop();
+            currentFilter = cat; renderShopCategories(); renderShop();
         }
 
         function renderShop() {
-            const grid = document.getElementById('shopGrid');
-            grid.innerHTML = '';
+            const grid = document.getElementById('shopGrid'); grid.innerHTML = '';
             const filtered = currentFilter === 'All' ? products : products.filter(p => p.cat === currentFilter);
             
             if(filtered.length === 0) {
-                grid.innerHTML = '<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">No products in this category yet.</p>';
-                return;
+                grid.innerHTML = '<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">No products in this category yet.</p>'; return;
             }
 
             filtered.forEach(p => {
@@ -776,20 +886,19 @@
             document.getElementById('pm-overlay').style.backgroundColor = 'transparent';
             document.getElementById('pm-color-name').innerText = '';
 
-            const matContainer = document.getElementById('pm-materials');
-            matContainer.innerHTML = '';
+            const matContainer = document.getElementById('pm-materials'); matContainer.innerHTML = '';
             activeProduct.materials.forEach((m, i) => {
                 const cls = i === 0 ? 'mat-btn active' : 'mat-btn';
                 if(i===0) selectedMaterial = m;
                 matContainer.innerHTML += `<button class="${cls}" data-tooltip="${materialInfo[m]}" onclick="selectMaterial(this, '${m}')">${m}</button>`;
             });
 
-            const colContainer = document.getElementById('pm-colors');
-            colContainer.innerHTML = '';
+            const colContainer = document.getElementById('pm-colors'); colContainer.innerHTML = '';
             selectedColor = null;
             globalColors.forEach(c => {
-                const stateClass = c.inStock ? '' : 'disabled';
-                const tooltip = c.inStock ? c.name : 'Out of Stock';
+                const inStock = c.stock > 0;
+                const stateClass = inStock ? '' : 'disabled';
+                const tooltip = inStock ? c.name : 'Out of Stock';
                 colContainer.innerHTML += `<button class="color-btn ${stateClass}" style="background-color: ${c.hex}" data-tooltip="${tooltip}" onclick="selectColor(this, '${c.id}')"></button>`;
             });
 
@@ -803,112 +912,87 @@
 
         function selectColor(btn, colorId) {
             const colorObj = globalColors.find(c => c.id === colorId);
-            if(!colorObj.inStock) return;
+            if(colorObj.stock <= 0) return;
             document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active'); selectedColor = colorObj;
             document.getElementById('pm-color-name').innerText = `- ${colorObj.name}`;
             document.getElementById('pm-overlay').style.backgroundColor = colorObj.hex;
         }
 
-        /* --- 5. LITHOPHANE & TEXT CONFIGURATORS --- */
+        /* --- 5. LITHOPHANE, TEXT & CUSTOM UPLOAD CONFIGURATORS --- */
         function openProductConfig(type) {
             if(type === 'lithophane') {
-                calcLithoPrice();
-                openModal('lithoModal');
+                calcLithoPrice(); openModal('lithoModal');
             } else if (type === 'walltext') {
-                // Populate text colors
-                const tc = document.getElementById('text-colors');
-                tc.innerHTML = '';
+                const tc = document.getElementById('text-colors'); tc.innerHTML = '';
                 globalColors.forEach((c, i) => {
-                    if(c.inStock) {
+                    if(c.stock > 0) {
                         const active = i===0 ? 'active' : '';
                         if(i===0) window.textActiveColor = c;
                         tc.innerHTML += `<button class="color-btn ${active}" style="background-color: ${c.hex}" onclick="selectTextColor(this, '${c.id}')"></button>`;
                     }
                 });
-                window.textActiveFont = 'Bebas Neue';
-                updateTextPreview();
-                openModal('textModal');
+                window.textActiveFont = 'Bebas Neue'; updateTextPreview(); openModal('textModal');
             }
         }
 
         // LITHOPHANE LOGIC
         let lithoShape = 'rectangular';
-        const lithoImages = {
-            'rectangular': 'https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80',
-            'curved': 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80' // Using an interior pic to simulate curved lamp
-        };
+        const lithoImages = { 'rectangular': 'https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=400&q=80', 'curved': 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80' };
         function selectLithoShape(shape) {
             document.querySelectorAll('#litho-shapes .sel-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            lithoShape = shape;
+            event.target.classList.add('active'); lithoShape = shape;
             document.getElementById('litho-img').src = lithoImages[shape];
         }
         function calcLithoPrice() {
             const size = document.getElementById('litho-size').value;
-            let price = 25;
-            if(size === '15x20') price = 40;
-            if(size === '20x25') price = 55;
-            document.getElementById('litho-price').innerText = `€${price.toFixed(2)}`;
-            window.lithoActivePrice = price;
+            let price = 25; if(size === '15x20') price = 40; if(size === '20x25') price = 55;
+            document.getElementById('litho-price').innerText = `€${price.toFixed(2)}`; window.lithoActivePrice = price;
         }
         function addLithoToCart() {
             const size = document.getElementById('litho-size').value;
-            cart.push({
-                product: { name: `Lithophane (${lithoShape})`, price: window.lithoActivePrice },
-                color: { name: 'White', hex: '#fff' }, material: 'PLA', customText: `Size: ${size}`
-            });
+            cart.push({ product: { name: `Lithophane (${lithoShape})`, price: window.lithoActivePrice }, color: { name: 'White', hex: '#fff' }, material: 'PLA', customText: `Size: ${size}` });
             updateCartCount(); closeModal('lithoModal'); showToast("Lithophane added to cart!");
         }
 
         // WALL TEXT LOGIC
-        function selectTextFont(btn, font) {
-            document.querySelectorAll('.font-selector .sel-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            window.textActiveFont = font;
-            updateTextPreview();
-        }
-        function selectTextColor(btn, cid) {
-            document.querySelectorAll('#text-colors .color-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            window.textActiveColor = globalColors.find(c => c.id === cid);
-            updateTextPreview();
-        }
+        function selectTextFont(btn, font) { document.querySelectorAll('.font-selector .sel-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); window.textActiveFont = font; updateTextPreview(); }
+        function selectTextColor(btn, cid) { document.querySelectorAll('#text-colors .color-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); window.textActiveColor = globalColors.find(c => c.id === cid); updateTextPreview(); }
         function updateTextPreview() {
             const txt = document.getElementById('wallTextVal').value || 'TEXT';
-            const sizeVal = parseInt(document.getElementById('textSize').value); // 5, 10, 15
-            let pricePerLet = 1.5;
-            if(sizeVal === 10) pricePerLet = 3.0;
-            if(sizeVal === 15) pricePerLet = 5.0;
-            
+            const sizeVal = parseInt(document.getElementById('textSize').value);
+            let pricePerLet = 1.5; if(sizeVal === 10) pricePerLet = 3.0; if(sizeVal === 15) pricePerLet = 5.0;
             const total = txt.replace(/\s/g, '').length * pricePerLet;
-            document.getElementById('text-price').innerText = `€${total.toFixed(2)}`;
-            window.textActivePrice = total;
+            document.getElementById('text-price').innerText = `€${total.toFixed(2)}`; window.textActivePrice = total;
 
-            const c = document.getElementById('textCanvas');
-            const ctx = c.getContext('2d');
-            ctx.clearRect(0,0,c.width,c.height);
-            
-            ctx.font = `bold 60px '${window.textActiveFont}'`;
-            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            
+            const c = document.getElementById('textCanvas'); const ctx = c.getContext('2d');
+            ctx.clearRect(0,0,c.width,c.height); ctx.font = `bold 60px '${window.textActiveFont}'`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             const color = window.textActiveColor ? window.textActiveColor.hex : '#111';
             
-            // 3D Shadow effect
             ctx.fillStyle = shadeHEX(color, -40);
             for(let i=5; i>0; i--) ctx.fillText(txt, c.width/2 - i, c.height/2 + i);
-            
-            ctx.fillStyle = color;
-            ctx.fillText(txt, c.width/2, c.height/2);
+            ctx.fillStyle = color; ctx.fillText(txt, c.width/2, c.height/2);
         }
         function addTextToCart() {
             const txt = document.getElementById('wallTextVal').value;
             if(!txt) { showToast("Enter text first."); return; }
-            cart.push({
-                product: { name: `Wall Text: "${txt}"`, price: window.textActivePrice },
-                color: window.textActiveColor, material: 'PLA', customText: `Font: ${window.textActiveFont}`
-            });
+            cart.push({ product: { name: `Wall Text: "${txt}"`, price: window.textActivePrice }, color: window.textActiveColor, material: 'PLA', customText: `Font: ${window.textActiveFont}` });
             updateCartCount(); closeModal('textModal'); showToast("Text added to cart!");
+        }
+
+        // CUSTOM UPLOAD LOGIC
+        let uploadedFileName = '';
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if(file) { uploadedFileName = file.name; document.getElementById('fileNameDisplay').innerText = `File ready: ${file.name}`; }
+        }
+        function submitCustomQuote() {
+            const name = document.getElementById('cqName').value; const email = document.getElementById('cqEmail').value; const notes = document.getElementById('cqNotes').value;
+            if(!name || !email || !uploadedFileName) { showToast("Please fill all fields and upload a file."); return; }
+            adminCustomRequests.push({ client: name, email: email, file: uploadedFileName, notes: notes });
+            document.getElementById('cqName').value=''; document.getElementById('cqEmail').value=''; document.getElementById('cqNotes').value=''; document.getElementById('fileNameDisplay').innerText=''; uploadedFileName='';
+            showToast("Model uploaded! We'll send a quote soon.");
+            renderAdminQuotes();
         }
 
         /* --- 6. CART LOGIC --- */
@@ -919,8 +1003,7 @@
         }
         function updateCartCount() { document.getElementById('cartCount').innerText = cart.length; }
         function openCart() {
-            const list = document.getElementById('cartItemsList');
-            list.innerHTML = ''; let total = 0;
+            const list = document.getElementById('cartItemsList'); list.innerHTML = ''; let total = 0;
             if(cart.length === 0) list.innerHTML = '<p style="color:var(--text-muted);">Cart is empty.</p>';
             else {
                 cart.forEach((item, index) => {
@@ -929,96 +1012,78 @@
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);">
                             <div style="display:flex; align-items:center; gap:1rem;">
                                 <div style="width:20px; height:20px; border-radius:50%; background:${item.color.hex}; border:1px solid var(--border-color);"></div>
-                                <div>
-                                    <div style="font-weight:bold;">${item.product.name}</div>
-                                    <div style="font-size:0.8rem; color:var(--text-muted);">${item.material} | <span class="text-accent">${item.color.name}</span> ${item.customText ? '<br>'+item.customText : ''}</div>
-                                </div>
+                                <div><div style="font-weight:bold;">${item.product.name}</div><div style="font-size:0.8rem; color:var(--text-muted);">${item.material} | <span class="text-accent">${item.color.name}</span> ${item.customText ? '<br>'+item.customText : ''}</div></div>
                             </div>
                             <div style="font-family:var(--font-tech); font-weight:bold; color:var(--accent-primary);">€${item.product.price.toFixed(2)}</div>
-                        </div>
-                    `;
+                        </div>`;
                 });
             }
-            document.getElementById('cartTotalUI').innerText = `€${total.toFixed(2)}`;
-            openModal('cartModal');
+            document.getElementById('cartTotalUI').innerText = `€${total.toFixed(2)}`; openModal('cartModal');
         }
         function processCheckout() {
             if(cart.length === 0) { showToast("Cart is empty!"); return; }
-            showToast("Processing Order...");
-            setTimeout(() => { cart = []; updateCartCount(); closeModal('cartModal'); showToast("Order Placed Successfully!"); }, 1500);
+            showToast("Processing Order..."); setTimeout(() => { cart = []; updateCartCount(); closeModal('cartModal'); showToast("Order Placed Successfully!"); }, 1500);
         }
 
         /* --- 7. ADMIN PANEL LOGIC --- */
         let isAdmin = false;
         function handleUserIconClick() {
-            if(isAdmin) {
-                if(confirm("Do you want to log out of Admin panel?")) logoutAdmin();
-            } else openModal('loginModal');
+            if(isAdmin) { if(confirm("Do you want to log out of Admin panel?")) logoutAdmin(); } 
+            else openModal('loginModal');
         }
 
         function processLogin() {
-            const email = document.getElementById('loginEmail').value;
+            const email = document.getElementById('loginEmail').value.toLowerCase();
             closeModal('loginModal');
             if(email.includes('admin')) {
                 isAdmin = true;
                 document.getElementById('navAdminBtn').style.display = 'block';
                 document.getElementById('loginBtnUI').innerHTML = '<i class="fas fa-user-shield text-accent"></i>';
                 showToast("Admin logged in.");
-                renderAdminStock(); renderAdminCategories(); renderAdminProducts();
+                renderAdminStock(); renderAdminCategories(); renderAdminProducts(); renderAdminQuotes();
                 navigateTo('view-admin'); 
             } else showToast("Logged in successfully.");
         }
 
         function logoutAdmin() {
-            isAdmin = false;
-            document.getElementById('navAdminBtn').style.display = 'none';
-            document.getElementById('loginBtnUI').innerHTML = '<i class="fas fa-user"></i>';
-            navigateTo('view-home');
-            showToast("Admin logged out.");
+            isAdmin = false; document.getElementById('navAdminBtn').style.display = 'none'; document.getElementById('loginBtnUI').innerHTML = '<i class="fas fa-user"></i>';
+            navigateTo('view-home'); showToast("Admin logged out.");
         }
 
         function switchAdminTab(tab) {
-            document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('.admin-panel-tab').forEach(t => t.style.display = 'none');
-            document.getElementById('admin-' + tab).style.display = 'block';
+            document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active')); event.target.classList.add('active');
+            document.querySelectorAll('.admin-panel-tab').forEach(t => t.style.display = 'none'); document.getElementById('admin-' + tab).style.display = 'block';
         }
 
         function renderAdminStock() {
             const tbody = document.getElementById('stockTableBody'); tbody.innerHTML = '';
             globalColors.forEach(c => {
-                const btnClass = c.inStock ? 'toggle-on' : 'toggle-off';
+                const stockStyle = c.stock > 0 ? '' : 'color:red; font-weight:bold;';
                 tbody.innerHTML += `<tr>
-                    <td><div style="display:flex; align-items:center; gap:10px;"><div style="width:15px;height:15px;border-radius:50%;background:${c.hex}"></div> ${c.name}</div></td>
+                    <td><div style="display:flex; align-items:center; gap:10px;"><div style="width:15px;height:15px;border-radius:50%;background:${c.hex}; border:1px solid var(--border-color);"></div> ${c.name}</div></td>
                     <td style="font-family:var(--font-tech);">${c.hex}</td>
-                    <td><button class="toggle-btn ${btnClass}" onclick="toggleStock('${c.id}')">${c.inStock ? 'In Stock' : 'Out of Stock'}</button></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <button class="action-btn" style="padding:0.2rem 0.6rem;" onclick="updateStock('${c.id}', -1)"><i class="fas fa-minus"></i></button>
+                            <span style="font-family:var(--font-tech); min-width: 40px; text-align:center; ${stockStyle}">${c.stock} kg</span>
+                            <button class="action-btn" style="padding:0.2rem 0.6rem;" onclick="updateStock('${c.id}', 1)"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </td>
                 </tr>`;
             });
         }
-        function toggleStock(id) {
-            const col = globalColors.find(c => c.id === id); col.inStock = !col.inStock;
-            renderAdminStock(); showToast(`${col.name} stock updated.`);
+        function updateStock(id, amount) {
+            const col = globalColors.find(c => c.id === id);
+            col.stock += amount; if(col.stock < 0) col.stock = 0;
+            renderAdminStock();
         }
 
         function renderAdminCategories() {
             const tbody = document.getElementById('catTableBody'); tbody.innerHTML = '';
-            appCategories.forEach(cat => {
-                tbody.innerHTML += `<tr>
-                    <td style="font-weight:bold;">${cat}</td>
-                    <td><button class="action-btn" onclick="deleteCategory('${cat}')"><i class="fas fa-trash"></i></button></td>
-                </tr>`;
-            });
+            appCategories.forEach(cat => { tbody.innerHTML += `<tr><td style="font-weight:bold;">${cat}</td><td><button class="action-btn action-btn-danger" onclick="deleteCategory('${cat}')"><i class="fas fa-trash"></i></button></td></tr>`; });
         }
-        function promptAddCategory() {
-            const name = prompt("Enter new category name:");
-            if(name && !appCategories.includes(name)) { appCategories.push(name); renderAdminCategories(); renderShopCategories(); showToast("Category Added");}
-        }
-        function deleteCategory(cat) {
-            if(confirm(`Delete category ${cat}?`)) {
-                appCategories = appCategories.filter(c => c !== cat);
-                renderAdminCategories(); renderShopCategories(); showToast("Category Deleted");
-            }
-        }
+        function promptAddCategory() { const name = prompt("Enter new category name:"); if(name && !appCategories.includes(name)) { appCategories.push(name); renderAdminCategories(); renderShopCategories(); showToast("Category Added");} }
+        function deleteCategory(cat) { if(confirm(`Delete category ${cat}?`)) { appCategories = appCategories.filter(c => c !== cat); renderAdminCategories(); renderShopCategories(); showToast("Category Deleted"); } }
 
         function renderAdminProducts() {
             const tbody = document.getElementById('prodTableBody'); tbody.innerHTML = '';
@@ -1027,59 +1092,49 @@
                     tbody.innerHTML += `<tr>
                         <td><div style="display:flex; align-items:center; gap:10px;"><img src="${p.img}" style="width:30px;height:30px;object-fit:cover;border-radius:4px;"> ${p.name}</div></td>
                         <td>${p.cat}</td><td class="text-accent font-bold">€${p.price.toFixed(2)}</td>
-                        <td><button class="action-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button></td>
+                        <td><button class="action-btn action-btn-danger" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button></td>
                     </tr>`;
                 }
             });
         }
-        function deleteProduct(id) {
-            if(confirm("Delete this product?")) {
-                products = products.filter(p => p.id !== id);
-                renderAdminProducts(); renderShop(); showToast("Product Deleted");
-            }
-        }
-        function openAdminProductModal() {
-            const sel = document.getElementById('apCat'); sel.innerHTML = '';
-            appCategories.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
-            openModal('adminProdModal');
-        }
+        function deleteProduct(id) { if(confirm("Delete this product?")) { products = products.filter(p => p.id !== id); renderAdminProducts(); renderShop(); showToast("Product Deleted"); } }
+        function openAdminProductModal() { const sel = document.getElementById('apCat'); sel.innerHTML = ''; appCategories.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`); openModal('adminProdModal'); }
         function saveAdminProduct() {
-            const n = document.getElementById('apName').value;
-            const p = parseFloat(document.getElementById('apPrice').value);
-            const i = document.getElementById('apImg').value || 'https://via.placeholder.com/400';
-            const c = document.getElementById('apCat').value;
-            const m = document.getElementById('apMats').value.split(',').map(s=>s.trim());
-            
+            const n = document.getElementById('apName').value; const p = parseFloat(document.getElementById('apPrice').value); const i = document.getElementById('apImg').value || 'https://via.placeholder.com/400'; const c = document.getElementById('apCat').value; const m = document.getElementById('apMats').value.split(',').map(s=>s.trim());
             if(!n || !p) { showToast("Name and Price required"); return; }
-            
             products.push({ id: Date.now(), type: 'standard', name: n, price: p, img: i, cat: c, materials: m.length?m:['PLA'] });
             renderAdminProducts(); renderShop(); closeModal('adminProdModal'); showToast("Product added successfully!");
+        }
+        
+        function renderAdminQuotes() {
+            const tbody = document.getElementById('quotesTableBody'); tbody.innerHTML = '';
+            if(adminCustomRequests.length === 0) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">No active requests.</td></tr>'; return; }
+            adminCustomRequests.forEach((q, idx) => {
+                tbody.innerHTML += `<tr><td>${q.client} <br><small class="text-muted">${q.email}</small></td><td style="font-family:var(--font-tech);"><i class="fas fa-cube text-accent"></i> ${q.file}</td><td>${q.notes}</td>
+                <td><button class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="showToast('Slicer Simulation Started...')">Slice & Quote</button></td></tr>`;
+            });
+        }
+        
+        function submitContact() {
+            const name = document.getElementById('reqName').value; const email = document.getElementById('reqEmail').value; const msg = document.getElementById('reqMessage').value;
+            if(!name || !email || !msg) { showToast("Please fill all fields."); return; }
+            adminMessages.push({ name, email, msg }); showToast("Message sent! Admin will review it.");
+            document.getElementById('reqName').value = ''; document.getElementById('reqEmail').value = ''; document.getElementById('reqMessage').value = '';
+            const tbody = document.getElementById('messagesTableBody');
+            tbody.innerHTML += `<tr><td>${name}</td><td>${email}</td><td>${msg}</td></tr>`;
         }
 
         /* --- 8. UTILS --- */
         function navigateTo(viewId) {
-            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active')); document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             if(event && event.target.tagName === 'A') event.target.classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
             if(viewId === 'view-shop') renderShop();
         }
 
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) header.classList.add('scrolled');
-            else header.classList.remove('scrolled');
-        });
-
-        function showToast(msg) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div'); toast.className = 'toast';
-            toast.innerHTML = `<i class="fas fa-info-circle"></i> <span>${msg}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => { toast.style.animation = 'fadeOut 0.3s ease forwards'; setTimeout(() => toast.remove(), 300); }, 3000);
-        }
-
+        window.addEventListener('scroll', () => { const header = document.getElementById('header'); if (window.scrollY > 50) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
+        function showToast(msg) { const container = document.getElementById('toastContainer'); const toast = document.createElement('div'); toast.className = 'toast'; toast.innerHTML = `<i class="fas fa-info-circle"></i> <span>${msg}</span>`; container.appendChild(toast); setTimeout(() => { toast.style.animation = 'fadeOut 0.3s ease forwards'; setTimeout(() => toast.remove(), 300); }, 3000); }
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
@@ -1096,7 +1151,6 @@
             return "#"+((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16))+((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16))+((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
         }
 
-        // Init
         changeLanguage('en');
     </script>
 </body>
