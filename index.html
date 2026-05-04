@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ro" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,19 +16,31 @@
     <style>
         /* --- Variabile Globale & Theming --- */
         :root {
-            --bg-base: #030305;
-            --bg-surface: #0a0a0c;
-            --bg-card: #111114;
-            --bg-card-hover: #18181c;
+            /* LIGHT THEME (Default) */
+            --bg-base: #f4f5f7;
+            --bg-surface: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f9fafb;
             
-            --accent-primary: #ff5a00;
-            --accent-hover: #ff7326;
-            --accent-glow: rgba(255, 90, 0, 0.25);
+            --text-main: #111114;
+            --text-muted: #555555;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --border-light: rgba(0, 0, 0, 0.05);
             
-            --text-main: #ffffff;
-            --text-muted: #8e8e99;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-light: rgba(255, 255, 255, 0.15);
+            /* User Requested Greens */
+            --accent-primary: #126d2e; /* Watermelon Green */
+            --accent-hover: #849004;   /* Deep Avocado */
+            --accent-glow: rgba(18, 109, 46, 0.3);
+            
+            /* Navbar & Hero specific */
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --hero-overlay-1: rgba(244, 245, 247, 0.85);
+            --hero-overlay-2: rgba(244, 245, 247, 0.5);
+            --hero-text-shadow: 0 5px 20px rgba(255,255,255,0.9);
+            
+            /* Extremities Fade / Chenar Effect */
+            --chenar-shadow: inset 0 0 15px 2px rgba(0,0,0,0.7), inset 0 0 35px 10px rgba(18, 109, 46, 0.3);
+            --chenar-border: rgba(0, 0, 0, 0.8);
             
             --font-head: 'Bebas Neue', sans-serif;
             --font-body: 'DM Sans', sans-serif;
@@ -39,6 +51,28 @@
             --radius-lg: 20px;
             
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        [data-theme="dark"] {
+            /* DARK THEME */
+            --bg-base: #030305;
+            --bg-surface: #0a0a0c;
+            --bg-card: #111114;
+            --bg-card-hover: #18181c;
+            
+            --text-main: #ffffff;
+            --text-muted: #8e8e99;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.15);
+            
+            --nav-bg: rgba(3, 3, 5, 0.85);
+            --hero-overlay-1: rgba(3, 3, 5, 0.85);
+            --hero-overlay-2: rgba(3, 3, 5, 0.4);
+            --hero-text-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            
+            /* Stronger Extremities Fade for Dark Mode */
+            --chenar-shadow: inset 0 0 20px 5px rgba(0,0,0,1), inset 0 0 50px 15px rgba(18, 109, 46, 0.5);
+            --chenar-border: #000000;
         }
 
         /* --- Reset & Base --- */
@@ -52,23 +86,38 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+                linear-gradient(var(--border-light) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
             background-size: 50px 50px;
             background-position: center top;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
 
         h1, h2, h3, h4 { font-family: var(--font-head); letter-spacing: 1.5px; font-weight: normal; }
-        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        a { text-decoration: none; color: inherit; transition: var(--transition); cursor: pointer; }
         button { font-family: inherit; cursor: pointer; outline: none; border: none; }
         
         .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+
+        /* --- View System (SPA) --- */
+        .view-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            min-height: calc(100vh - 250px);
+        }
+        .view-section.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .page-padding { padding-top: 120px; padding-bottom: 60px; }
 
         /* --- Componente Reutilizabile --- */
         .btn {
@@ -91,23 +140,23 @@
         .btn-primary:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 90, 0, 0.4);
+            box-shadow: 0 8px 25px rgba(132, 144, 4, 0.4);
         }
         .btn-outline {
             background: transparent;
             color: var(--text-main);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-color);
         }
         .btn-outline:hover {
             border-color: var(--accent-primary);
             color: var(--accent-primary);
-            background: rgba(255, 90, 0, 0.05);
+            background: rgba(18, 109, 46, 0.05);
         }
 
         /* --- Navbar --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(3, 3, 5, 0.7);
+            background: var(--nav-bg);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-color);
@@ -120,25 +169,25 @@
         .logo { font-family: var(--font-head); font-size: 1.8rem; display: flex; align-items: center; gap: 0.5rem;}
         .logo span { color: var(--accent-primary); }
         .logo-icon { width: 24px; height: 24px; background: var(--accent-primary); border-radius: 4px; display: inline-block; position: relative; }
-        .logo-icon::after { content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px; border: 2px solid #fff; border-radius: 2px; }
+        .logo-icon::after { content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px; border: 2px solid var(--bg-surface); border-radius: 2px; }
 
         .nav-links { display: flex; gap: 2.5rem; }
         .nav-links a { font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
         .nav-links a:hover, .nav-links a.active { color: var(--accent-primary); }
 
-        .nav-tools { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-tools { display: flex; align-items: center; gap: 1.2rem; }
         .lang-switch {
             background: transparent; color: var(--text-main); border: none; 
             font-family: var(--font-tech); font-size: 0.9rem; cursor: pointer;
         }
-        .lang-switch option { background: var(--bg-card); color: #fff; }
+        .lang-switch option { background: var(--bg-card); color: var(--text-main); }
         .icon-btn {
             background: transparent; color: var(--text-main); font-size: 1.2rem;
             position: relative; transition: var(--transition);
         }
         .icon-btn:hover { color: var(--accent-primary); transform: scale(1.1); }
         .badge {
-            position: absolute; top: -8px; right: -10px; background: var(--accent-primary);
+            position: absolute; top: -8px; right: -10px; background: var(--accent-hover);
             color: #fff; font-size: 0.6rem; font-family: var(--font-tech); font-weight: bold;
             width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
         }
@@ -152,7 +201,7 @@
             padding-top: 60px;
             overflow: hidden;
             background-image: 
-                linear-gradient(to bottom, rgba(3, 3, 5, 0.7) 0%, rgba(3, 3, 5, 0.3) 40%, var(--bg-base) 100%),
+                linear-gradient(to bottom, var(--hero-overlay-1) 0%, var(--hero-overlay-2) 40%, var(--bg-base) 100%),
                 url('mountain.png');
             background-size: cover;
             background-position: center 30%;
@@ -163,180 +212,114 @@
             width: 600px; height: 600px; background: var(--accent-primary);
             border-radius: 50%; filter: blur(150px); opacity: 0.2; z-index: 0;
         }
-        .hero::after {
-            content: ''; position: absolute; inset: 0;
-            background: rgba(0, 0, 0, 0.4); z-index: 1;
-        }
         .hero-content { max-width: 800px; animation: slideUp 1s ease forwards; position: relative; z-index: 2; }
-        .hero h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); line-height: 0.9; margin-bottom: 1.5rem; text-transform: uppercase; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .hero p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 2.5rem; max-width: 600px; margin-inline: auto; text-shadow: 0 4px 10px rgba(0,0,0,0.8); }
+        .hero h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); line-height: 0.9; margin-bottom: 1.5rem; text-transform: uppercase; text-shadow: var(--hero-text-shadow); }
+        .hero p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 2.5rem; max-width: 600px; margin-inline: auto; text-shadow: var(--hero-text-shadow); font-weight: 500; }
         .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
         
         .tech-stats {
             display: flex; justify-content: center; gap: 3rem; margin-top: 4rem;
-            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;
+            border-top: 1px solid var(--border-color); padding-top: 2rem;
             position: relative; z-index: 2;
         }
         .stat-item { text-align: center; }
-        .stat-value { font-family: var(--font-tech); font-size: 1.5rem; color: var(--accent-primary); font-weight: 700; display: block;}
-        .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
+        .stat-value { font-family: var(--font-tech); font-size: 1.5rem; color: var(--accent-primary); font-weight: 700; display: block; text-shadow: var(--hero-text-shadow); }
+        .stat-label { font-size: 0.8rem; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; font-weight:bold;}
 
-        /* --- Grid Categorii (Servicii) --- */
-        .section-padding { padding: 8rem 0; }
+        /* --- Servicii / Categorii (Cu efectul Chenar Cerut) --- */
+        .section-padding { padding: 6rem 0; }
         .section-header { text-align: center; margin-bottom: 4rem; }
         .section-subtitle { color: var(--accent-primary); font-family: var(--font-tech); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 0.5rem;}
         .section-title { font-size: 3.5rem; }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        
+        /* Efectul Black Fade / Green Blur */
+        .service-card, .admin-stat, .upload-section, .modal-content, .card-style {
+            background: var(--bg-card); 
+            border-radius: var(--radius-md);
+            padding: 2.5rem 2rem; 
+            transition: var(--transition); 
+            display: flex; flex-direction: column;
+            border: 1px solid var(--chenar-border);
+            box-shadow: var(--chenar-shadow);
+            position: relative;
         }
         
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 2.5rem 2rem;
-            transition: var(--transition);
-            position: relative;
-            display: flex; flex-direction: column;
-            group: hover;
-        }
-        .service-card:hover {
-            background: var(--bg-card-hover);
+        .service-card:hover { 
+            transform: translateY(-8px); 
             border-color: var(--accent-primary);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
+        
         .service-icon {
-            width: 60px; height: 60px; border-radius: var(--radius-sm);
-            background: rgba(255, 90, 0, 0.1);
-            color: var(--accent-primary);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem; margin-bottom: 1.5rem;
-            transition: var(--transition);
+            width: 60px; height: 60px; border-radius: var(--radius-sm); background: rgba(18, 109, 46, 0.1); color: var(--accent-primary);
+            display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem; transition: var(--transition);
         }
         .service-card:hover .service-icon { background: var(--accent-primary); color: #fff; }
-        .service-card h3 { font-size: 1.8rem; margin-bottom: 1rem; }
-        .service-card p { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; margin-bottom: 2rem; }
-        
-        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
+        .service-card h3 { font-size: 1.8rem; margin-bottom: 1rem; position: relative; z-index: 2; }
+        .service-card p { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; margin-bottom: 2rem; position: relative; z-index: 2; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color); position: relative; z-index: 2;}
         .price-tag { font-family: var(--font-tech); color: var(--text-main); font-size: 0.9rem; }
         .price-tag span { color: var(--text-muted); font-size: 0.8rem; }
-        
         .btn-card {
-            background: transparent; color: var(--accent-primary); font-family: var(--font-tech);
-            font-size: 0.85rem; border: none; text-transform: uppercase; letter-spacing: 1px;
-            display: flex; align-items: center; gap: 0.5rem;
+            background: transparent; color: var(--accent-primary); font-family: var(--font-tech); font-size: 0.85rem; border: none; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 0.5rem; font-weight: bold;
         }
-        .btn-card i { transition: transform 0.3s; }
-        .service-card:hover .btn-card i { transform: translateX(5px); }
+        .service-card:hover .btn-card i { transform: translateX(5px); transition: 0.3s; }
 
-        /* --- Eigenes Modell (Upload Section) --- */
-        .upload-section {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-            padding: 5rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        /* --- Upload Section --- */
+        .upload-section { text-align: center; }
+        .upload-dropzone { 
+            border: 2px dashed var(--border-color); border-radius: var(--radius-md); padding: 4rem 2rem; margin: 2rem auto 0; max-width: 600px; transition: var(--transition); background: rgba(0,0,0,0.05); cursor: pointer; 
+            box-shadow: var(--chenar-shadow); /* Applied here too */
         }
-        .upload-dropzone {
-            border: 2px dashed var(--border-light);
-            border-radius: var(--radius-md);
-            padding: 4rem 2rem;
-            margin: 2rem auto 0;
-            max-width: 600px;
-            transition: var(--transition);
-            background: rgba(0,0,0,0.2);
-            cursor: pointer;
-        }
-        .upload-dropzone:hover {
-            border-color: var(--accent-primary);
-            background: rgba(255, 90, 0, 0.05);
-        }
+        .upload-dropzone:hover { border-color: var(--accent-primary); background: rgba(18, 109, 46, 0.1); }
         .upload-dropzone i { font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem; transition: var(--transition); }
         .upload-dropzone:hover i { color: var(--accent-primary); transform: translateY(-5px); }
 
-        /* --- Footer --- */
-        footer {
-            background: var(--bg-surface); border-top: 1px solid var(--border-color);
-            padding: 4rem 0 2rem; margin-top: 4rem;
-        }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;}
-        .footer-col h4 { font-size: 1.5rem; margin-bottom: 1.5rem; }
-        .footer-links li { margin-bottom: 0.8rem; }
-        .footer-links a { color: var(--text-muted); font-size: 0.95rem; }
-        .footer-links a:hover { color: var(--accent-primary); }
-        .footer-bottom { border-top: 1px solid var(--border-color); padding-top: 2rem; display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-tech); }
+        /* --- Admin Dashboard --- */
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .admin-stat { padding: 1.5rem; text-align: center; }
+        .admin-stat h4 { color: var(--text-muted); font-size: 1rem; margin-bottom: 0.5rem; position: relative; z-index: 2;}
+        .admin-stat .val { font-size: 2rem; font-family: var(--font-tech); color: var(--accent-primary); position: relative; z-index: 2;}
+        
+        .data-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--chenar-border); box-shadow: var(--chenar-shadow); }
+        .data-table th, .data-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; }
+        .data-table th { background: var(--bg-card-hover); font-family: var(--font-tech); font-size: 0.9rem; color: var(--text-muted); }
+        .status { padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-tech); }
+        .status.printing { background: rgba(132, 144, 4, 0.2); color: var(--accent-hover); }
+        .status.done { background: rgba(18, 109, 46, 0.2); color: var(--accent-primary); }
 
         /* --- Modale Generale --- */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-            display: flex; align-items: center; justify-content: center; z-index: 2000;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-        }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-content {
-            background: var(--bg-card); border: 1px solid var(--border-light);
-            border-radius: var(--radius-md); padding: 2.5rem; width: 90%; max-width: 450px;
-            position: relative; transform: translateY(30px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        }
+        .modal-content { width: 90%; max-width: 450px; transform: translateY(30px); transition: transform 0.4s; }
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        .modal-close {
-            position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.1);
-            border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
-        }
-        .modal-close:hover { background: var(--accent-primary); transform: rotate(90deg); }
+        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--border-light); border: none; color: var(--text-main); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; z-index: 10; }
+        .modal-close:hover { background: var(--accent-primary); color: #fff; transform: rotate(90deg); }
         
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; }
-        .form-control {
-            width: 100%; background: var(--bg-base); border: 1px solid var(--border-color);
-            color: #fff; padding: 0.9rem 1rem; border-radius: var(--radius-sm); font-family: var(--font-body); transition: 0.3s;
-        }
-        .form-control:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(255, 90, 0, 0.1); }
+        .form-group { margin-bottom: 1.5rem; position: relative; z-index: 2; }
+        .form-group label { display: block; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: bold;}
+        .form-control { width: 100%; background: var(--bg-base); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.9rem 1rem; border-radius: var(--radius-sm); font-family: var(--font-body); transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);}
+        .form-control:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(18, 109, 46, 0.2); }
 
         /* --- Configurator Modal Specific --- */
         #configModal .modal-content { max-width: 900px; padding: 0; overflow: hidden; display: flex; flex-wrap: wrap; }
-        .config-sidebar { flex: 1; min-width: 300px; padding: 2.5rem; background: var(--bg-card); }
-        .config-preview { 
-            flex: 1.5; min-width: 300px; padding: 2.5rem; background: var(--bg-base);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            position: relative; border-left: 1px solid var(--border-color);
-        }
-        .canvas-container {
-            width: 100%; aspect-ratio: 16/9; background: repeating-linear-gradient(45deg, var(--bg-card) 0, var(--bg-card) 2px, transparent 2px, transparent 8px);
-            border-radius: var(--radius-sm); border: 1px solid var(--border-color);
-            display: flex; align-items: center; justify-content: center; position: relative;
-        }
-        #previewCanvas { max-width: 100%; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6)); }
-        
-        .price-display {
-            margin-top: 2rem; padding: 1.5rem; background: rgba(255, 90, 0, 0.05);
-            border: 1px solid var(--accent-glow); border-radius: var(--radius-sm);
-        }
+        .config-sidebar { flex: 1; min-width: 300px; padding: 2.5rem; position: relative; z-index: 2; }
+        .config-preview { flex: 1.5; min-width: 300px; padding: 2.5rem; background: var(--bg-card-hover); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border-left: 1px solid var(--border-color); box-shadow: var(--chenar-shadow);}
+        .canvas-container { width: 100%; aspect-ratio: 16/9; background: repeating-linear-gradient(45deg, var(--bg-card) 0, var(--bg-card) 2px, transparent 2px, transparent 8px); border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; }
 
         /* --- Toast Notifications --- */
         .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; }
-        .toast {
-            background: var(--bg-card); border-left: 4px solid var(--accent-primary);
-            color: #fff; padding: 1rem 1.5rem; border-radius: 4px; font-size: 0.95rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 1rem;
-            animation: slideInRight 0.3s ease forwards;
-        }
+        .toast { background: var(--bg-card); border-left: 4px solid var(--accent-primary); color: var(--text-main); padding: 1rem 1.5rem; border-radius: 4px; font-size: 0.95rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 1rem; animation: slideInRight 0.3s ease forwards; border: 1px solid var(--border-color);}
         .toast i { color: var(--accent-primary); font-size: 1.2rem; }
 
-        /* Animations */
+        /* Animations & Footer */
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
         @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
-
-        /* Responsive */
+        footer { background: var(--bg-surface); border-top: 1px solid var(--border-color); padding: 4rem 0 2rem; margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;}
+        
         @media (max-width: 900px) {
             .nav-links { display: none; }
             .hero h1 { font-size: 3.5rem; }
@@ -350,181 +333,220 @@
     <!-- Header / Navbar -->
     <header id="header">
         <div class="container nav-wrapper">
-            <a href="#" class="logo">
+            <a onclick="navigateTo('view-home')" class="logo">
                 <span class="logo-icon"></span>
                 PRINT<span>WALD</span>
             </a>
             
             <nav class="nav-links">
-                <a href="#servicii" class="active">Servicii</a>
-                <a href="#upload">Printează Fișier</a>
-                <a href="#magazin">Magazin</a>
-                <a href="#contact">Contact</a>
+                <a onclick="navigateTo('view-home')" class="nav-btn active" data-i18n="nav_home">Home</a>
+                <a onclick="navigateTo('view-shop')" class="nav-btn" data-i18n="nav_shop">Shop</a>
+                <a onclick="navigateTo('view-contact')" class="nav-btn" data-i18n="nav_contact">Contact</a>
+                <a onclick="navigateTo('view-admin')" class="nav-btn" id="navAdminBtn" style="display:none; color:var(--accent-primary);">Admin</a>
             </nav>
             
             <div class="nav-tools">
-                <select class="lang-switch">
-                    <option value="ro">RO</option>
-                    <option value="de">DE</option>
-                    <option value="en">EN</option>
-                </select>
-                <button class="icon-btn" onclick="showToast('Coșul este gol momentan.')">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="badge">0</span>
+                <!-- Buton Theme Toggle -->
+                <button class="icon-btn" onclick="toggleTheme()" title="Toggle Light/Dark Theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
-                <button class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 1rem;" onclick="openModal('loginModal')">
-                    <i class="fas fa-user"></i> Admin
+
+                <select class="lang-switch" id="langSelector" onchange="changeLanguage(this.value)">
+                    <option value="en" selected>EN</option>
+                    <option value="de">DE</option>
+                    <option value="ro">RO</option>
+                </select>
+                <button class="icon-btn" onclick="showToast(translations[currentLang].cart_empty)">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                </button>
+                <button class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 1rem;" onclick="openModal('loginModal')" id="loginBtnUI">
+                    <i class="fas fa-user"></i> <span data-i18n="btn_login">Login</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>Inginerie 3D <br><span style="color: var(--accent-primary);">Fără Compromisuri</span></h1>
-            <p>De la prototipare rapidă industrială și piese de schimb din materiale de înaltă performanță (ABS, PETG, Nylon), până la configuratoare personalizate direct în browser.</p>
+    <!-- VIEWS CONTAINER -->
+    <div id="app-content">
+
+        <!-- ================= VIEW: HOME ================= -->
+        <main id="view-home" class="view-section active">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="container hero-content">
+                    <h1 id="hero_title">3D Engineering <br><span style="color: var(--accent-primary);">Without Compromise</span></h1>
+                    <p data-i18n="hero_desc">From rapid industrial prototyping to high-performance spare parts (ABS, PETG, Nylon), to custom configurators directly in your browser.</p>
+                    
+                    <div class="hero-actions">
+                        <a href="#upload-sec" class="btn btn-primary"><i class="fas fa-upload"></i> <span data-i18n="btn_upload">Upload STL</span></a>
+                        <a onclick="document.getElementById('servicii').scrollIntoView()" class="btn btn-outline" style="color:var(--text-main); border-color:var(--text-main);" data-i18n="btn_explore">Explore Services</a>
+                    </div>
+                    
+                    <div class="tech-stats">
+                        <div class="stat-item"><span class="stat-value">&lt; 24h</span><span class="stat-label" data-i18n="stat_time">Response Time</span></div>
+                        <div class="stat-item"><span class="stat-value">0.05mm</span><span class="stat-label" data-i18n="stat_prec">Print Precision</span></div>
+                        <div class="stat-item"><span class="stat-value">100%</span><span class="stat-label" data-i18n="stat_inhouse">In-House Gengenbach</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="servicii" class="section-padding container">
+                <div class="section-header">
+                    <span class="section-subtitle" data-i18n="sec_apps">Applications & Configurators</span>
+                    <h2 class="section-title" data-i18n="sec_solutions">Complete Solutions</h2>
+                </div>
+                
+                <div class="services-grid">
+                    <!-- Card 1 -->
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-key"></i></div>
+                        <h3 data-i18n="card1_title">Custom Keychains</h3>
+                        <p data-i18n="card1_desc">Customize keychains with your text. Live preview on platform with automatic pricing.</p>
+                        <div class="card-footer">
+                            <div class="price-tag">€3.00 <span>+ €0.50/let</span></div>
+                            <button class="btn-card" onclick="openConfigurator()"><i class="fas fa-cog"></i> <span data-i18n="btn_config">Configurator</span></button>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                        <h3 data-i18n="card2_title">Spare Parts</h3>
+                        <p data-i18n="card2_desc">We replace broken parts for appliances. CAD re-design included for superior strength.</p>
+                        <div class="card-footer">
+                            <div class="price-tag"><span data-i18n="price_request">On Request</span></div>
+                            <button class="btn-card" onclick="showToast(translations[currentLang].toast_dev)"><i class="fas fa-camera"></i> <span data-i18n="btn_request">Request</span></button>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-layer-group"></i></div>
+                        <h3 data-i18n="card3_title">Rapid Prototyping</h3>
+                        <p data-i18n="card3_desc">Mechanical validation for engineers. Printed in PLA+, PETG, ABS or flexible TPU.</p>
+                        <div class="card-footer">
+                            <div class="price-tag"><span data-i18n="price_volume">Per Volume</span></div>
+                            <button class="btn-card" onclick="showToast(translations[currentLang].toast_dev)"><i class="fas fa-arrow-right"></i> B2B Portal</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Section -->
+            <section id="upload-sec" class="section-padding container">
+                <div class="upload-section">
+                    <span class="section-subtitle" data-i18n="upload_sub" style="position:relative; z-index:2;">Have your own file?</span>
+                    <h2 class="section-title" style="margin-bottom: 1rem; position:relative; z-index:2;">Eigenes Modell</h2>
+                    <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto; position:relative; z-index:2;" data-i18n="upload_desc">Our system analyzes your file geometry, estimates filament and print time, generating instant pricing.</p>
+                    
+                    <div class="upload-dropzone" onclick="simulateUpload()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3 style="margin-bottom: 0.5rem; position:relative; z-index:2;" data-i18n="upload_btn">Click or Drag & Drop</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-tech); position:relative; z-index:2;">.STL, .OBJ, .3MF (Max 50MB)</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ================= VIEW: SHOP ================= -->
+        <main id="view-shop" class="view-section page-padding container">
+            <h2 class="section-title" data-i18n="nav_shop">Shop</h2>
+            <p style="color:var(--text-muted); margin-bottom: 3rem;" data-i18n="shop_desc">Pre-designed items ready to be customized and printed.</p>
             
-            <div class="hero-actions">
-                <a href="#upload" class="btn btn-primary"><i class="fas fa-upload"></i> Încarcă STL</a>
-                <a href="#servicii" class="btn btn-outline">Explorează Serviciile</a>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-vase"></i></div>
+                    <h3>Geo Vase</h3>
+                    <p>Modern geometric vase printed in Matte PLA.</p>
+                    <div class="card-footer">
+                        <div class="price-tag">€18.50</div>
+                        <button class="btn-card" onclick="addToCartUI()"><i class="fas fa-cart-plus"></i> Buy</button>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Desk Stand</h3>
+                    <p>Universal phone and tablet stand with adjustable angle.</p>
+                    <div class="card-footer">
+                        <div class="price-tag">€12.00</div>
+                        <button class="btn-card" onclick="addToCartUI()"><i class="fas fa-cart-plus"></i> Buy</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ================= VIEW: CONTACT ================= -->
+        <main id="view-contact" class="view-section page-padding container">
+            <h2 class="section-title" data-i18n="nav_contact">Contact Us</h2>
+            <div class="card-style" style="max-width: 600px; margin: 2rem auto;">
+                <div class="form-group">
+                    <label data-i18n="form_name">Name</label>
+                    <input type="text" class="form-control" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="hello@example.com">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="form_msg">Message</label>
+                    <textarea class="form-control" rows="5"></textarea>
+                </div>
+                <button class="btn btn-primary" style="width:100%; position:relative; z-index:2;" onclick="showToast(translations[currentLang].msg_sent)" data-i18n="btn_send">Send Message</button>
+            </div>
+        </main>
+
+        <!-- ================= VIEW: ADMIN DASHBOARD ================= -->
+        <main id="view-admin" class="view-section page-padding container">
+            <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 class="section-title">Admin Dashboard</h2>
+                <button class="btn btn-outline" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
             
-            <div class="tech-stats">
-                <div class="stat-item">
-                    <span class="stat-value">&lt; 24h</span>
-                    <span class="stat-label">Timp de Răspuns</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">0.05mm</span>
-                    <span class="stat-label">Precizie Print</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">100%</span>
-                    <span class="stat-label">In-House Gengenbach</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Servicii Section -->
-    <section id="servicii" class="section-padding container">
-        <div class="section-header">
-            <span class="section-subtitle">Aplicații & Configuratoare</span>
-            <h2 class="section-title">Soluții Complete</h2>
-        </div>
-        
-        <div class="services-grid">
-            
-            <!-- Card 1: Brelocuri (Cu integrare Canvas reală) -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-key"></i></div>
-                <h3>Brelocuri Custom</h3>
-                <p>Personalizează brelocuri cu textul tău. Previzualizare live pe platformă și calcul automat de preț.</p>
-                <div class="card-footer">
-                    <div class="price-tag">€3.00 <span>+ €0.50/literă</span></div>
-                    <button class="btn-card" onclick="openConfigurator()"><i class="fas fa-cog"></i> Configurator</button>
-                </div>
+            <div class="admin-grid">
+                <div class="admin-stat"><h4>Total Orders</h4><div class="val">1,204</div></div>
+                <div class="admin-stat"><h4>Filament Stock</h4><div class="val">42 kg</div></div>
+                <div class="admin-stat"><h4>Active Printers</h4><div class="val">8 / 10</div></div>
+                <div class="admin-stat"><h4>Revenue (M)</h4><div class="val">€4,590</div></div>
             </div>
 
-            <!-- Card 2: Broken Parts -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-cogs"></i></div>
-                <h3>Piese de Schimb</h3>
-                <p>Înlocuim piese rupte pentru aparate casnice sau industriale. Re-proiectare CAD inclusă pentru rezistență superioară.</p>
-                <div class="card-footer">
-                    <div class="price-tag">Estimare <span>la cerere</span></div>
-                    <button class="btn-card" onclick="showToast('Se va deschide formularul de încărcare poze.')"><i class="fas fa-camera"></i> Solicită</button>
-                </div>
-            </div>
+            <h3 style="margin-bottom: 1rem; font-family: var(--font-head); font-size: 2rem;">Recent Print Jobs</h3>
+            <table class="data-table">
+                <thead><tr><th>Order ID</th><th>Client</th><th>Item</th><th>Material</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>#ORD-092</td><td>thomas.m@...</td><td>Geo Vase</td><td>PLA Matte Black</td><td><span class="status printing">Printing (45%)</span></td></tr>
+                    <tr><td>#ORD-091</td><td>sarah.j@...</td><td>Custom Keychain</td><td>PETG Orange</td><td><span class="status done">Completed</span></td></tr>
+                    <tr><td>#ORD-090</td><td>b2b.tech@...</td><td>Drone Frame x5</td><td>ABS Carbon</td><td><span class="status done">Completed</span></td></tr>
+                </tbody>
+            </table>
+        </main>
 
-            <!-- Card 3: Prototipare -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-layer-group"></i></div>
-                <h3>Prototipare Rapidă</h3>
-                <p>Validare mecanică pentru ingineri și designeri. Printăm în PLA+, PETG, ABS sau TPU flexibil.</p>
-                <div class="card-footer">
-                    <div class="price-tag">Dinamic <span>/ per volum</span></div>
-                    <button class="btn-card" onclick="showToast('Redirecționare către B2B portal.')"><i class="fas fa-arrow-right"></i> B2B Portal</button>
-                </div>
-            </div>
-
-            <!-- Card 4: CAD Design -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-drafting-compass"></i></div>
-                <h3>Servicii CAD</h3>
-                <p>Transformăm schițele tale pe șervețel în modele 3D gata de fabricație (STEP, STL, IGES).</p>
-                <div class="card-footer">
-                    <div class="price-tag">€25.00 <span>/ Oră</span></div>
-                    <button class="btn-card" onclick="showToast('Deschidere chat cu un inginer PrintWALD.')"><i class="fas fa-comments"></i> Discută</button>
-                </div>
-            </div>
-
-            <!-- Card 5: Lithophane -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-image"></i></div>
-                <h3>Lithophane Art</h3>
-                <p>Încarcă orice fotografie și software-ul nostru o va transforma într-un tablou 3D ce prinde viață la lumină.</p>
-                <div class="card-footer">
-                    <div class="price-tag">De la €15.00 <span></span></div>
-                    <button class="btn-card" onclick="showToast('Modul Upload Imagine în dezvoltare.')"><i class="fas fa-upload"></i> Upload Poză</button>
-                </div>
-            </div>
-
-            <!-- Card 6: Schubladen -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-th-large"></i></div>
-                <h3>Organizatoare (Schubladen)</h3>
-                <p>Sistem parametric pentru organizarea sertarelor. Introdu dimensiunile și generăm cutiile automat.</p>
-                <div class="card-footer">
-                    <div class="price-tag">Parametric <span></span></div>
-                    <button class="btn-card" onclick="showToast('Modulul de Grid 2D se încarcă...')"><i class="fas fa-vector-square"></i> Deschide UI</button>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Upload Section -->
-    <section id="upload" class="section-padding container">
-        <div class="upload-section">
-            <span class="section-subtitle">Ai propriul fișier?</span>
-            <h2 class="section-title" style="margin-bottom: 1rem;">Eigenes Modell</h2>
-            <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">Sistemul nostru va analiza geometria fișierului tău, va estima cantitatea de filament, timpul de printare și va genera prețul pe loc.</p>
-            
-            <div class="upload-dropzone" onclick="showToast('Sistemul de Slicing în cloud este simulat momentan.')">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h3 style="margin-bottom: 0.5rem;">Click sau Drag & Drop</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-tech);">Suportă: .STL, .OBJ, .3MF (Max 50MB)</p>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <a href="#" class="logo" style="font-size: 1.8rem; margin-bottom: 1rem;">
+                    <a class="logo" style="font-size: 1.8rem; margin-bottom: 1rem;">
                         <span class="logo-icon" style="width: 24px; height: 24px;"></span>
                         PRINT<span style="color: var(--text-main)">WALD</span>
                     </a>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Precizie germană, inovație digitală. Printăm viitorul, strat cu strat.</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">German precision, digital innovation. Printing the future, layer by layer.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Legături Rapide</h4>
+                    <h4>Quick Links</h4>
                     <ul class="footer-links" style="list-style: none;">
-                        <li><a href="#servicii">Servicii & Prețuri</a></li>
-                        <li><a href="#magazin">Magazin MakerWorld</a></li>
-                        <li><a href="#upload">Sistem Upload</a></li>
+                        <li><a onclick="navigateTo('view-home')">Services</a></li>
+                        <li><a onclick="navigateTo('view-shop')">Shop</a></li>
+                        <li><a onclick="navigateTo('view-contact')">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <ul class="footer-links" style="list-style: none;">
                         <li><a href="mailto:contact@printwald.de"><i class="fas fa-envelope"></i> contact@printwald.de</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Gengenbach, DE</a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i> @printwald</a></li>
+                        <li><a><i class="fas fa-map-marker-alt"></i> Gengenbach, DE</a></li>
+                        <li><a><i class="fab fa-instagram"></i> @printwald</a></li>
                     </ul>
                 </div>
             </div>
@@ -535,255 +557,305 @@
         </div>
     </footer>
 
-    <!-- MODAL: LOGIN / ADMIN -->
+    <!-- MODAL: LOGIN -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
-            <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Autentificare</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem;">Accesează panoul de client sau administrare (admin@printwald.de)</p>
+            <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem; position:relative; z-index:2;" data-i18n="btn_login">Login</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size:0.9rem; position:relative; z-index:2;">Client / Admin access. (Type 'admin' in email for Dashboard)</p>
             
             <div class="form-group">
-                <label>Adresă Email</label>
-                <input type="email" class="form-control" placeholder="nume@email.com" id="loginEmail">
+                <label>Email Address</label>
+                <input type="email" class="form-control" placeholder="name@email.com" id="loginEmail">
             </div>
             <div class="form-group">
-                <label>Parolă</label>
+                <label>Password</label>
                 <input type="password" class="form-control" placeholder="••••••••">
             </div>
             
-            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="processLogin()">Intră în Cont</button>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; position:relative; z-index:2;" onclick="processLogin()">Enter System</button>
         </div>
     </div>
 
-    <!-- MODAL: CONFIGURATOR BRELOC (CANVAS) -->
+    <!-- MODAL: CONFIGURATOR (CANVAS) -->
     <div class="modal-overlay" id="configModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('configModal')" style="z-index: 10; background: var(--bg-card);"><i class="fas fa-times"></i></button>
+        <div class="modal-content" style="max-width: 900px; padding: 0; display: flex; flex-wrap: wrap;">
+            <button class="modal-close" onclick="closeModal('configModal')"><i class="fas fa-times"></i></button>
             
-            <!-- Partea Stângă: Controale -->
             <div class="config-sidebar">
-                <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Configurator <span style="color: var(--accent-primary);">Breloc</span></h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Editează textul și culorile. Modelul 3D se va genera și felia automat.</p>
+                <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Configurator <span style="color: var(--accent-primary);">Live</span></h2>
                 
-                <div class="form-group">
-                    <label>Text Breloc (Max 12 Caractere)</label>
+                <div class="form-group" style="margin-top:2rem;">
+                    <label>Text (Max 12 Chars)</label>
                     <input type="text" class="form-control" id="brelocText" value="PRINTWALD" maxlength="12" oninput="renderCanvas()">
                 </div>
-                
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <div class="form-group">
-                        <label>Culoare Bază (Filament)</label>
-                        <input type="color" class="form-control" id="baseColor" value="#1a1a24" style="height: 50px; padding: 0.2rem; cursor: pointer;" oninput="renderCanvas()">
+                        <label>Base Color</label>
+                        <!-- Default la noul Watermelon Green -->
+                        <input type="color" class="form-control" id="baseColor" value="#126d2e" style="height: 50px; padding: 0.2rem; cursor: pointer;" oninput="renderCanvas()">
                     </div>
                     <div class="form-group">
-                        <label>Culoare Text (Filament)</label>
-                        <input type="color" class="form-control" id="textColor" value="#ff5a00" style="height: 50px; padding: 0.2rem; cursor: pointer;" oninput="renderCanvas()">
+                        <label>Text Color</label>
+                        <input type="color" class="form-control" id="textColor" value="#ffffff" style="height: 50px; padding: 0.2rem; cursor: pointer;" oninput="renderCanvas()">
                     </div>
                 </div>
-                
-                <div class="price-display">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                        <span style="color: var(--text-muted); font-family: var(--font-tech); font-size: 0.8rem;">Bază: €3.00 | Litere: <span id="letterCount">8</span> x €0.50</span>
-                    </div>
+                <div class="price-display" style="margin-top: 2rem; padding: 1.5rem; background: rgba(132, 144, 4, 0.05); border: 1px solid var(--accent-glow); border-radius: var(--radius-sm); position:relative; z-index:2;">
                     <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                        <span style="font-family: var(--font-head); font-size: 1.2rem; text-transform: uppercase;">Total Estimat</span>
+                        <span style="font-family: var(--font-head); font-size: 1.2rem;">Total Estimat</span>
                         <span id="priceDisplay" style="font-family: var(--font-tech); font-size: 2rem; color: var(--accent-primary); font-weight: bold;">€7.00</span>
                     </div>
                 </div>
-                
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="addToCart()">
-                    <i class="fas fa-cart-arrow-down"></i> Adaugă la Comandă
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem; position:relative; z-index:2;" onclick="addToCartUI()">
+                    <i class="fas fa-cart-arrow-down"></i> Add to Cart
                 </button>
             </div>
             
-            <!-- Partea Dreaptă: Canvas Randare -->
             <div class="config-preview">
-                <span style="position: absolute; top: 1.5rem; left: 1.5rem; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="width: 8px; height: 8px; background: #00ff00; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #00ff00;"></span> LIVE RENDER VIEW
+                <span style="position: absolute; top: 1.5rem; left: 1.5rem; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; z-index: 2;">
+                    <span style="width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 8px #00ff00;"></span> LIVE RENDER VIEW
                 </span>
-                
-                <div class="canvas-container">
-                    <canvas id="previewCanvas" width="450" height="200"></canvas>
+                <div class="canvas-container" style="position:relative; z-index:2;">
+                    <canvas id="previewCanvas" width="450" height="200" style="max-width: 100%; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));"></canvas>
                 </div>
-                <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">*Reprezentare vizuală. Designul final va avea textură de strat 3D (layer lines).</p>
             </div>
         </div>
     </div>
 
-    <!-- Sistem Toasts (Notificari) -->
+    <!-- TOASTS -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Scripturi Interactivitate -->
+    <!-- === SCRIPTS (SPA LOGIC, i18n, CANVAS, THEME) === -->
     <script>
-        // Efect Navbar la scroll
+        // 0. THEME SWITCHER LOGIC
+        function toggleTheme() {
+            const html = document.documentElement;
+            // Check current theme
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            // Switch
+            if (isDark) {
+                html.removeAttribute('data-theme');
+                document.getElementById('themeIcon').className = 'fas fa-moon';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+        }
+
+        // 1. DICȚIONAR DE TRADUCERI (i18n)
+        const translations = {
+            en: {
+                nav_home: "Home", nav_shop: "Shop", nav_contact: "Contact", btn_login: "Login",
+                hero_desc: "From rapid industrial prototyping to high-performance spare parts (ABS, PETG, Nylon), to custom configurators directly in your browser.",
+                btn_upload: "Upload STL", btn_explore: "Explore Services",
+                stat_time: "Response Time", stat_prec: "Print Precision", stat_inhouse: "In-House Gengenbach",
+                sec_apps: "Applications & Configurators", sec_solutions: "Complete Solutions",
+                card1_title: "Custom Keychains", card1_desc: "Customize keychains with your text. Live preview on platform with automatic pricing.", btn_config: "Configurator",
+                card2_title: "Spare Parts", card2_desc: "We replace broken parts for appliances. CAD re-design included for superior strength.", price_request: "On Request", btn_request: "Request",
+                card3_title: "Rapid Prototyping", card3_desc: "Mechanical validation for engineers. Printed in PLA+, PETG, ABS or flexible TPU.", price_volume: "Per Volume",
+                upload_sub: "Have your own file?", upload_desc: "Our system analyzes your file geometry, estimates filament and print time, generating instant pricing.", upload_btn: "Click or Drag & Drop",
+                shop_desc: "Pre-designed items ready to be customized and printed.",
+                form_name: "Name", form_msg: "Message", btn_send: "Send Message",
+                cart_empty: "Your cart is empty.", toast_dev: "Module in development.", msg_sent: "Message sent successfully!", login_success: "Login successful!"
+            },
+            ro: {
+                nav_home: "Acasă", nav_shop: "Magazin", nav_contact: "Contact", btn_login: "Cont",
+                hero_desc: "De la prototipare rapidă industrială și piese de schimb din materiale de înaltă performanță, până la configuratoare direct în browser.",
+                btn_upload: "Încarcă STL", btn_explore: "Explorează Servicii",
+                stat_time: "Timp Răspuns", stat_prec: "Precizie Print", stat_inhouse: "Producție Locală",
+                sec_apps: "Aplicații & Configuratoare", sec_solutions: "Soluții Complete",
+                card1_title: "Brelocuri Custom", card1_desc: "Personalizează brelocuri cu textul tău. Previzualizare live pe platformă și calcul automat.", btn_config: "Configurează",
+                card2_title: "Piese de Schimb", card2_desc: "Înlocuim piese rupte pentru aparate. Re-proiectare CAD inclusă pentru rezistență.", price_request: "La Cerere", btn_request: "Solicită",
+                card3_title: "Prototipare", card3_desc: "Validare mecanică pentru ingineri. Printăm în PLA+, PETG, ABS sau TPU flexibil.", price_volume: "Per Volum",
+                upload_sub: "Ai propriul fișier?", upload_desc: "Sistemul nostru analizează geometria, estimează filamentul și generează prețul pe loc.", upload_btn: "Apasă sau Drag & Drop",
+                shop_desc: "Obiecte gata de a fi personalizate și printate.",
+                form_name: "Nume", form_msg: "Mesajul tău", btn_send: "Trimite Mesaj",
+                cart_empty: "Coșul este gol momentan.", toast_dev: "Modul în dezvoltare.", msg_sent: "Mesaj trimis cu succes!", login_success: "Autentificare reușită!"
+            },
+            de: {
+                nav_home: "Startseite", nav_shop: "Shop", nav_contact: "Kontakt", btn_login: "Anmelden",
+                hero_desc: "Vom schnellen industriellen Prototyping bis hin zu Hochleistungsersatzteilen und benutzerdefinierten Konfiguratoren direkt in Ihrem Browser.",
+                btn_upload: "STL Hochladen", btn_explore: "Dienste Entdecken",
+                stat_time: "Reaktionszeit", stat_prec: "Druckpräzision", stat_inhouse: "In-House Gengenbach",
+                sec_apps: "Anwendungen & Konfiguratoren", sec_solutions: "Komplette Lösungen",
+                card1_title: "Eigene Schlüsselanhänger", card1_desc: "Passen Sie Schlüsselanhänger mit Ihrem Text an. Live-Vorschau mit automatischer Preisgestaltung.", btn_config: "Konfigurieren",
+                card2_title: "Ersatzteile", card2_desc: "Wir ersetzen defekte Teile. CAD-Redesign für überlegene Festigkeit inklusive.", price_request: "Auf Anfrage", btn_request: "Anfragen",
+                card3_title: "Prototyping", card3_desc: "Mechanische Validierung für Ingenieure. Gedruckt in PLA+, PETG, ABS oder TPU.", price_volume: "Pro Volumen",
+                upload_sub: "Eigene Datei?", upload_desc: "Unser System analysiert die Geometrie, schätzt Filament und generiert sofort einen Preis.", upload_btn: "Klicken oder Drag & Drop",
+                shop_desc: "Vorgefertigte Artikel, bereit zur Anpassung und zum Druck.",
+                form_name: "Name", form_msg: "Nachricht", btn_send: "Nachricht Senden",
+                cart_empty: "Ihr Warenkorb ist leer.", toast_dev: "Modul in Entwicklung.", msg_sent: "Nachricht erfolgreich gesendet!", login_success: "Erfolgreich angemeldet!"
+            }
+        };
+
+        let currentLang = 'en'; // DEFAULT LANGUAGE
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if(translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+            // Update hero special formatting
+            if(lang === 'ro') document.getElementById('hero_title').innerHTML = "Inginerie 3D <br><span style='color: var(--accent-primary);'>Fără Compromisuri</span>";
+            if(lang === 'de') document.getElementById('hero_title').innerHTML = "3D Engineering <br><span style='color: var(--accent-primary);'>Ohne Kompromisse</span>";
+            if(lang === 'en') document.getElementById('hero_title').innerHTML = "3D Engineering <br><span style='color: var(--accent-primary);'>Without Compromise</span>";
+        }
+
+        // Initialize Language
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('langSelector').value = currentLang;
+            changeLanguage(currentLang);
+        });
+
+        // 2. SISTEM DE PAGINI (SPA ROUTING)
+        function navigateTo(viewId) {
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+            if(event) event.currentTarget.classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // 3. UI INTERACTIVITY
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.style.background = 'rgba(3, 3, 5, 0.95)';
-                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
-            } else {
-                header.style.background = 'rgba(3, 3, 5, 0.7)';
-                header.style.boxShadow = 'none';
+            if (window.scrollY > 50) { 
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else { 
+                header.style.boxShadow = 'none'; 
             }
         });
 
-        // Sistem Custom Toasts (Înlocuiește alert-ul inestetic)
         function showToast(message) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = 'toast';
             toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`;
-            
             container.appendChild(toast);
-            
-            // Elimină toast-ul după 3 secunde
             setTimeout(() => {
                 toast.style.animation = 'fadeOut 0.3s ease forwards';
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
-        // Logică Modale Generale
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-        }
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        let cartTotal = 0;
+        function addToCartUI() {
+            cartTotal++;
+            document.getElementById('cartCount').innerText = cartTotal;
+            showToast("Item added to cart!");
+            closeModal('configModal');
         }
 
+        function simulateUpload() {
+            showToast("Opening File Explorer...");
+            setTimeout(() => showToast("Processing 3D Geometry..."), 1500);
+        }
+
+        // 4. ADMIN & LOGIN LOGIC
+        let isAdmin = false;
         function processLogin() {
             const email = document.getElementById('loginEmail').value;
-            if(email.includes('admin')) {
-                showToast('Autentificare Admin reușită. Se încarcă dashboard-ul...');
-            } else {
-                showToast('Conectare client reușită!');
-            }
             closeModal('loginModal');
+            
+            if(email.includes('admin')) {
+                isAdmin = true;
+                document.getElementById('navAdminBtn').style.display = 'block';
+                document.getElementById('loginBtnUI').innerHTML = `<i class="fas fa-user-shield"></i> Admin`;
+                showToast("Admin access granted.");
+                navigateTo('view-admin'); 
+            } else {
+                showToast(translations[currentLang].login_success);
+            }
+        }
+        
+        function logoutAdmin() {
+            isAdmin = false;
+            document.getElementById('navAdminBtn').style.display = 'none';
+            document.getElementById('loginBtnUI').innerHTML = `<i class="fas fa-user"></i> <span data-i18n="btn_login">${translations[currentLang].btn_login}</span>`;
+            showToast("Logged out successfully.");
+            navigateTo('view-home');
         }
 
-        // --- LOGICA CANVAS PENTRU BRELOC ---
+        // 5. CANVAS RENDERER PENTRU BRELOC
         const canvas = document.getElementById('previewCanvas');
         const ctx = canvas.getContext('2d');
 
         function openConfigurator() {
             openModal('configModal');
-            // Timeout scurt pentru a ne asigura ca modalul e vizibil inainte de randare
             setTimeout(renderCanvas, 100);
         }
 
         function renderCanvas() {
             let text = document.getElementById('brelocText').value.toUpperCase().trim();
-            if (!text) text = " "; // Previne erorile la calculul lățimii
-            
+            if (!text) text = " ";
             const baseColor = document.getElementById('baseColor').value;
             const textColor = document.getElementById('textColor').value;
             
-            // Actualizare UI Preț
             const letterCount = text.replace(/\s/g, '').length;
-            document.getElementById('letterCount').innerText = letterCount;
             const total = (3.00 + (letterCount * 0.50)).toFixed(2);
             document.getElementById('priceDisplay').innerText = `€${total}`;
 
-            // Reset Canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Setări Font & Dimensiuni
             ctx.font = "bold 44px 'Bebas Neue', sans-serif";
-            const textMetrics = ctx.measureText(text);
-            const textWidth = textMetrics.width;
+            const textWidth = ctx.measureText(text).width;
             
-            // Calculăm dimensiunea "bucății de plastic" (bazei)
-            const paddingX = 40;
-            const ringSpace = 50;
+            const paddingX = 40; const ringSpace = 50;
             const rectWidth = Math.max(160, textWidth + paddingX * 2 + ringSpace);
             const rectHeight = 70;
-            
-            // Centrare in Canvas
             const startX = (canvas.width - rectWidth) / 2;
             const startY = (canvas.height - rectHeight) / 2;
 
-            // 1. Randare Bază (Grosime / Umbră pentru efect 3D)
             const shadowColor = shadeHEX(baseColor, -30);
             ctx.fillStyle = shadowColor;
             roundRect(ctx, startX, startY + 8, rectWidth, rectHeight, 35);
             ctx.fill();
 
-            // Randare Bază (Suprafața de sus)
             ctx.fillStyle = baseColor;
             roundRect(ctx, startX, startY, rectWidth, rectHeight, 35);
             ctx.fill();
 
-            // 2. Randare Gaură Breloc (Transparent cut-out)
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            ctx.arc(startX + 35, startY + (rectHeight/2), 12, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.beginPath(); ctx.arc(startX + 35, startY + (rectHeight/2), 12, 0, Math.PI * 2); ctx.fill();
             
-            // Revenim la desenare normala si adaugam un inel subtil interior
             ctx.globalCompositeOperation = 'source-over';
-            ctx.strokeStyle = shadowColor;
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.arc(startX + 35, startY + (rectHeight/2), 12, 0, Math.PI * 2);
-            ctx.stroke();
+            ctx.strokeStyle = shadowColor; ctx.lineWidth = 3;
+            ctx.beginPath(); ctx.arc(startX + 35, startY + (rectHeight/2), 12, 0, Math.PI * 2); ctx.stroke();
 
-            // 3. Randare Text (Efect 3D extruziv)
             const textX = startX + ringSpace + (rectWidth - ringSpace) / 2;
-            const textY = startY + (rectHeight / 2) + 2; // adjustare optica
+            const textY = startY + (rectHeight / 2) + 2;
             
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            
-            // Umbra/Grosimea literelor (straturile de dedesubt)
+            ctx.textAlign = "center"; ctx.textBaseline = "middle";
             ctx.fillStyle = shadeHEX(textColor, -40);
-            for(let i = 4; i > 0; i--) {
-                ctx.fillText(text, textX, textY + i);
-            }
+            for(let i = 4; i > 0; i--) ctx.fillText(text, textX, textY + i);
             
-            // Suprafața literelor (stratul final de sus)
             ctx.fillStyle = textColor;
             ctx.fillText(text, textX, textY);
         }
 
-        function addToCart() {
-            showToast("Designul a fost salvat și adăugat în coș!");
-            closeModal('configModal');
-            // Aici s-ar actualiza badge-ul cart-ului in realitate
-            document.querySelector('.badge').innerText = '1';
-        }
-
-        // Helper: Funcție pentru a desena un dreptunghi cu margini rotunjite (suport pentru browsere vechi fara ctx.roundRect)
         function roundRect(ctx, x, y, width, height, radius) {
-            ctx.beginPath();
-            ctx.moveTo(x + radius, y);
-            ctx.lineTo(x + width - radius, y);
-            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-            ctx.lineTo(x + width, y + height - radius);
-            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-            ctx.lineTo(x + radius, y + height);
-            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-            ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y);
-            ctx.closePath();
+            ctx.beginPath(); ctx.moveTo(x + radius, y); ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius); ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height); ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius); ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y); ctx.closePath();
         }
 
-        // Helper: Întunecă sau deschide o culoare HEX
         function shadeHEX(color, percent) {
-            let R = parseInt(color.substring(1,3),16);
-            let G = parseInt(color.substring(3,5),16);
-            let B = parseInt(color.substring(5,7),16);
-            R = parseInt(R * (100 + percent) / 100);
-            G = parseInt(G * (100 + percent) / 100);
-            B = parseInt(B * (100 + percent) / 100);
-            R = (R<255)?R:255; R = (R>0)?R:0;
-            G = (G<255)?G:255; G = (G>0)?G:0;
-            B = (B<255)?B:255; B = (B>0)?B:0;
-            let RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
-            let GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
-            let BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
-            return "#"+RR+GG+BB;
+            let R = parseInt(color.substring(1,3),16); let G = parseInt(color.substring(3,5),16); let B = parseInt(color.substring(5,7),16);
+            R = parseInt(R * (100 + percent) / 100); G = parseInt(G * (100 + percent) / 100); B = parseInt(B * (100 + percent) / 100);
+            R = (R<255)?R:255; R = (R>0)?R:0; G = (G<255)?G:255; G = (G>0)?G:0; B = (B<255)?B:255; B = (B>0)?B:0;
+            return "#"+((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16))+((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16))+((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
         }
-
     </script>
 </body>
 </html>
